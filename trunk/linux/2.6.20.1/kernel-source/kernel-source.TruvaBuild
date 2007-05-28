@@ -1,0 +1,52 @@
+#!/bin/sh
+
+NAMESRC=linux
+NAME=kernel-source
+VERSION=2.6.20.1
+EXT=tar.bz2
+ARCH=noarch
+BUILD=1
+REPO=/media/hda5/kernel
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+PKG=$TMP/package-$NAMESRC
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG
+fi
+
+cd $TMP
+mkdir -p $PKG/usr/src
+mv $NAMESRC-$VERSION $PKG/usr/src
+cd $PKG/usr/src ; ln -sf linux-$VERSION linux ; ln -sf linux-$VERSION linux-${VERSION}
+cd $PKG/usr/src/linux-$VERSION
+#cat $CWD/config-$VERSION > .config
+make oldconfig
+make scripts/
+make clean
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+if [ -r $CWD/doinst.sh ] ; then
+   cat $CWD/doinst.sh > $PKG/install/doinst.sh
+fi
+
+cd $PKG
+chown root:root . -R
+if [ ! -d $REPO ]; then
+	mkdir -p $REPO
+fi
+makepkg -l y -c n $REPO/$NAME-$VERSION-$ARCH-$BUILD.tgz
+
+if [ ! -f $PKG ]; then
+  rm -rf $PKG
+fi
