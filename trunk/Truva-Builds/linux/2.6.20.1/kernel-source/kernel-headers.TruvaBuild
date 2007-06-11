@@ -7,7 +7,7 @@ NAME=kernel
 DATE=`date +"%d:%m:%Y-%H:%M"`
 # Fill this stuff in:
 
-VERSION=2.6.20
+VERSION=2.6.20.1
 ARCH=${ARCH:-i486}
 BUILD=1
 set -e -x
