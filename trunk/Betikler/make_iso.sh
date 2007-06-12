@@ -12,12 +12,12 @@ if [ "$1" = "--help" -o "$1" = "-h" ]; then
   exit
 fi
 
-CDLABEL="TRUVA LINUX 2.0"
+CDLABEL="Truva Linux 2.0"
 ISONAME="$1"
 
 if [ "$ISONAME" = "" ]; then
    SUGGEST="../`basename \`pwd\``.iso"
-   echo -ne "Target ISO file name [ Hit enter for $SUGGEST ]: "
+   echo -ne "Hedef iso dosyasi adi [ Hit enter for $SUGGEST ]: "
    read ISONAME
    if [ "$ISONAME" = "" ]; then ISONAME="$SUGGEST"; fi
 fi
