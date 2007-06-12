@@ -45,5 +45,5 @@ mkisofs -o "$ISONAME" \
 -b boot/isolinux.bin \
 -c boot/isolinux.boot \
 -p "Truva-Current - TEST SURUMU" \
--A "Truva-Current Cd 1 (Kurulum CD) - Surum $DATE" .
+-A "Truva-Current (Kurulum CD) - Surum $DATE" .
 
