@@ -6,7 +6,7 @@
 # ---------------------------------------------------
 
 if [ "$1" = "--help" -o "$1" = "-h" ]; then
-  echo "This script will create bootable ISO from files in curent directory."
+  echo "Bu betik boot edilebilir iso yapmak ýcýndýr."
   echo "Current directory must be writable."
   echo "example: $0 /mnt/hda5/slax.iso"
   exit
