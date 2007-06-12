@@ -12,7 +12,7 @@ if [ "$1" = "--help" -o "$1" = "-h" ]; then
   exit
 fi
 
-CDLABEL="SLAX"
+CDLABEL="Truva Linux 2.0"
 ISONAME="$1"
 
 if [ "$ISONAME" = "" ]; then
