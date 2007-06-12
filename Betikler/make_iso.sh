@@ -7,8 +7,8 @@
 
 if [ "$1" = "--help" -o "$1" = "-h" ]; then
   echo "Bu betik boot edilebilir iso yapmak ýcýndýr."
-  echo "Current directory must be writable."
-  echo "example: $0 /mnt/hda5/slax.iso"
+  echo "Gecerli dizin yazilabilir olmalidir."
+  echo "Ornek: $0 /mnt/hda5/truva.iso"
   exit
 fi
 
