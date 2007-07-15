@@ -1,9 +1,12 @@
 #!/usr/bin/python
+
 import sys,os
+
 commands    	= ['start','stop']
 args            = sys.argv
 tmp_file        = 'tmp.sm'
 service_dir	= "/etc/init.d/"
+
 if len(args) < 3:
     print """
     Usage : 
