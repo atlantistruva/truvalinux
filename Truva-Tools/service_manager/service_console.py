@@ -6,7 +6,7 @@ import sys,os,re
 # service [ServiceName] [Command]
 
 params = sys.argv
-servdir= '/etc/init.d'
+servdir= '/etc/init.d/'
 explst = ['start','stop']
 service= {'name':params[1],'cmd':params[2]}
 
@@ -19,7 +19,10 @@ def status(sname):
     return sres.replace("\n","")
 
 def run(sname,scmd):
-    os.system("/etc/init.d/"+sname+' '+scmd)
+    if os.path.exists(servdir+sname):
+        os.system(servdir+sname+' '+scmd)
+    else:
+        print "Service Not found!"
 
 stat = status(service['name'])
 if stat == "0":
