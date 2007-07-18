@@ -6,13 +6,17 @@
 # file status = alpha!
 import sys,os,re
 
-# service [ServiceName] [Command]
+args   = sys.argv
+if len(args) < 3:
+    print """
+        Usage
+            service [ServiceName] {start|stop|status}
+    """
+    sys.exit()
 
-params = sys.argv
 servdir= '/etc/init.d/'
 explst = ['start','stop','status']
-service= {'name':params[1],'cmd':params[2]}
-
+service= {'name':args[1],'cmd':args[2]}
 if service['cmd'] not in explst:
     print "Command not found"
     sys.exit()
