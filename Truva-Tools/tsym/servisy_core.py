@@ -17,7 +17,7 @@ class Yonetici:
 
 	def calistir(self, servis_adi, s_komut):
 		if os.path.exists("%s%s" % (self.servis_dizin, servis_adi)):
-			os.system("%s%s %s > /dev/null" % (self.servis_dizin, servis_adi, s_komut))
+			os.system("sh %s %s %s > /dev/null" % (self.servis_dizin, servis_adi, s_komut))
 		else:
 			print "Servis bulunamadı!"
 
