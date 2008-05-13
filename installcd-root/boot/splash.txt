@@ -1,5 +1,0 @@
-Truva Linux 2.0
-
-memtest .............. to start memtest instead of LinuxLiveCD
-
-
