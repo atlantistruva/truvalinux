@@ -10,7 +10,7 @@ import os
 yardim_metni = """Kullanım: service [servisadi] veya (list) (start, stop, status, restart, active, deactive)"""
 ytc = Yonetici()
 
-if os.environ["USER"] != "root":
+if os.geteuid() != 0:
 	print "Servis yönetici root olarak çalıştırılmalıdır."
 	sys.exit()
 
