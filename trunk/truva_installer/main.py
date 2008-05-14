@@ -18,7 +18,7 @@ class Form1(QMainWindow):
         self.statusBar()
 
 #        self.image0 = QPixmap(image0_data)
-	self.image0 = QPixmap("/truva_installer/pixmaps/anatolia-kur.png")
+	self.image0 = QPixmap("/media/hda6/Depolar/truva-svn/truva_installer/pixmaps/anatolia-kur.png")
 
         if not name:
             self.setName("Form1")
@@ -38,7 +38,6 @@ class Form1(QMainWindow):
         self.pushButton3.setGeometry(QRect(30,430,110,24))
 
 
-
         self.languageChange()
 
 	#self.resize(QtCore.QSize(QtCore.QRect(0,0,x,y).size()).expandedTo(Form.minimumSizeHint()))
@@ -56,7 +55,8 @@ class Form1(QMainWindow):
 
 
     def pushButton2_clicked(self):
-        os.system("python /truva_installer/disk_sec.py")
+        os.system("python /media/hda6/Depolar/truva-svn/truva_installer/disk_sec.py")
+	self.hide()
 
     def pushButton3_clicked(self):
         print "Form1.pushButton3_clicked(): Not implemented yet"
