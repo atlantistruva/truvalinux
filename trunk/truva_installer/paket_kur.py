@@ -233,6 +233,9 @@ class Form3(QMainWindow):
 		setup_5 = ('chroot %s /usr/X11R6/bin/fc-cache -f' %mntdir)
 		os.system(setup_5)
 		
+		
+		self.textLabel1.setText('<font color="#FF6D19">Açılış servisleri ayarlanıyor...</font>')
+		
 		#if ( g_gui == 1 ):
 		#	write_status('\nKurulum süreci devam ediyor.\n\nAçılış servisleri ayarlanıyor...') 
 		#else:
@@ -265,6 +268,9 @@ class Form3(QMainWindow):
 		#	write_status('\nKurulum süreci devam ediyor.\n\nAçılış servisleri ayarlanıyor...') 
 		#else:
 		#	print( 'Yapılandırma dosyaları kopyalanıyor...' )
+		
+		
+		self.textLabel1.setText('<font color="#FF6D19">Yapılandırma dosyaları kopyalanıyor...</font>')
 		
 		print('Yapılandırma dosyaları kopyalanıyor...')
 		
@@ -331,13 +337,12 @@ class Form3(QMainWindow):
 
     def languageChange(self):
         self.setCaption(self.__tr("Anatolya Kurulum Sistemi - Paket Kurulumu"))
-        self.textLabel4.setText(QString.null)
-        self.textLabel3.setText(self.__tr("Kurulan Paket     :"))
-        self.textLabel2.setText(QString.null)
         self.pushButton7.setText(self.__trUtf8("\xc4\xb0\x6c\x65\x72\x69"))
         self.pushButton8.setText(self.__trUtf8("\x59\x61\x72\x64\xc4\xb1\x6d"))
         self.textLabel1.setText(self.__tr("Kurulan Kategori :"))
-
+        self.textLabel2.setText(self.__trUtf8("\x44\x69\x73\x6b\x20\x53\x65\xc3\xa7\x69\x6d\x69"))	
+        self.textLabel3.setText(self.__tr("Kurulan Paket     :"))
+        self.textLabel4.setText(QString.null)
 
     def __tr(self,s,c = None):
         return qApp.translate("Form3",s,c)
