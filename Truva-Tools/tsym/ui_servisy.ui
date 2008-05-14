@@ -1,6 +1,9 @@
 <ui version="4.0" >
  <class>ServisYoneticisi</class>
  <widget class="QMainWindow" name="ServisYoneticisi" >
+  <property name="windowModality" >
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -44,7 +47,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton" >
+   <widget class="QPushButton" name="calistirButton" >
     <property name="geometry" >
      <rect>
       <x>20</x>
@@ -57,7 +60,7 @@
      <string>Başlat</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2" >
+   <widget class="QPushButton" name="durdurButton" >
     <property name="geometry" >
      <rect>
       <x>120</x>
@@ -100,7 +103,7 @@
       <rect>
        <x>70</x>
        <y>70</y>
-       <width>54</width>
+       <width>91</width>
        <height>18</height>
       </rect>
      </property>
@@ -126,7 +129,7 @@
       <rect>
        <x>110</x>
        <y>90</y>
-       <width>54</width>
+       <width>71</width>
        <height>18</height>
       </rect>
      </property>
@@ -152,7 +155,7 @@
       <rect>
        <x>80</x>
        <y>30</y>
-       <width>54</width>
+       <width>171</width>
        <height>18</height>
       </rect>
      </property>
@@ -173,7 +176,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox" >
+    <widget class="QCheckBox" name="acalistirButton" >
      <property name="geometry" >
       <rect>
        <x>139</x>
@@ -201,15 +204,15 @@
     <property name="title" >
      <string>Dosya</string>
     </property>
-    <addaction name="actionYap_land_r" />
-    <addaction name="action_k" />
+    <addaction name="actionYapilandir" />
+    <addaction name="actionCik" />
    </widget>
    <widget class="QMenu" name="menuYard_m" >
     <property name="title" >
      <string>Yardım</string>
     </property>
-    <addaction name="actionServis_Y_neticisi_Hakk_nda" />
-    <addaction name="actionQT_Hakk_nda" />
+    <addaction name="syHakkinda" />
+    <addaction name="qtHakkinda" />
    </widget>
    <addaction name="menuDosya" />
    <addaction name="menuYard_m" />
@@ -224,22 +227,22 @@
     </rect>
    </property>
   </widget>
-  <action name="actionYap_land_r" >
+  <action name="actionYapilandir" >
    <property name="text" >
     <string>Yapılandır</string>
    </property>
   </action>
-  <action name="action_k" >
+  <action name="actionCik" >
    <property name="text" >
     <string>Çık</string>
    </property>
   </action>
-  <action name="actionServis_Y_neticisi_Hakk_nda" >
+  <action name="syHakkinda" >
    <property name="text" >
     <string>Servis Yöneticisi Hakkında</string>
    </property>
   </action>
-  <action name="actionQT_Hakk_nda" >
+  <action name="qtHakkinda" >
    <property name="text" >
     <string>QT Hakkında</string>
    </property>

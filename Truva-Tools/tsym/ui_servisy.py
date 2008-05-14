@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_servisy.ui'
 #
-# Created: Tue May 13 17:36:30 2008
+# Created: Wed May 14 16:30:23 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,6 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_ServisYoneticisi(object):
     def setupUi(self, ServisYoneticisi):
         ServisYoneticisi.setObjectName("ServisYoneticisi")
+        ServisYoneticisi.setWindowModality(QtCore.Qt.NonModal)
         ServisYoneticisi.resize(QtCore.QSize(QtCore.QRect(0,0,497,332).size()).expandedTo(ServisYoneticisi.minimumSizeHint()))
 
         self.centralwidget = QtGui.QWidget(ServisYoneticisi)
@@ -26,13 +27,13 @@ class Ui_ServisYoneticisi(object):
         self.servisList.setGeometry(QtCore.QRect(10,20,201,211))
         self.servisList.setObjectName("servisList")
 
-        self.pushButton = QtGui.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(20,250,75,28))
-        self.pushButton.setObjectName("pushButton")
+        self.calistirButton = QtGui.QPushButton(self.centralwidget)
+        self.calistirButton.setGeometry(QtCore.QRect(20,250,75,28))
+        self.calistirButton.setObjectName("calistirButton")
 
-        self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(120,250,75,28))
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.durdurButton = QtGui.QPushButton(self.centralwidget)
+        self.durdurButton.setGeometry(QtCore.QRect(120,250,75,28))
+        self.durdurButton.setObjectName("durdurButton")
 
         self.durumBox = QtGui.QGroupBox(self.centralwidget)
         self.durumBox.setGeometry(QtCore.QRect(230,0,261,241))
@@ -43,7 +44,7 @@ class Ui_ServisYoneticisi(object):
         self.label.setObjectName("label")
 
         self.durumLabel = QtGui.QLabel(self.durumBox)
-        self.durumLabel.setGeometry(QtCore.QRect(70,70,54,18))
+        self.durumLabel.setGeometry(QtCore.QRect(70,70,91,18))
         self.durumLabel.setObjectName("durumLabel")
 
         self.label_2 = QtGui.QLabel(self.durumBox)
@@ -51,7 +52,7 @@ class Ui_ServisYoneticisi(object):
         self.label_2.setObjectName("label_2")
 
         self.acilis_cLabel = QtGui.QLabel(self.durumBox)
-        self.acilis_cLabel.setGeometry(QtCore.QRect(110,90,54,18))
+        self.acilis_cLabel.setGeometry(QtCore.QRect(110,90,71,18))
         self.acilis_cLabel.setObjectName("acilis_cLabel")
 
         self.label_3 = QtGui.QLabel(self.durumBox)
@@ -59,7 +60,7 @@ class Ui_ServisYoneticisi(object):
         self.label_3.setObjectName("label_3")
 
         self.sad_Label = QtGui.QLabel(self.durumBox)
-        self.sad_Label.setGeometry(QtCore.QRect(80,30,54,18))
+        self.sad_Label.setGeometry(QtCore.QRect(80,30,171,18))
         self.sad_Label.setObjectName("sad_Label")
 
         self.line = QtGui.QFrame(self.durumBox)
@@ -68,9 +69,9 @@ class Ui_ServisYoneticisi(object):
         self.line.setFrameShadow(QtGui.QFrame.Sunken)
         self.line.setObjectName("line")
 
-        self.checkBox = QtGui.QCheckBox(self.durumBox)
-        self.checkBox.setGeometry(QtCore.QRect(139,210,101,23))
-        self.checkBox.setObjectName("checkBox")
+        self.acalistirButton = QtGui.QCheckBox(self.durumBox)
+        self.acalistirButton.setGeometry(QtCore.QRect(139,210,101,23))
+        self.acalistirButton.setObjectName("acalistirButton")
         ServisYoneticisi.setCentralWidget(self.centralwidget)
 
         self.menubar = QtGui.QMenuBar(ServisYoneticisi)
@@ -89,21 +90,21 @@ class Ui_ServisYoneticisi(object):
         self.statusbar.setObjectName("statusbar")
         ServisYoneticisi.setStatusBar(self.statusbar)
 
-        self.actionYap_land_r = QtGui.QAction(ServisYoneticisi)
-        self.actionYap_land_r.setObjectName("actionYap_land_r")
+        self.actionYapilandir = QtGui.QAction(ServisYoneticisi)
+        self.actionYapilandir.setObjectName("actionYapilandir")
 
-        self.action_k = QtGui.QAction(ServisYoneticisi)
-        self.action_k.setObjectName("action_k")
+        self.actionCik = QtGui.QAction(ServisYoneticisi)
+        self.actionCik.setObjectName("actionCik")
 
-        self.actionServis_Y_neticisi_Hakk_nda = QtGui.QAction(ServisYoneticisi)
-        self.actionServis_Y_neticisi_Hakk_nda.setObjectName("actionServis_Y_neticisi_Hakk_nda")
+        self.syHakkinda = QtGui.QAction(ServisYoneticisi)
+        self.syHakkinda.setObjectName("syHakkinda")
 
-        self.actionQT_Hakk_nda = QtGui.QAction(ServisYoneticisi)
-        self.actionQT_Hakk_nda.setObjectName("actionQT_Hakk_nda")
-        self.menuDosya.addAction(self.actionYap_land_r)
-        self.menuDosya.addAction(self.action_k)
-        self.menuYard_m.addAction(self.actionServis_Y_neticisi_Hakk_nda)
-        self.menuYard_m.addAction(self.actionQT_Hakk_nda)
+        self.qtHakkinda = QtGui.QAction(ServisYoneticisi)
+        self.qtHakkinda.setObjectName("qtHakkinda")
+        self.menuDosya.addAction(self.actionYapilandir)
+        self.menuDosya.addAction(self.actionCik)
+        self.menuYard_m.addAction(self.syHakkinda)
+        self.menuYard_m.addAction(self.qtHakkinda)
         self.menubar.addAction(self.menuDosya.menuAction())
         self.menubar.addAction(self.menuYard_m.menuAction())
 
@@ -113,8 +114,8 @@ class Ui_ServisYoneticisi(object):
     def retranslateUi(self, ServisYoneticisi):
         ServisYoneticisi.setWindowTitle(QtGui.QApplication.translate("ServisYoneticisi", "Servis Yöneticisi", None, QtGui.QApplication.UnicodeUTF8))
         self.servisBox.setTitle(QtGui.QApplication.translate("ServisYoneticisi", "Sistem servisleri:", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("ServisYoneticisi", "Başlat", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_2.setText(QtGui.QApplication.translate("ServisYoneticisi", "Durdur", None, QtGui.QApplication.UnicodeUTF8))
+        self.calistirButton.setText(QtGui.QApplication.translate("ServisYoneticisi", "Başlat", None, QtGui.QApplication.UnicodeUTF8))
+        self.durdurButton.setText(QtGui.QApplication.translate("ServisYoneticisi", "Durdur", None, QtGui.QApplication.UnicodeUTF8))
         self.durumBox.setTitle(QtGui.QApplication.translate("ServisYoneticisi", "Servis durumu:", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("ServisYoneticisi", "Durum:", None, QtGui.QApplication.UnicodeUTF8))
         self.durumLabel.setText(QtGui.QApplication.translate("ServisYoneticisi", "...", None, QtGui.QApplication.UnicodeUTF8))
@@ -122,11 +123,11 @@ class Ui_ServisYoneticisi(object):
         self.acilis_cLabel.setText(QtGui.QApplication.translate("ServisYoneticisi", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("ServisYoneticisi", "Servis adı:", None, QtGui.QApplication.UnicodeUTF8))
         self.sad_Label.setText(QtGui.QApplication.translate("ServisYoneticisi", "...", None, QtGui.QApplication.UnicodeUTF8))
-        self.checkBox.setText(QtGui.QApplication.translate("ServisYoneticisi", "Açılışta çalıştır", None, QtGui.QApplication.UnicodeUTF8))
+        self.acalistirButton.setText(QtGui.QApplication.translate("ServisYoneticisi", "Açılışta çalıştır", None, QtGui.QApplication.UnicodeUTF8))
         self.menuDosya.setTitle(QtGui.QApplication.translate("ServisYoneticisi", "Dosya", None, QtGui.QApplication.UnicodeUTF8))
         self.menuYard_m.setTitle(QtGui.QApplication.translate("ServisYoneticisi", "Yardım", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionYap_land_r.setText(QtGui.QApplication.translate("ServisYoneticisi", "Yapılandır", None, QtGui.QApplication.UnicodeUTF8))
-        self.action_k.setText(QtGui.QApplication.translate("ServisYoneticisi", "Çık", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionServis_Y_neticisi_Hakk_nda.setText(QtGui.QApplication.translate("ServisYoneticisi", "Servis Yöneticisi Hakkında", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionQT_Hakk_nda.setText(QtGui.QApplication.translate("ServisYoneticisi", "QT Hakkında", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionYapilandir.setText(QtGui.QApplication.translate("ServisYoneticisi", "Yapılandır", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCik.setText(QtGui.QApplication.translate("ServisYoneticisi", "Çık", None, QtGui.QApplication.UnicodeUTF8))
+        self.syHakkinda.setText(QtGui.QApplication.translate("ServisYoneticisi", "Servis Yöneticisi Hakkında", None, QtGui.QApplication.UnicodeUTF8))
+        self.qtHakkinda.setText(QtGui.QApplication.translate("ServisYoneticisi", "QT Hakkında", None, QtGui.QApplication.UnicodeUTF8))
 
