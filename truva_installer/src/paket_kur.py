@@ -313,7 +313,7 @@ class Form3(QMainWindow):
 			
 			shutil.copyfile(menulst_dir,"%s/boot/grub/menu.lst" %mntdir)
 			
-			setup_13 = ('chmod 755 %s/usr/sbin/update-grub' %mntdir)
+			setup_13 = ('chmod 755 %s/sbin/update-grub' %mntdir)
 			os.system(setup_13)
 			
 			setup_14 = ('chroot %s /sbin/update-grub' %mntdir)
