@@ -40,8 +40,19 @@ class Form1(QMainWindow):
         self.pushButton3.setGeometry(QRect(30,430,110,24))
 
         self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
-        self.textLabel1.setGeometry(QRect(80,359,431,21))
+        self.textLabel1.setGeometry(QRect(80,350,431,21))
         self.textLabel1.setAlignment(QLabel.AlignCenter)
+
+        self.frame4 = QFrame(self.centralWidget(),"frame4")
+        self.frame4.setGeometry(QRect(80,20,430,320))
+        self.frame4.setFrameShape(QFrame.StyledPanel)
+        self.frame4.setFrameShadow(QFrame.Raised)
+
+        self.pixmapLabel1 = QLabel(self.frame4,"pixmapLabel1")
+        self.pixmapLabel1.setGeometry(QRect(10,10,410,300))
+        self.pixmapLabel1.setPixmap(self.image0)
+        self.pixmapLabel1.setScaledContents(1)
+        self.pixmapLabel1.setAlignment(QLabel.AlignCenter)
 
 
 

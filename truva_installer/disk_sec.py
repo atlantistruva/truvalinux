@@ -27,10 +27,16 @@ class Form2(QMainWindow):
 
         self.setCentralWidget(QWidget(self,"qt_central_widget"))
 
-        self.pixmapLabel2 = QLabel(self.centralWidget(),"pixmapLabel2")
-        self.pixmapLabel2.setGeometry(QRect(120,39,381,281))
+        self.frame4 = QFrame(self.centralWidget(),"frame4")
+        self.frame4.setGeometry(QRect(80,20,430,320))
+        self.frame4.setFrameShape(QFrame.StyledPanel)
+        self.frame4.setFrameShadow(QFrame.Raised)
+
+        self.pixmapLabel2 = QLabel(self.frame4,"pixmapLabel2")
+        self.pixmapLabel2.setGeometry(QRect(10,10,410,300))
         self.pixmapLabel2.setPixmap(self.image0)
         self.pixmapLabel2.setScaledContents(1)
+        self.pixmapLabel2.setAlignment(QLabel.AlignCenter)
 	
         self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
         self.textLabel1.setGeometry(QRect(200,340,80,20))
