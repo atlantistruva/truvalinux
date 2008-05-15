@@ -275,11 +275,11 @@ class Form3(QMainWindow):
 		shutil.copyfile(clock_dir,"%s/etc/hardwareclock" %mntdir)
 		
 		
-		reply = QMessageBox.question(self, "Açılış yöneticisi kurulsun mu?", "Kurma", QMessageBox.Yes|QMessageBox.No|
-                QMessageBox.Cancel)
-		if reply == QMessageBox.Cancel:
+		reply = QMessageBox.question(self, "Açılış Yöneticisi", "Açılış yöneticisi kurulsun mu ?", 'Yes', 'No')
+		
+		if reply == 'No' #QMessageBox.No:
     			return False
-		elif reply == QMessageBox.Yes:
+		elif reply == 'Yes' #QMessageBox.Yes:
 			
 			self.textLabel2.setText("Acilis yoneticisi ayarlaniyor...")
 
@@ -327,9 +327,22 @@ class Form3(QMainWindow):
 			self.textLabel2.setText("Acilis yoneticisi ayarlanmadi...")
 		
 		
+		self.textLabel2.setText("Kurulum medyası ayrılıyor...")
 		os.system("umount %s" %device)
+		sleep 2
+		
+		self.textLabel2.setText("Kurulum medyası çıkarılıyor...")
 		os.system("/usr/bin/eject %s" %device)
-
+		sleep 2
+		
+		self.textLabel2.setText("Kurulum alanı ayrılıyor...")
+		os.system("umount %s" %mntdir)
+		sleep 2
+		
+		self.textLabel2.setText("Sistem yeniden başlatılıyor...")
+		sleep 2
+		os.system("/sbin/reboot")
+		
 
     def languageChange(self):
         self.setCaption(self.__tr("Anatolya Kurulum Sistemi - Paket Kurulumu"))

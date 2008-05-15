@@ -50,7 +50,7 @@ class Form1(QMainWindow):
         self.pushButton3.setGeometry(QRect(30,430,110,24))
 
 
-        self.languageChange()
+	self.languageChange()
 
 	self.resize(QSize(600,480).expandedTo(self.minimumSizeHint()))
         self.clearWState(Qt.WState_Polished)
