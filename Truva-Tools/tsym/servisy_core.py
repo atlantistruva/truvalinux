@@ -17,7 +17,11 @@ class Yonetici:
 
 	def calistir(self, servis_adi, s_komut):
 		if os.path.exists("%s%s" % (self.servis_dizin, servis_adi)):
+<<<<<<< .mine
+			os.system("sh %s%s %s > /dev/null" % (self.servis_dizin, servis_adi, s_komut))
+=======
 			os.system("sh %s %s %s > /dev/null" % (self.servis_dizin, servis_adi, s_komut))
+>>>>>>> .r41
 		else:
 			print "Servis bulunamadı!"
 
@@ -59,7 +63,7 @@ class Yonetici:
 		print "Tüm servisler:"
 		print "|    Servis Adı    |    Durum    |"
 		for i in self.listeleg:
-			if self.durum(i) != "0":
-				print "\033[01;34m" + i, "\033[01;0m   (Çalışıyor)"
-			else:
+			if self.durum(i) == "0":
 				print "\033[01;34m" + i, "\033[01;0m   (Çalışmıyor)"
+			else:
+				print "\033[01;34m" + i, "\033[01;0m   (Çalışıyor)"
