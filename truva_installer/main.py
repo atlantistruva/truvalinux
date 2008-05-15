@@ -11,14 +11,16 @@
 import os
 import sys
 from qt import *
+from const import *
+
 
 class Form1(QMainWindow):
     def __init__(self,parent = None,name = None,fl = 0):
         QMainWindow.__init__(self,parent,name,fl)
         self.statusBar()
 
-#        self.image0 = QPixmap(image0_data)
-	self.image0 = QPixmap("/media/hda6/Depolar/truva-svn/truva_installer/pixmaps/anatolia-kur.png")
+        image_dir = install_dir + "pixmaps/anatolia-kur.png"
+	self.image0 = QPixmap(image_dir)
 
         if not name:
             self.setName("Form1")
@@ -37,10 +39,14 @@ class Form1(QMainWindow):
         self.pushButton3 = QPushButton(self.centralWidget(),"pushButton3")
         self.pushButton3.setGeometry(QRect(30,430,110,24))
 
+        self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
+        self.textLabel1.setGeometry(QRect(80,359,431,21))
+        self.textLabel1.setAlignment(QLabel.AlignCenter)
+
+
 
         self.languageChange()
 
-	#self.resize(QtCore.QSize(QtCore.QRect(0,0,x,y).size()).expandedTo(Form.minimumSizeHint()))
 	self.resize(QSize(600,480).expandedTo(self.minimumSizeHint()))
         self.clearWState(Qt.WState_Polished)
 
@@ -52,11 +58,14 @@ class Form1(QMainWindow):
         self.setCaption(self.__tr("Anatolya Kurulum Sistemi"))
         self.pushButton2.setText(self.__tr("Devam Et"))
         self.pushButton3.setText(self.__trUtf8("\x59\x61\x72\x64\xc4\xb1\x6d"))
+        self.textLabel1.setText(self.__trUtf8("\x54\x72\x75\x76\x61\x20\x4c\x69\x6e\x75\x78\x20\x41\x6e\x61\x74\x6f\x6c\x79\x61\x20\x4b\x75\x72\x75\x6c\x75\x6d\x20\x53\x69\x73\x74\x65\x6d\x69\x27\x6e\x65\x20\x68\x6f\xc5\x9f\x67\x65\x6c\x64\x69\x6e\x69\x7a\x2e\x2e\x2e"))
 
 
     def pushButton2_clicked(self):
-        os.system("python /media/hda6/Depolar/truva-svn/truva_installer/disk_sec.py")
-	self.hide()
+	self.hide()	
+	cmd = "python " + install_dir + "disk_sec.py"
+        os.system(cmd)
+
 
     def pushButton3_clicked(self):
         print "Form1.pushButton3_clicked(): Not implemented yet"

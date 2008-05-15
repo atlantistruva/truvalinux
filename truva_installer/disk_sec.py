@@ -11,13 +11,15 @@
 import os
 import sys
 from qt import *
+from const import *
 
 class Form2(QMainWindow):
     def __init__(self,parent = None,name = None,fl = 0):
         QMainWindow.__init__(self,parent,name,fl)
         self.statusBar()
-
-        self.image0 = QPixmap("/media/hda6/Depolar/truva-svn/truva_installer/pixmaps/hdd.jpg")
+	
+	image_dir = pixmap_dir + "hdd.jpg"
+        self.image0 = QPixmap(image_dir)
 
         if not name:
             self.setName("Form2")
@@ -58,7 +60,8 @@ class Form2(QMainWindow):
         self.connect(self.comboBox2,SIGNAL("activated(const QString&)"),self.comboBox2_activated)
 	
 	self.disk_bul()
-    
+
+
     def disk_bul(self):
 	partition = os.popen("fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1")
 	filesystem = os.popen("fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext")
@@ -72,7 +75,6 @@ class Form2(QMainWindow):
 		self.comboBox2.insertItem(ekle_i)
 	
 
-
     def languageChange(self):
         self.setCaption(self.__tr("Anatolya Kurulum Sistemi- Disk Seçimi"))
         self.pushButton5.setText(self.__trUtf8("\xc4\xb0\x6c\x65\x72\x69"))
@@ -81,21 +83,26 @@ class Form2(QMainWindow):
 
 
     def pushButton5_clicked(self):
-        os.system("python /media/hda6/Depolar/truva-svn/truva_installer/paket_kur.py")
 	self.hide()
-
+	cmd = "python " + install_dir + "paket_kur.py"
+        os.system(cmd)
+	
+    
     def pushButton6_clicked(self):
         print "Form2.pushButton6_clicked(): Not implemented yet"
 
+    
     def comboBox2_textChanged(self,a0):
         print "Form2.comboBox2_textChanged(const QString&): Not implemented yet"
 
+    
     def comboBox2_activated(self,a0):
-	if os.path.isfile("/media/hda6/Depolar/truva-svn/truva_installer/files/kurulum_diski.txt"):
-		os.remove("/media/hda6/Depolar/truva-svn/truva_installer/files/kurulum_diski.txt")
-		disk_kur = open("/media/hda6/Depolar/truva-svn/truva_installer/files/kurulum_diski.txt","a")
+	print install_disk
+	if os.path.isfile(install_disk):
+		os.remove(install_disk)
+		disk_kur = open(install_disk,"a")
 	else:
-		disk_kur = open("/media/hda6/Depolar/truva-svn/truva_installer/files/kurulum_diski.txt","a")
+		disk_kur = open(install_disk,"a")
 	
 	kur = self.comboBox2.currentText()
 	print "Kurulum diski : %s" %kur

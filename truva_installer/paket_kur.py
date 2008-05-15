@@ -12,15 +12,16 @@ import os
 import sys
 import shutil
 from qt import *
+from const import *
 
-mntdir = '/truva_installer/mount'
 
 class Form3(QMainWindow):
     def __init__(self,parent = None,name = None,fl = 0):
         QMainWindow.__init__(self,parent,name,fl)
         self.statusBar()
 
-        self.image0 = QPixmap("/media/hda6/Depolar/truva-svn/truva_installer/pixmaps/anatolia-kur.png")
+	image_dir = pixmap_dir + "anatolia-kur.png"
+        self.image0 = QPixmap(image_dir)
 
         if not name:
             self.setName("Form3")
@@ -37,7 +38,7 @@ class Form3(QMainWindow):
         self.textLabel1.setGeometry(QRect(30,320,110,20))
 
         self.textLabel2 = QLabel(self.centralWidget(),"textLabel2")
-        self.textLabel2.setGeometry(QRect(160,320,100,20))
+        self.textLabel2.setGeometry(QRect(160,320,310,20))
 	
         self.textLabel3 = QLabel(self.centralWidget(),"textLabel3")
         self.textLabel3.setGeometry(QRect(30,349,110,20))
@@ -65,26 +66,26 @@ class Form3(QMainWindow):
 	
 
     def paket_kur(self):
-	kur = open( '/media/hda6/Depolar/truva-svn/truva_installer/files/kurulum_diski.txt' , 'r' )
+	kur = open( install_disk , 'r' )
 	kurulum_diski = kur.readline()
 	 
-	if os.path.isfile("/media/hda6/Depolar/truva-svn/truva_installer/files/diskler.txt"):
-		os.remove("/media/hda6/Depolar/truva-svn/truva_installer/files/diskler.txt")
-		disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /media/hda6/Depolar/truva-svn/truva_installer/files/diskler.txt"
+	if os.path.isfile(disklerim):
+		os.remove(disklerim)
+		disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > " + disklerim
 		os.system(disk_liste)
 	else:
-		disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /media/hda6/Depolar/truva-svn/truva_installer/files/diskler.txt"
+		disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > " + disklerim 
 		os.system(disk_liste)
 	
 	# diskler okunuyor
-        disk_oku = open("/media/hda6/Depolar/truva-svn/truva_installer/files/diskler.txt",'r')
+        disk_oku = open(disklerim,'r')
 	
 	# fstab dosyasi eklemek uzere aciliyor
-	if os.path.isfile("/media/hda6/Depolar/truva-svn/truva_installer/files/fstab"):
-		os.remove("/media/hda6/Depolar/truva-svn/truva_installer/files/fstab")
-		fstab = open("/media/hda6/Depolar/truva-svn/truva_installer/files/fstab","a")
+	if os.path.isfile(fstab_dir):
+		os.remove(fstab_dir)
+		fstab = open(fstab_dir,"a")
 	else:
-		fstab = open("/media/hda6/Depolar/truva-svn/truva_installer/files/fstab","a")
+		fstab = open(fstab_dir,"a")
 	
 	dizinler = []
 	
@@ -112,7 +113,7 @@ class Form3(QMainWindow):
 		else: break
 
 	# cd/dvd aygitlari ekleniyor.
-	fstab = open("/media/hda6/Depolar/truva-svn/truva_installer/files/fstab","a")
+	fstab = open(fstab_dir,"a")
 			
         blocks = os.listdir("/sys/block")
         for block in blocks:
@@ -148,7 +149,6 @@ class Form3(QMainWindow):
 	osres = os.system( root_mount )
 	if osres != 0:
 		print "hata var"
-		#write_status('\nKritik bir hata olu�tu.\nKurulum iptal edildi !')
 		return
 	else:	
 		oscmd = ( 'mkdir %s/boot' % mntdir )
@@ -170,11 +170,6 @@ class Form3(QMainWindow):
 				print "\nKurulum cd\'si %s cd/dvd sürücüsünde bulunamadı...\n\n" %device
 				continue
 		try:
-			#if ( g_gui == 1 ):
-			#	print "hata var"
-				#write_status('\nKurulum i�lemi devam ediyor.\n\nPaketler kurulmaya ba�lan�yor...') 
-			#else:
-			#	print( 'Paketler kurulmaya ba�lan�yor...' )	
 
 			#os.system('rm -rf *')
 			for dizin in ["a","ap","d","kde","kdei","l","n","t","tcl","x","xap","xorg-app","xorg-data","xorg-font","xorg-input","xorg-lib","xorg-proto","xorg-util","xorg-video"]:
@@ -183,13 +178,10 @@ class Form3(QMainWindow):
 				if os.path.isdir(target_dir):
 					paket_listesi = os.listdir( target_dir )
 					for package in paket_listesi:
-						#if ( g_gui == 1 ):
-						#	write_status('\nKurulum i�lemi devam ediyor.\nKurulan Kategori : %s\nKurulan paket : %s' %(dizin,package))  
-						#else:
-						#	print( 'Kurulan paket : %s' %package) 	
 						
-						print('Kurulan paket : %s' %package)
-						 	
+						self.textLabel2.setText(dizin)
+						self.textLabel4.setText(package)
+						
 						oscmd = ('installpkg -root %s %s/%s' %(mntdir,target_dir,package))
 						os.system( oscmd )
 				else:
@@ -199,13 +191,13 @@ class Form3(QMainWindow):
 
 
 		for disk_dizin in dizinler:
-			if not os.path.isdir('/media/hda6/Depolar/truva-svn/truva_installer/mount/' + disk_dizin):
+			if not os.path.isdir(mntdir + disk_dizin):
 		                result = os.makedirs("%s/%s" %(mntdir,disk_dizin))
                 		if result != None:
                     			print "%s dizini oluşturulamadı..." %disk_dizin
                     			return 0
 				
-		self.textLabel1.setText('<font color="#FF6D19">Font ayarları yapılıyor...</font>')
+		self.textLabel2.setText('<font color="#FF6D19">Font ayarları yapılıyor...</font>')
 		
 		#if ( g_gui == 1 ):
 		#	write_status('\nKurulum süreci devam ediyor.\n\nFont ayarları yapılıyor...') 
@@ -234,7 +226,7 @@ class Form3(QMainWindow):
 		os.system(setup_5)
 		
 		
-		self.textLabel1.setText('<font color="#FF6D19">Açılış servisleri ayarlanıyor...</font>')
+		self.textLabel2.setText('<font color="#FF6D19">Açılış servisleri ayarlanıyor...</font>')
 		
 		#if ( g_gui == 1 ):
 		#	write_status('\nKurulum süreci devam ediyor.\n\nAçılış servisleri ayarlanıyor...') 
@@ -243,8 +235,6 @@ class Form3(QMainWindow):
 		
 		print('Açılış servisleri ayarlanıyor...')
 		
-		shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/rc.keymap","%s/etc/rc.d/rc.keymap" %mntdir)
-			
 		setup_6 = ('chmod 755 %s/etc/rc.d/rc.keymap' %mntdir)
 		os.system(setup_6)
 		
@@ -264,30 +254,28 @@ class Form3(QMainWindow):
 		#setup_11 = ('chroot %s useradd root -m -G audio,video,cdrom,plugdev' %mntdir)
 		#os.system(setup_11)
 		
-		#if ( g_gui == 1 ):
-		#	write_status('\nKurulum süreci devam ediyor.\n\nAçılış servisleri ayarlanıyor...') 
-		#else:
-		#	print( 'Yapılandırma dosyaları kopyalanıyor...' )
-		
-		
-		self.textLabel1.setText('<font color="#FF6D19">Yapılandırma dosyaları kopyalanıyor...</font>')
+		self.textLabel2.setText('<font color="#FF6D19">Yapılandırma dosyaları kopyalanıyor...</font>')
 		
 		print('Yapılandırma dosyaları kopyalanıyor...')
 		
-		shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/group","%s/etc/group" %mntdir)
-		shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/fstab","%s/etc/fstab" %mntdir)
-		shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/xorg.conf","%s/etc/X11/xorg.conf" %mntdir)
-		shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/rc.font","%s/etc/rc.d/rc.font" %mntdir)
-		shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/lang.sh","%s/etc/profile.d/lang.sh" %mntdir)
-		shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/lang.csh","%s/etc/profile.d/lang.csh" %mntdir)
-		shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/hardwareclock","%s/etc/hardwareclock" %mntdir)
-			
+		shutil.copyfile(keymap_dir,"%s/etc/rc.d/rc.keymap" %mntdir)		
+		shutil.copyfile(group_dir,"%s/etc/group" %mntdir)
+		shutil.copyfile(fstab_dir,"%s/etc/fstab" %mntdir)
+		shutil.copyfile(xorg_dir,"%s/etc/X11/xorg.conf" %mntdir)
+		shutil.copyfile(font_dir,"%s/etc/rc.d/rc.font" %mntdir)
+		shutil.copyfile(langsh_dir,"%s/etc/profile.d/lang.sh" %mntdir)
+		shutil.copyfile(langcsh_dir,"%s/etc/profile.d/lang.csh" %mntdir)
+		shutil.copyfile(clock_dir,"%s/etc/hardwareclock" %mntdir)
+		
 		
 		reply = QMessageBox.question(self, "Açılış yöneticisi kurulsun mu?", "Kurma", QMessageBox.Yes|QMessageBox.No|
                 QMessageBox.Cancel)
 		if reply == QMessageBox.Cancel:
     			return False
 		elif reply == QMessageBox.Yes:
+			
+			self.textLabel2.setText("Acilis yoneticisi ayarlaniyor...")
+
 #			if ( g_gui == 1 ):
 #				write_status('\nKurulum süreci devam ediyor.\n\nAçılış yöneticisi ayarlanıyor...') 
 #			else:
@@ -316,7 +304,7 @@ class Form3(QMainWindow):
 			print setup_12
 			os.system(setup_12)
 			
-			shutil.copyfile("/media/hda6/Depolar/truva-svn/truva_installer/files/menu.lst","%s/boot/grub/menu.lst" %mntdir)
+			shutil.copyfile(menulst_dir,"%s/boot/grub/menu.lst" %mntdir)
 			
 			setup_13 = ('chmod 755 %s/usr/sbin/update-grub' %mntdir)
 			os.system(setup_13)
@@ -328,7 +316,8 @@ class Form3(QMainWindow):
 			#if ( g_gui == 1 ):
 			#	write_status('\nAçılış yöneticisi ayarlanmadı...') 
 			#else:
-				print( 'Açılış yöneticisi ayarlanmadı...' )
+			#	print( 'Açılış yöneticisi ayarlanmadı...' )
+			self.textLabel2.setText("Acilis yoneticisi ayarlanmadi...")
 		
 		
 		os.system("umount %s" %device)
