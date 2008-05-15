@@ -66,6 +66,25 @@
             <string>Yardım</string>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>359</y>
+                <width>431</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Truva Linux Anatolya Kurulum Sistemi'ne hoşgeldiniz...</string>
+        </property>
+        <property name="alignment">
+            <set>AlignCenter</set>
+        </property>
+    </widget>
 </widget>
 <toolbars>
 </toolbars>
