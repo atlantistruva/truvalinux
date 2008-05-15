@@ -1,8 +1,10 @@
 # path tanimlamalari
-install_dir = "/media/hda6/Depolar/truvalinux-svn/truva_installer/"
-files_dir = install_dir +"files/"
+install_dir = "/media/hda6/Depolar/truvalinux-svn/truva_installer/src/"
+root_dir = "/media/hda6/Depolar/truvalinux-svn/truva_installer/"
 
-pixmap_dir = install_dir + "pixmaps/"
+files_dir = root_dir +"files/"
+
+pixmap_dir = root_dir + "pixmaps/"
 
 # kurulum diski ayar dosyasi
 install_disk = files_dir + "kurulum_diski.txt"
@@ -23,5 +25,5 @@ clock_dir = files_dir + "hardwareclock"
 menulst_dir = files_dir + "menu.lst"
 
 # kurulum dizini baglama
-mntdir = install_dir + "mount"
+mntdir = root_dir + "mount"
 

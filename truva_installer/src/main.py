@@ -19,7 +19,7 @@ class Form1(QMainWindow):
         QMainWindow.__init__(self,parent,name,fl)
         self.statusBar()
 
-        image_dir = install_dir + "pixmaps/anatolia-kur.png"
+        image_dir = pixmap_dir + "anatolia-kur.png"
 	self.image0 = QPixmap(image_dir)
 
         if not name:
