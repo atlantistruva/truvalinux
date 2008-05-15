@@ -28,21 +28,6 @@ class Form1(QMainWindow):
 
         self.setCentralWidget(QWidget(self,"qt_central_widget"))
 
-        self.pixmapLabel1 = QLabel(self.centralWidget(),"pixmapLabel1")
-        self.pixmapLabel1.setGeometry(QRect(80,10,430,320))
-        self.pixmapLabel1.setPixmap(self.image0)
-        self.pixmapLabel1.setScaledContents(1)
-	
-        self.pushButton2 = QPushButton(self.centralWidget(),"pushButton2")
-        self.pushButton2.setGeometry(QRect(460,430,110,24))
-
-        self.pushButton3 = QPushButton(self.centralWidget(),"pushButton3")
-        self.pushButton3.setGeometry(QRect(30,430,110,24))
-
-        self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
-        self.textLabel1.setGeometry(QRect(80,350,431,21))
-        self.textLabel1.setAlignment(QLabel.AlignCenter)
-
         self.frame4 = QFrame(self.centralWidget(),"frame4")
         self.frame4.setGeometry(QRect(80,20,430,320))
         self.frame4.setFrameShape(QFrame.StyledPanel)
@@ -54,6 +39,15 @@ class Form1(QMainWindow):
         self.pixmapLabel1.setScaledContents(1)
         self.pixmapLabel1.setAlignment(QLabel.AlignCenter)
 
+        self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
+        self.textLabel1.setGeometry(QRect(80,350,431,21))
+        self.textLabel1.setAlignment(QLabel.AlignCenter)
+	
+	self.pushButton2 = QPushButton(self.centralWidget(),"pushButton2")
+        self.pushButton2.setGeometry(QRect(460,430,110,24))
+
+        self.pushButton3 = QPushButton(self.centralWidget(),"pushButton3")
+        self.pushButton3.setGeometry(QRect(30,430,110,24))
 
 
         self.languageChange()

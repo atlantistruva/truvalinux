@@ -39,7 +39,7 @@ class Form2(QMainWindow):
         self.pixmapLabel2.setAlignment(QLabel.AlignCenter)
 	
         self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
-        self.textLabel1.setGeometry(QRect(200,340,80,20))
+        self.textLabel1.setGeometry(QRect(200,350,80,20))
         self.textLabel1.setPaletteForegroundColor(QColor(255,0,0))
         textLabel1_font = QFont(self.textLabel1.font())
         textLabel1_font.setBold(1)
@@ -49,10 +49,10 @@ class Form2(QMainWindow):
         self.comboBox2.setGeometry(QRect(200,370,230,22))
 
         self.pushButton5 = QPushButton(self.centralWidget(),"pushButton5")
-        self.pushButton5.setGeometry(QRect(460,420,110,24))
+        self.pushButton5.setGeometry(QRect(460,430,110,24))
 
         self.pushButton6 = QPushButton(self.centralWidget(),"pushButton6")
-        self.pushButton6.setGeometry(QRect(30,420,110,24))
+        self.pushButton6.setGeometry(QRect(30,430,110,24))
 
 
         self.languageChange()

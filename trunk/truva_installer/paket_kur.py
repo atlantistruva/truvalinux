@@ -42,26 +42,26 @@ class Form3(QMainWindow):
 	
 
         self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
-        self.textLabel1.setGeometry(QRect(30,320,110,20))
+        self.textLabel1.setGeometry(QRect(30,350,110,20))
 
         self.textLabel2 = QLabel(self.centralWidget(),"textLabel2")
-        self.textLabel2.setGeometry(QRect(160,320,310,20))
+        self.textLabel2.setGeometry(QRect(160,350,310,20))
 	
         self.textLabel3 = QLabel(self.centralWidget(),"textLabel3")
-        self.textLabel3.setGeometry(QRect(30,349,110,20))
+        self.textLabel3.setGeometry(QRect(30,370,110,20))
 	
 	self.textLabel4 = QLabel(self.centralWidget(),"textLabel4")
-        self.textLabel4.setGeometry(QRect(160,350,360,20))
-
-        self.pushButton7 = QPushButton(self.centralWidget(),"pushButton7")
-        self.pushButton7.setGeometry(QRect(460,420,110,24))
-
-        self.pushButton8 = QPushButton(self.centralWidget(),"pushButton8")
-        self.pushButton8.setGeometry(QRect(30,420,110,24))
+        self.textLabel4.setGeometry(QRect(160,370,360,20))
 
         self.progressBar2 = QProgressBar(self.centralWidget(),"progressBar2")
-        self.progressBar2.setGeometry(QRect(32,379,540,23))
+        self.progressBar2.setGeometry(QRect(32,400,540,23))
+	self.progressBar2.hide()
 
+        self.pushButton7 = QPushButton(self.centralWidget(),"pushButton7")
+        self.pushButton7.setGeometry(QRect(460,430,110,24))
+
+        self.pushButton8 = QPushButton(self.centralWidget(),"pushButton8")
+        self.pushButton8.setGeometry(QRect(30,430,110,24))
 
 
         self.languageChange()
