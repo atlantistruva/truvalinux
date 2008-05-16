@@ -12,6 +12,7 @@ import os
 import sys
 import shutil
 import time
+
 from qt import *
 from const import *
 
@@ -20,6 +21,8 @@ class Form3(QMainWindow):
     def __init__(self,parent = None,name = None,fl = 0):
         QMainWindow.__init__(self,parent,name,fl)
         self.statusBar()
+	
+        self.setCaption(u"Anatolya Kurulum Sistemi - Paket Kurulumu")
 
 	image_dir = pixmap_dir + "anatolia-kur.png"
         self.image0 = QPixmap(image_dir)
@@ -44,15 +47,19 @@ class Form3(QMainWindow):
 
         self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
         self.textLabel1.setGeometry(QRect(30,350,110,20))
+	self.textLabel1.setText("Kurulan Kategori :")
 
         self.textLabel2 = QLabel(self.centralWidget(),"textLabel2")
         self.textLabel2.setGeometry(QRect(160,350,310,20))
+	self.textLabel2.setText(QString.null)
 	
         self.textLabel3 = QLabel(self.centralWidget(),"textLabel3")
         self.textLabel3.setGeometry(QRect(30,370,110,20))
+        self.textLabel3.setText("Kurulan Paket    :")	
 	
 	self.textLabel4 = QLabel(self.centralWidget(),"textLabel4")
         self.textLabel4.setGeometry(QRect(160,370,360,20))
+        self.textLabel4.setText(QString.null)	
 
         self.progressBar2 = QProgressBar(self.centralWidget(),"progressBar2")
         self.progressBar2.setGeometry(QRect(32,400,540,23))
@@ -60,12 +67,13 @@ class Form3(QMainWindow):
 
         self.pushButton7 = QPushButton(self.centralWidget(),"pushButton7")
         self.pushButton7.setGeometry(QRect(460,430,110,24))
+        self.pushButton7.setText(u("İleri")
 
         self.pushButton8 = QPushButton(self.centralWidget(),"pushButton8")
         self.pushButton8.setGeometry(QRect(30,430,110,24))
+        self.pushButton8.setText(u("Yardım")
 
-
-        self.languageChange()
+#        self.languageChange()
 
         self.resize(QSize(600,480).expandedTo(self.minimumSizeHint()))
         self.clearWState(Qt.WState_Polished)
@@ -264,11 +272,11 @@ class Form3(QMainWindow):
 		shutil.copyfile(clock_dir,"%s/etc/hardwareclock" %mntdir)
 		
 		
-		reply = QMessageBox.question(self, "Açılış Yöneticisi", "Açılış yöneticisi kurulsun mu ?", 'Yes', 'No')
+		reply = QMessageBox.question(self, u"Açılış Yöneticisi", u"Açılış yöneticisi kurulsun mu ?", 'Yes', 'No')
 		
 		if reply == 'Yes' : #QMessageBox.Yes:
 			
-			self.textLabel2.setText("Acilis yoneticisi ayarlaniyor...")
+			self.textLabel2.setText(u"Açılış yöneticisi ayarlanıyor...")
 
 			if ( bootdisk == '' ):
 				bootsector = os.popen('fdisk -l | grep /dev/hda:')
@@ -302,40 +310,40 @@ class Form3(QMainWindow):
 			#setup_14 = ('/usr/sbin/update-grub')
 			os.system(setup_14)
 		else:
-			self.textLabel2.setText("Acilis yoneticisi ayarlanmadi...")
+			self.textLabel2.setText(u"Açılış yöneticisi ayarlanmadı...")
 		
 		
-		self.textLabel2.setText("Kurulum medyası ayrılıyor...")
+		self.textLabel2.setText(u"Kurulum medyası ayrılıyor...")
 		os.system("umount %s" %device)
 		time.sleep(2)
 		
-		self.textLabel2.setText("Kurulum medyası çıkarılıyor...")
+		self.textLabel2.setText(u"Kurulum medyası çıkarılıyor...")
 		os.system("/usr/bin/eject %s" %device)
 		time.sleep(2)
 		
-		self.textLabel2.setText("Kurulum alanı ayrılıyor...")
+		self.textLabel2.setText(u"Kurulum alanı ayrılıyor...")
 		os.system("umount %s" %mntdir)
 		time.sleep(2)
 		
-		self.textLabel2.setText("Sistem yeniden başlatılıyor...")
+		self.textLabel2.setText(u"Sistem yeniden başlatılıyor...")
 		time.sleep(2)
 		os.system("/sbin/reboot")
 		
 
-    def languageChange(self):
-        self.setCaption(self.__tr("Anatolya Kurulum Sistemi - Paket Kurulumu"))
-        self.pushButton7.setText(self.__trUtf8("\xc4\xb0\x6c\x65\x72\x69"))
-        self.pushButton8.setText(self.__trUtf8("\x59\x61\x72\x64\xc4\xb1\x6d"))
-        self.textLabel1.setText(self.__tr("Kurulan Kategori :"))
-        self.textLabel2.setText(self.__trUtf8("\x44\x69\x73\x6b\x20\x53\x65\xc3\xa7\x69\x6d\x69"))	
-        self.textLabel3.setText(self.__tr("Kurulan Paket     :"))
-        self.textLabel4.setText(QString.null)
+#    def languageChange(self):
+#        self.setCaption(self.__tr("Anatolya Kurulum Sistemi - Paket Kurulumu"))
+#        self.pushButton7.setText(self.__trUtf8("\xc4\xb0\x6c\x65\x72\x69"))
+#        self.pushButton8.setText(self.__trUtf8("\x59\x61\x72\x64\xc4\xb1\x6d"))
+#        self.textLabel1.setText(self.__tr("Kurulan Kategori :"))
+#        self.textLabel2.setText(self.__trUtf8("\x44\x69\x73\x6b\x20\x53\x65\xc3\xa7\x69\x6d\x69"))	
+#        self.textLabel3.setText(self.__tr("Kurulan Paket     :"))
+ #       self.textLabel4.setText(QString.null)
 
-    def __tr(self,s,c = None):
-        return qApp.translate("Form3",s,c)
+#    def __tr(self,s,c = None):
+#        return qApp.translate("Form3",s,c)
 
-    def __trUtf8(self,s,c = None):
-        return qApp.translate("Form3",s,c,QApplication.UnicodeUTF8)
+#    def __trUtf8(self,s,c = None):
+#        return qApp.translate("Form3",s,c,QApplication.UnicodeUTF8)
     
 
 if __name__ == "__main__":

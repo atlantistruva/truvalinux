@@ -10,6 +10,7 @@
 
 import os
 import sys
+
 from qt import *
 from const import *
 
@@ -17,6 +18,8 @@ class Form2(QMainWindow):
     def __init__(self,parent = None,name = None,fl = 0):
         QMainWindow.__init__(self,parent,name,fl)
         self.statusBar()
+	
+        self.setCaption(u"Anatolya Kurulum Sistemi- Disk Seçimi")	
 	
 	image_dir = pixmap_dir + "hdd.jpg"
         self.image0 = QPixmap(image_dir)
@@ -44,18 +47,22 @@ class Form2(QMainWindow):
         textLabel1_font = QFont(self.textLabel1.font())
         textLabel1_font.setBold(1)
         self.textLabel1.setFont(textLabel1_font)
+        self.textLabel1.setText(u"Disk Seçimi")	
+	
 
         self.comboBox2 = QComboBox(0,self.centralWidget(),"comboBox2")
         self.comboBox2.setGeometry(QRect(200,370,230,22))
 
         self.pushButton5 = QPushButton(self.centralWidget(),"pushButton5")
         self.pushButton5.setGeometry(QRect(460,430,110,24))
+	self.pushButton5.setText(u"İleri")
 
         self.pushButton6 = QPushButton(self.centralWidget(),"pushButton6")
         self.pushButton6.setGeometry(QRect(30,430,110,24))
+	self.pushButton6.setText(u"Yardım")
 
 
-        self.languageChange()
+#        self.languageChange()
 
         self.resize(QSize(600,480).expandedTo(self.minimumSizeHint()))
         self.clearWState(Qt.WState_Polished)
@@ -81,11 +88,11 @@ class Form2(QMainWindow):
 		self.comboBox2.insertItem(ekle_i)
 	
 
-    def languageChange(self):
-        self.setCaption(self.__tr("Anatolya Kurulum Sistemi- Disk Se�imi"))
-        self.pushButton5.setText(self.__trUtf8("\xc4\xb0\x6c\x65\x72\x69"))
-        self.pushButton6.setText(self.__trUtf8("\x59\x61\x72\x64\xc4\xb1\x6d"))
-        self.textLabel1.setText(self.__trUtf8("\x44\x69\x73\x6b\x20\x53\x65\xc3\xa7\x69\x6d\x69"))
+#    def languageChange(self):
+        #self.setCaption(self.__tr("Anatolya Kurulum Sistemi- Disk Seçimi"))
+        #self.pushButton5.setText(self.__trUtf8("\xc4\xb0\x6c\x65\x72\x69"))
+        #self.pushButton6.setText(self.__trUtf8("\x59\x61\x72\x64\xc4\xb1\x6d"))
+        #self.textLabel1.setText(self.__trUtf8("\x44\x69\x73\x6b\x20\x53\x65\xc3\xa7\x69\x6d\x69"))
 
 
     def pushButton5_clicked(self):
@@ -117,11 +124,11 @@ class Form2(QMainWindow):
 	disk_kur.close()
 
 
-    def __tr(self,s,c = None):
-        return qApp.translate("Form2",s,c)
+#    def __tr(self,s,c = None):
+#        return qApp.translate("Form2",s,c)
 
-    def __trUtf8(self,s,c = None):
-        return qApp.translate("Form2",s,c,QApplication.UnicodeUTF8)
+#    def __trUtf8(self,s,c = None):
+#        return qApp.translate("Form2",s,c,QApplication.UnicodeUTF8)
 
 
 if __name__ == "__main__":
