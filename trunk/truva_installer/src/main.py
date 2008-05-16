@@ -52,7 +52,7 @@ class Form1(QMainWindow):
 
 	self.languageChange()
 
-	self.resize(QSize(600,480).expandedTo(self.minimumSizeHint()))
+	self.resize(QSize(800,600).expandedTo(self.minimumSizeHint()))
         self.clearWState(Qt.WState_Polished)
 
         self.connect(self.pushButton2,SIGNAL("clicked()"),self.pushButton2_clicked)
