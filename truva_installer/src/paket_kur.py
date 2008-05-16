@@ -11,6 +11,7 @@
 import os
 import sys
 import shutil
+import time
 from qt import *
 from const import *
 
@@ -265,9 +266,7 @@ class Form3(QMainWindow):
 		
 		reply = QMessageBox.question(self, "Açılış Yöneticisi", "Açılış yöneticisi kurulsun mu ?", 'Yes', 'No')
 		
-		if reply == 'No' #QMessageBox.No:
-    			return False
-		elif reply == 'Yes' #QMessageBox.Yes:
+		if reply == 'Yes' : #QMessageBox.Yes:
 			
 			self.textLabel2.setText("Acilis yoneticisi ayarlaniyor...")
 
@@ -308,18 +307,18 @@ class Form3(QMainWindow):
 		
 		self.textLabel2.setText("Kurulum medyası ayrılıyor...")
 		os.system("umount %s" %device)
-		sleep 2
+		time.sleep(2)
 		
 		self.textLabel2.setText("Kurulum medyası çıkarılıyor...")
 		os.system("/usr/bin/eject %s" %device)
-		sleep 2
+		time.sleep(2)
 		
 		self.textLabel2.setText("Kurulum alanı ayrılıyor...")
 		os.system("umount %s" %mntdir)
-		sleep 2
+		time.sleep(2)
 		
 		self.textLabel2.setText("Sistem yeniden başlatılıyor...")
-		sleep 2
+		time.sleep(2)
 		os.system("/sbin/reboot")
 		
 
