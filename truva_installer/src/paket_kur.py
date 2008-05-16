@@ -67,11 +67,11 @@ class Form3(QMainWindow):
 
         self.pushButton7 = QPushButton(self.centralWidget(),"pushButton7")
         self.pushButton7.setGeometry(QRect(460,430,110,24))
-        self.pushButton7.setText(u("İleri")
+        self.pushButton7.setText(u"İleri")
 
         self.pushButton8 = QPushButton(self.centralWidget(),"pushButton8")
         self.pushButton8.setGeometry(QRect(30,430,110,24))
-        self.pushButton8.setText(u("Yardım")
+        self.pushButton8.setText(u"Yardım")
 
 #        self.languageChange()
 
