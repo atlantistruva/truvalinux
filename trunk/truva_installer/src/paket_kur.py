@@ -206,14 +206,7 @@ class Form3(QMainWindow):
 				
 		self.textLabel2.setText('<font color="#FF6D19">Font ayarları yapılıyor...</font>')
 		
-		#if ( g_gui == 1 ):
-		#	write_status('\nKurulum süreci devam ediyor.\n\nFont ayarları yapılıyor...') 
-		#else:
-		#	print( 'Font ayarları yapılıyor...' )
-
-		#print self.__trUtf8('Font ayarları yapılıyor...')
-
-		##Kurulum sonrasi ayarlari yapiliyor
+		#Kurulum sonrasi ayarlari yapiliyor
 		for fontdir in ["100dpi", "75dpi", "Type1", "cyrillic"]: 		
 			setup_0 = ('chroot %s /usr/bin/mkfontscale /usr/share/fonts/%s' %(mntdir,fontdir))
 			setup_1 = ('chroot %s /usr/bin/mkfontdir /usr/share/fonts/%s' %(mntdir,fontdir))
@@ -234,11 +227,6 @@ class Form3(QMainWindow):
 		
 		
 		self.textLabel2.setText('<font color="#FF6D19">Açılış servisleri ayarlanıyor...</font>')
-		
-		#if ( g_gui == 1 ):
-		#	write_status('\nKurulum süreci devam ediyor.\n\nAçılış servisleri ayarlanıyor...') 
-		#else:
-		#	print( 'Açılış servisleri ayarlanıyor...' )
 		
 		print('Açılış servisleri ayarlanıyor...')
 		
@@ -283,11 +271,6 @@ class Form3(QMainWindow):
 			
 			self.textLabel2.setText("Acilis yoneticisi ayarlaniyor...")
 
-#			if ( g_gui == 1 ):
-#				write_status('\nKurulum süreci devam ediyor.\n\nAçılış yöneticisi ayarlanıyor...') 
-#			else:
-#				print( 'Açılış yöneticisi ayarlanıyor...' )
-				
 			if ( bootdisk == '' ):
 				bootsector = os.popen('fdisk -l | grep /dev/hda:')
 				if bootsector.readline() != '':
@@ -320,10 +303,6 @@ class Form3(QMainWindow):
 			#setup_14 = ('/usr/sbin/update-grub')
 			os.system(setup_14)
 		else:
-			#if ( g_gui == 1 ):
-			#	write_status('\nAçılış yöneticisi ayarlanmadı...') 
-			#else:
-			#	print( 'Açılış yöneticisi ayarlanmadı...' )
 			self.textLabel2.setText("Acilis yoneticisi ayarlanmadi...")
 		
 		
