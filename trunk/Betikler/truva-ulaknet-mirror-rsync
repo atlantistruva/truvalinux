@@ -1,5 +1,14 @@
 #!/bin/sh
 
-cd /media/hda6/Depolar/Truva
+#Hazırlayan : Onur ÖZDEMİR - A t l a n t i S
+# atlantis@truvalinux.org.tr - onur.atlantis@gmail.com
 
-rsync -rulzv --delete-during ftp.ulak.net.tr::truva  /media/hda6/Depolar/Truva/repo/
+
+# yerel diskteki depo adresi
+cd /Truva
+
+#/media/hda6/Depolar/Truva/repo/ dosyaların indirileceği dizin
+# ftp.ulak.net.tr::truva kısmını ftp.ulak.net.tr::truva/Surumler
+#                                ftp.ulak.net.tr::truva/SUrumler/Gelistirilen
+#şeklinde değiştirebilirsiniz. bu şekilde sadece istediğiniz dosyaları indirmiş olursunuz.
+rsync -rulzv --delete-during ftp.ulak.net.tr::truva  /Truva/repo/
