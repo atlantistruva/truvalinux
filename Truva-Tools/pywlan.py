@@ -45,6 +45,9 @@ class Wireless(wlan_tools):
 			self.results.append(self.get_essid(wlan))
 		return self.results
 
+	def connect(self):
+		os.popen("sudo dhclient %s" % self.wlaniface)
+
 class wlanInfo(wlan_tools):
 	def __init__(self, iface, gateway):
 		self.wlaniface= iface
@@ -57,9 +60,14 @@ class wlanInfo(wlan_tools):
 				if self.get_essid(wlan) == self.gateway:
 					return wlan
 
+	def isEncryption(self):
+		if "Encryption key:on" in self.gateway_refresh():
+			return True
+		else:
+			return False
+
 	def getEssid(self):
-		self.gateway_refresh()
-		return self.get_essid(self.info_gateway)
+		return self.get_essid(self.gateway_refresh())
 
 	def getQuality(self):
 		return re.compile("Quality=(.*?)/").findall(self.gateway_refresh())[0]
