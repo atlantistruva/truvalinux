@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /media/hda6/Depolar/Truva
+
+rsync -rulzv --delete-during ftp.ulak.net.tr::truva  /media/hda6/Depolar/Truva/repo/
