@@ -45,6 +45,9 @@ class Wireless(wlan_tools):
 			self.results.append(self.get_essid(wlan))
 		return self.results
 
+	def enterPasswd(self, passwd):
+		os.popen("sudo iwconfig %s key %s" % (self.wlaniface, passwd)
+
 	def connect(self):
 		os.popen("sudo dhclient %s" % self.wlaniface)
 
@@ -61,7 +64,7 @@ class wlanInfo(wlan_tools):
 					return wlan
 
 	def isEncryption(self):
-		if "Encryption key:on" in self.gateway_refresh():
+		if "Encryption key:off" not in self.gateway_refresh():
 			return True
 		else:
 			return False
