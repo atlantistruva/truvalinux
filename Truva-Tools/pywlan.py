@@ -46,7 +46,7 @@ class Wireless(wlan_tools):
 		return self.results
 
 	def enterPasswd(self, passwd):
-		os.popen("sudo iwconfig %s key %s" % (self.wlaniface, passwd)
+		os.popen("sudo iwconfig %s key %s" % (self.wlaniface, passwd))
 
 	def connect(self):
 		os.popen("sudo dhclient %s" % self.wlaniface)
