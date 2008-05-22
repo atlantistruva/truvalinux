@@ -12,6 +12,7 @@ import os
 import sys
 import shutil
 import time
+#import threading
 
 from qt import *
 from const import *
@@ -78,6 +79,9 @@ class Form3(QMainWindow):
         self.resize(QSize(600,480).expandedTo(self.minimumSizeHint()))
         self.clearWState(Qt.WState_Polished)
 
+	#islem1=threading.Thread(target=self.paket_kur(),argv=())
+	#islem1.start()
+	
 	self.paket_kur()
 	
 
@@ -327,7 +331,7 @@ class Form3(QMainWindow):
 		
 		self.textLabel2.setText(u"Sistem yeniden başlatılıyor...")
 		time.sleep(2)
-		os.system("/sbin/reboot")
+		#os.system("/sbin/reboot")
 		
 
 #    def languageChange(self):
