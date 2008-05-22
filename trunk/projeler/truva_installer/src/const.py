@@ -1,6 +1,6 @@
 # path tanimlamalari
-install_dir = "/media/hda6/Depolar/truvalinux-svn/truva_installer/src/"
-root_dir = "/media/hda6/Depolar/truvalinux-svn/truva_installer/"
+install_dir = "/home/Depolar/truvalinux-svn/projeler/truva_installer/src/"
+root_dir = "/home/Depolar/truvalinux-svn/projeler/truva_installer/"
 
 files_dir = root_dir +"files/"
 
