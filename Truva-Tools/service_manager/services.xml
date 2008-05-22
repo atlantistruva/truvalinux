@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<services>
-    <service type="init">apache2</service>
-    <service type="init">cron</service>
-</services>
