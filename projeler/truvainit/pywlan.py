@@ -17,8 +17,14 @@ import os
 import sys
 import re
 
-def listInterface():
-	return os.listdir("/sys/class/net")
+def listInterfaces():
+	wlan_ifaces = []
+	ifaces_dir = "/sys/class/net"
+	ifaces = os.listdir(ifaces_dir)
+	for iface in ifaces:
+		if os.path.exists("%s/%s/wireless" % (ifaces_dir, iface)):
+			wlan_ifaces.append(iface)
+	return wlan_ifaces
 
 def getConnected(iface):
 	return re.compile('ESSID:"(.*?)"').findall(os.popen("sudo iwconfig %s" % iface).read())[0]
