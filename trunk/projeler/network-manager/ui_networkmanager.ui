@@ -1,0 +1,206 @@
+<ui version="4.0" >
+ <class>NetworkManager</class>
+ <widget class="QMainWindow" name="NetworkManager" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>553</width>
+    <height>329</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Ağ Yöneticisi</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>30</y>
+     <width>553</width>
+     <height>276</height>
+    </rect>
+   </property>
+   <widget class="QTableWidget" name="listNetworks" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>431</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text" >
+      <string>Arayüz</string>
+     </property>
+    </column>
+    <column>
+     <property name="text" >
+      <string>Bağlantı Türü</string>
+     </property>
+    </column>
+    <column>
+     <property name="text" >
+      <string>Durumu</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="connectButton" >
+    <property name="geometry" >
+     <rect>
+      <x>450</x>
+      <y>30</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Bağlan</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="disconnectButton" >
+    <property name="geometry" >
+     <rect>
+      <x>450</x>
+      <y>70</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Kes</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="newButton" >
+    <property name="geometry" >
+     <rect>
+      <x>450</x>
+      <y>160</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Yeni Bağlantı</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line" >
+    <property name="geometry" >
+     <rect>
+      <x>450</x>
+      <y>140</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation" >
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="statusButton" >
+    <property name="geometry" >
+     <rect>
+      <x>450</x>
+      <y>110</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Durum</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="reconfigButton" >
+    <property name="geometry" >
+     <rect>
+      <x>450</x>
+      <y>200</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Düzenle</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>101</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Tüm bağlantılar:</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>553</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDosya" >
+    <property name="title" >
+     <string>Dosya</string>
+    </property>
+    <addaction name="actionYap_land_r" />
+    <addaction name="action_k" />
+   </widget>
+   <widget class="QMenu" name="menuSe_enekler" >
+    <property name="title" >
+     <string>Seçenekler</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_k" >
+    <property name="title" >
+     <string>Yardım</string>
+    </property>
+    <addaction name="actionA_Y_neticisi_Hakk_nda" />
+    <addaction name="actionQT_Hakk_nda" />
+   </widget>
+   <addaction name="menuDosya" />
+   <addaction name="menuSe_enekler" />
+   <addaction name="menu_k" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>306</y>
+     <width>553</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <action name="actionA_Y_neticisi_Hakk_nda" >
+   <property name="text" >
+    <string>Ağ Yöneticisi Hakkında</string>
+   </property>
+  </action>
+  <action name="actionQT_Hakk_nda" >
+   <property name="text" >
+    <string>QT Hakkında</string>
+   </property>
+  </action>
+  <action name="actionYap_land_r" >
+   <property name="text" >
+    <string>Yapılandır</string>
+   </property>
+  </action>
+  <action name="action_k" >
+   <property name="text" >
+    <string>Çık</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
