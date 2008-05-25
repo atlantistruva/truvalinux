@@ -1,0 +1,264 @@
+<ui version="4.0" >
+ <class>wirelessWindow</class>
+ <widget class="QWidget" name="wirelessWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>431</width>
+    <height>405</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Wireless Ağı</string>
+  </property>
+  <widget class="QGroupBox" name="connectInfoBox" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>401</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Bağlantı durumu:</string>
+   </property>
+   <widget class="QLabel" name="label" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>101</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Bağlantı arayüzü:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="networkIfaceLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>120</x>
+      <y>20</y>
+      <width>91</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>101</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Bağlı olunan ağ:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="connectedNetLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>120</x>
+      <y>50</y>
+      <width>54</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3" >
+    <property name="geometry" >
+     <rect>
+      <x>200</x>
+      <y>20</y>
+      <width>71</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Şifrelenmiş:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="isCryptLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>300</x>
+      <y>20</y>
+      <width>54</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4" >
+    <property name="geometry" >
+     <rect>
+      <x>200</x>
+      <y>50</y>
+      <width>81</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Sinyal kalitesi:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>91</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Makine adresi:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="bssidLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>120</x>
+      <y>80</y>
+      <width>54</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="qualityLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>300</x>
+      <y>50</y>
+      <width>54</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QTableWidget" name="listWireless" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>401</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text" >
+     <string>Essid</string>
+    </property>
+   </column>
+   <column>
+    <property name="text" >
+     <string>Şifreli ?</string>
+    </property>
+   </column>
+   <column>
+    <property name="text" >
+     <string>Sİnyal kalitesi</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QLabel" name="label_6" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>101</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Tarama sonuçları:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>350</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Sinyal kalitesi:</string>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="qualityBar" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>370</y>
+     <width>401</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="value" >
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="refreshWirelessButton" >
+   <property name="geometry" >
+    <rect>
+     <x>330</x>
+     <y>330</y>
+     <width>75</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Yenile</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line" >
+   <property name="geometry" >
+    <rect>
+     <x>310</x>
+     <y>330</y>
+     <width>20</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="connectWirelessButton" >
+   <property name="geometry" >
+    <rect>
+     <x>230</x>
+     <y>330</y>
+     <width>75</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Bağlan</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
