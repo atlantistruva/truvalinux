@@ -1,0 +1,56 @@
+------------------------------------------------------------------------
+							Changelog do Front-End
+* 0.1.2
+	- Diversas alterações e correcções de erros (Verificação de ligação web desligada para testes)
+
+* 0.1.1
+	- Fecha para o trayicon
+	- Adição da tab_redes (mostra as redes que se podem encontrar no raio
+	do pc)
+
+* 0.1
+	- Implementado verificação de credenciais (é necessário ser root ou usar sudo)
+        - Implementado timer para actualizar a tab_estados
+	- Implementado trayicon
+	- Implementados os estados
+
+------------------------------------------------------------------------
+							Changelog das bibliotecas
+							
+* 0.2.0
+	- api.txt actualizada
+	- Adicionado netlib.getByteCount()
+	- Adicionado wifitools.WirelessConnect(dev) para ligacao imediata a qualquer
+		rede wireless sem protecao e com servidor DHCP
+	- Adicionado suporte a redes com protecção WEP
+	- Adicionado IGNORE_LIST no WirelessConnect()
+	- getWDevs() redigido
+* 0.1.4
+	- Corrigido bugs no dev_state() e no getDHCP()
+	- getDHCP() ja nao da o output do cliente de dhcp
+* 0.1.3
+	- Corrigido uns bugs
+* 0.1.2
+	- ScanWifi(dev) pronto para testes!
+	- Limpeza de codigo em detect_devs(),ConStatus()
+	- Adicionado mais chaves ao dev_state()
+	- Melhor output na biblioteca
+* 0.1.1
+	- Adicionados novos parametros a dev_state()
+	- Inicio do desenvolvimento do ScanWifi()
+* 0.1.0
+	- Usando antes o /etc/wpa_supplicant-pyeU.conf para não sobrepor configurações existentes
+	- Desactiva o eth0 apos conectar-se a rede e-U
+	- Separacao das bibliotecas
+	- Adicionado mais valores ao dev_state()
+	- Adicionado ConStatus() para a verificação do estado da conecção
+* 0.0.9
+	- Fix para detectar o dhclient
+	- Adicionado wpa_status()
+	- Adicionado OpenDNS()
+* 0.0.8
+	- Pequenas correccoes
+	- Adicionado estados ao dev_state() - noise,link,level
+* 0.0.7
+	- Adicionado um TODO e o ChangeLog
+	- Funcao wait_while_auth() imbutida em wpa_connect()
