@@ -1,0 +1,22 @@
+1
+O que ainda falta fazer na aplicação?
+
+
+------------------------------------------------------------------------
+								Front End
+TODO:
+	- Tooltips
+	- libnotify (???)
+	- code cleaning
+	- implementar últimas funções disponiveis nas bibliotecas
+	
+BUGS:
+
+------------------------------------------------------------------------
+								Bibliotecas
+TODO:
+
+	- Estudar todas as funcoes do wpa_cli
+	- TESTES... Montes deles!!!
+
+BUGS:

@@ -1,0 +1,49 @@
+Documento da API do pye-U
+
+ Biblioteca	-		Nome das Funcoes			-	Retorna		- Estado
+
+ * trayicon
+		- set_icon(self, filename)				-			- DONE
+		- set_tooltip(self, text)				-			- DONE
+	
+ * netlib
+		- getByteCount(dev)					-	string		- TEST
+		- version()						-	string		- DONE
+		- getIP(dev)						-	string		- TEST
+		- getRoute(dev)						-	string		- TEST
+		- getDNS()						-	list		- DONE
+		- getDevState(dev)					-	string		- DONE
+		- setDev(dev,ip="dhcp",mask="",route="",dns="")		-			- TEST
+		- getDHCP(dev)						-			- TEST
+		- OpenDNS(opt="set")					-			- TEST
+		- getODStatus()						-	Boolean		- DONE
+	
+ * wiflib
+		- getWSet(dev)						-	dict		- TEST
+		- getWParams(dev)					-	list		- DONE
+		- version()						-	string		- DONE
+		- setWNetwork(dev,SSID,key="",mode="Ad-hoc")		-			- DONE
+		- getWDevs()						-			- DONE
+		- getWNet(dev)						-			- DONE
+		- getWext(dev)						-			- DONE
+		- returnESSID(dev)					-	string		- TEST
+		- returnBitrate(dev)					-	string		- TEST
+		- returnMode(dev)					-	string		- TEST
+		- returnAP(dev)						-	string		- DEVELOPMENT
+		- returnFreq(dev)					-	string		- DEVELOPMENT
+		- getWSettings(dev)					-	dict		- DEVELOPMENT
+	
+ * wifitools
+		- version()						-	string		- DONE
+		- getAllDevState(dev)					-			- TEST
+		- connect_e_U(dev,username="",password="")		-			- DONE
+		- getConStatus()					-			- DONE
+		- WirelessConnect(dev, IGNORE_LIST)						- DEVELOPMENT
+
+* wpalib
+		- WpaConnect(dev,wait=60,sec=2.0)			-			- DONE
+		- getWpaStatus()					-			- TEST
+		- setWpaConf(username,password)				-			- DONE
+		- WpaKill()						-			- DONE
+		- getWpaConf()						-			- TEST
+	

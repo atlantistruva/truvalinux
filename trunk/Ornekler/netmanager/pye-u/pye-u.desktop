@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=pye-U
+Icon=tray.png
+Comment=Simple program to connect to the e-U network (wireless)
+Comment[pt]=Aplicação para ligar à rede e-U (wireless)
+Type=Application
+Categories=GNOME;Application;Network
+Exec=pye-u 
+Terminal=false
+StartupNotify=true
