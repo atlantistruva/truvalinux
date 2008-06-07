@@ -97,7 +97,7 @@ class Form2(QMainWindow):
 
     def pushButton5_clicked(self):
 	self.hide()
-	cmd = "python " + install_dir + "paket_kur-yedek.py"
+	cmd = "python " + install_dir + "paket_kur.py"
         os.system(cmd)
 	
     
