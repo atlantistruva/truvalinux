@@ -1,0 +1,7 @@
+/dev/sda1              /media/sda1   ext3      defaults,noatime    1   1
+/dev/sda2              /             ext3      defaults,noatime    1   1
+devpts                 /dev/pts      devpts    gid=5,mode=620      0   0
+proc                   /proc         proc      nosuid,noexec       0   0
+/dev/tmpfs             /dev/shm      tmpfs     size=10%,mode=0777  0   0
+/dev/fd0               /mnt/floppy   auto      noauto,owner        0   0
+

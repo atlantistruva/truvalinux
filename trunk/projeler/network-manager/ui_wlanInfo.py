@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'wlanInfo.ui'
 #
-# Created: Sun May 25 19:46:26 2008
+# Created: Fri Jun  6 16:34:07 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_wirelessWindow(object):
     def setupUi(self, wirelessWindow):
         wirelessWindow.setObjectName("wirelessWindow")
-        wirelessWindow.resize(QtCore.QSize(QtCore.QRect(0,0,431,405).size()).expandedTo(wirelessWindow.minimumSizeHint()))
+        wirelessWindow.resize(QtCore.QSize(QtCore.QRect(0,0,431,403).size()).expandedTo(wirelessWindow.minimumSizeHint()))
 
         self.connectInfoBox = QtGui.QGroupBox(wirelessWindow)
         self.connectInfoBox.setGeometry(QtCore.QRect(10,10,401,121))
@@ -23,7 +23,7 @@ class Ui_wirelessWindow(object):
         self.label.setObjectName("label")
 
         self.networkIfaceLabel = QtGui.QLabel(self.connectInfoBox)
-        self.networkIfaceLabel.setGeometry(QtCore.QRect(120,20,91,18))
+        self.networkIfaceLabel.setGeometry(QtCore.QRect(120,20,81,18))
         self.networkIfaceLabel.setObjectName("networkIfaceLabel")
 
         self.label_2 = QtGui.QLabel(self.connectInfoBox)
@@ -51,7 +51,7 @@ class Ui_wirelessWindow(object):
         self.label_5.setObjectName("label_5")
 
         self.bssidLabel = QtGui.QLabel(self.connectInfoBox)
-        self.bssidLabel.setGeometry(QtCore.QRect(120,80,54,18))
+        self.bssidLabel.setGeometry(QtCore.QRect(120,80,201,18))
         self.bssidLabel.setObjectName("bssidLabel")
 
         self.qualityLabel = QtGui.QLabel(self.connectInfoBox)
@@ -59,6 +59,7 @@ class Ui_wirelessWindow(object):
         self.qualityLabel.setObjectName("qualityLabel")
 
         self.listWireless = QtGui.QTableWidget(wirelessWindow)
+        self.listWireless.setEnabled(True)
         self.listWireless.setGeometry(QtCore.QRect(10,150,401,171))
         self.listWireless.setObjectName("listWireless")
 
@@ -75,9 +76,9 @@ class Ui_wirelessWindow(object):
         self.qualityBar.setProperty("value",QtCore.QVariant(0))
         self.qualityBar.setObjectName("qualityBar")
 
-        self.refreshWirelessButton = QtGui.QPushButton(wirelessWindow)
-        self.refreshWirelessButton.setGeometry(QtCore.QRect(330,330,75,28))
-        self.refreshWirelessButton.setObjectName("refreshWirelessButton")
+        self.scanWirelessButton = QtGui.QPushButton(wirelessWindow)
+        self.scanWirelessButton.setGeometry(QtCore.QRect(330,330,75,28))
+        self.scanWirelessButton.setObjectName("scanWirelessButton")
 
         self.line = QtGui.QFrame(wirelessWindow)
         self.line.setGeometry(QtCore.QRect(310,330,20,31))
@@ -88,6 +89,14 @@ class Ui_wirelessWindow(object):
         self.connectWirelessButton = QtGui.QPushButton(wirelessWindow)
         self.connectWirelessButton.setGeometry(QtCore.QRect(230,330,75,28))
         self.connectWirelessButton.setObjectName("connectWirelessButton")
+
+        self.statusLabel = QtGui.QLabel(wirelessWindow)
+        self.statusLabel.setGeometry(QtCore.QRect(10,330,171,18))
+
+        font = QtGui.QFont()
+        font.setItalic(True)
+        self.statusLabel.setFont(font)
+        self.statusLabel.setObjectName("statusLabel")
 
         self.retranslateUi(wirelessWindow)
         QtCore.QMetaObject.connectSlotsByName(wirelessWindow)
@@ -122,6 +131,6 @@ class Ui_wirelessWindow(object):
         self.listWireless.setHorizontalHeaderItem(2,headerItem2)
         self.label_6.setText(QtGui.QApplication.translate("wirelessWindow", "Tarama sonuçları:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("wirelessWindow", "Sinyal kalitesi:", None, QtGui.QApplication.UnicodeUTF8))
-        self.refreshWirelessButton.setText(QtGui.QApplication.translate("wirelessWindow", "Yenile", None, QtGui.QApplication.UnicodeUTF8))
+        self.scanWirelessButton.setText(QtGui.QApplication.translate("wirelessWindow", "Tara", None, QtGui.QApplication.UnicodeUTF8))
         self.connectWirelessButton.setText(QtGui.QApplication.translate("wirelessWindow", "Bağlan", None, QtGui.QApplication.UnicodeUTF8))
 

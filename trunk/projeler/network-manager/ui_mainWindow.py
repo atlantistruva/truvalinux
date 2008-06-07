@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_networkmanager.ui'
 #
-# Created: Sun May 25 18:23:21 2008
+# Created: Sun Jun  8 00:29:03 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
