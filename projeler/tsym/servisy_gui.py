@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
-# Truva Linux servis yöneticisi grafik kullanıcı arabirimi
-# Author: Oğuzhan Eroğlu (oguzhan@oguzhaneroglu.com)
+# Truva Linux servis yöneticisi uygulaması
+# Grafik arabirimi
+#  Copyright (C) 2008  Truva Linux
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt4 import QtCore, QtGui
 from ui_servisy import Ui_ServisYoneticisi
@@ -39,7 +50,7 @@ except(IndexError):
 		# TODO: Servis durumu gösterilecek.
 		self.servisIsim = str(self.servisList.selectedItems()[0].text())
 		self.sad_Label.setText(self.servisIsim)
-		if self.durum(self.servisIsim) == "0":
+		if self.durum(self.servisIsim[2:]) == "0":
 			self.durumLabel.setText(u"Çalışmıyor")
 		else:
 			self.durumLabel.setText(u"Çalışıyor")
