@@ -12,7 +12,7 @@ import os
 import sys
 import shutil
 import time
-#import threading
+import thread
 
 from qt import *
 from const import *
@@ -356,5 +356,8 @@ if __name__ == "__main__":
     w = Form3()
     a.setMainWidget(w)
     w.show()
-    a.exec_loop()
+    thread.start_new_thread(a.exec_loop(), ())
+    thread.start_new_thread(Form3(QMainWindow).paket_kur(), ())
+    
+    
 
