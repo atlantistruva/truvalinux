@@ -1,0 +1,180 @@
+<ui version="4.0" >
+ <class>StarterWindow</class>
+ <widget class="QMainWindow" name="StarterWindow" >
+  <property name="enabled" >
+   <bool>true</bool>
+  </property>
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>524</width>
+    <height>463</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+    <horstretch>15</horstretch>
+    <verstretch>15</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize" >
+   <size>
+    <width>524</width>
+    <height>463</height>
+   </size>
+  </property>
+  <property name="maximumSize" >
+   <size>
+    <width>524</width>
+    <height>463</height>
+   </size>
+  </property>
+  <property name="focusPolicy" >
+   <enum>Qt::NoFocus</enum>
+  </property>
+  <property name="windowTitle" >
+   <string>Anatolya Başlangıç</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>524</width>
+     <height>442</height>
+    </rect>
+   </property>
+   <widget class="QLabel" name="logoLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>341</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../../icons/startericons.qrc" >:/truvalogo/truva-logo.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="welcomeLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>391</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Truvaya Hoş Geldiniz!&lt;/span>&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Kurulumu tamamlayarak Truva Linux'u bilgisayarınıza kurdunuz.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Şimdi "Anatolya Başlangıç" ile küçük ama gerekli ayarları yapabilirsiniz.&lt;/p>
+&lt;p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Truva kullandığınız için teşekkürler.&lt;/p>
+&lt;p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">İyi Eğlenceler!&lt;/p>
+&lt;p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-style:italic;">Truva Ekibi&lt;/p>&lt;/body>&lt;/html></string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="basementsLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>360</x>
+      <y>10</y>
+      <width>151</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Anatolya Starter ile,&lt;/span>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">gerçekleştireceğiniz&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">adımlar:&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">* Fare ayarları&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">* Masaüstü arkaplanı&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">* Ağ ayarları&lt;/p>&lt;/body>&lt;/html></string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancelButton" >
+    <property name="geometry" >
+     <rect>
+      <x>430</x>
+      <y>410</y>
+      <width>75</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>İptal</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../../icons/startericons.qrc" >
+      <normaloff>:/exit-button/application-exit.png</normaloff>:/exit-button/application-exit.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="nextButton" >
+    <property name="geometry" >
+     <rect>
+      <x>320</x>
+      <y>410</y>
+      <width>75</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>İleri</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../../icons/startericons.qrc" >
+      <normaloff>:/go-next/go-next.png</normaloff>:/go-next/go-next.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton" >
+    <property name="enabled" >
+     <bool>false</bool>
+    </property>
+    <property name="geometry" >
+     <rect>
+      <x>240</x>
+      <y>410</y>
+      <width>75</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Geri</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../../icons/startericons.qrc" >
+      <normaloff>:/go-previous/go-previous.png</normaloff>:/go-previous/go-previous.png</iconset>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>442</y>
+     <width>524</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../icons/startericons.qrc" />
+ </resources>
+ <connections/>
+</ui>
