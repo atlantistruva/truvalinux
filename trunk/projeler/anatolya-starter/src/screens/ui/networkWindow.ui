@@ -1,0 +1,141 @@
+<ui version="4.0" >
+ <class>NetworkWindow</class>
+ <widget class="QMainWindow" name="NetworkWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>524</width>
+    <height>463</height>
+   </rect>
+  </property>
+  <property name="maximumSize" >
+   <size>
+    <width>524</width>
+    <height>463</height>
+   </size>
+  </property>
+  <property name="windowTitle" >
+   <string>Ağ Ayarları - Anatolya Başlangıç</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>524</width>
+     <height>442</height>
+    </rect>
+   </property>
+   <widget class="QGroupBox" name="networkGroup" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>241</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Ağ arayüzleri</string>
+    </property>
+    <widget class="QListWidget" name="listIfaces" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>221</width>
+       <height>171</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>240</y>
+      <width>451</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Bu adımda internete bağlanabilmek için ağ ayarlarını yapabilirsiniz.
+Bağlantı sağlamak istediğiniz arayüzü seçin ve "İleri" ye tıklayın.
+
+bu ayar arayüzü sadece yüzeyseldir ve ethernet ağları içindir...
+Daha fazla ayrıntı için "Ağ Yöneticisi" ne bakabilirsiniz.
+Herhangibir sorun çıkarsa bunu lütfen bildirin.</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton" >
+    <property name="enabled" >
+     <bool>true</bool>
+    </property>
+    <property name="geometry" >
+     <rect>
+      <x>240</x>
+      <y>410</y>
+      <width>75</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Geri</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../../icons/startericons.qrc" >
+      <normaloff>:/go-previous/go-previous.png</normaloff>:/go-previous/go-previous.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="nextButton" >
+    <property name="geometry" >
+     <rect>
+      <x>320</x>
+      <y>410</y>
+      <width>75</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>İleri</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../../icons/startericons.qrc" >
+      <normaloff>:/go-next/go-next.png</normaloff>:/go-next/go-next.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancelButton" >
+    <property name="geometry" >
+     <rect>
+      <x>430</x>
+      <y>410</y>
+      <width>75</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>İptal</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../../icons/startericons.qrc" >
+      <normaloff>:/exit-button/application-exit.png</normaloff>:/exit-button/application-exit.png</iconset>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>442</y>
+     <width>524</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../icons/startericons.qrc" />
+ </resources>
+ <connections/>
+</ui>
