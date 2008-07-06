@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="go-up" >
+    <file>go-up.png</file>
+  </qresource>
+  <qresource prefix="go-down" >
+    <file>go-down.png</file>
+  </qresource>
+  <qresource prefix="application-ok-apply" >
+    <file>dialog-ok-apply.png</file>
+  </qresource>
+  <qresource prefix="application-exit" >
+    <file>application-exit.png</file>
+  </qresource>
+</RCC>

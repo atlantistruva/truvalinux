@@ -1,0 +1,377 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>487</width>
+    <height>448</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Grub Yöneticisi</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>28</y>
+     <width>487</width>
+     <height>399</height>
+    </rect>
+   </property>
+   <widget class="QGroupBox" name="entrysGroup" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>471</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Girdiler</string>
+    </property>
+    <widget class="QTreeWidget" name="listEntrys" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>421</width>
+       <height>151</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text" >
+       <string>Girdi ismi</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Disk</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Çekirdek</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Bağlama yolu</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QToolButton" name="upButton" >
+     <property name="geometry" >
+      <rect>
+       <x>440</x>
+       <y>30</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>...</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../icons/grubicons.qrc" >
+       <normaloff>:/go-up/go-up.png</normaloff>:/go-up/go-up.png</iconset>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="downButton" >
+     <property name="geometry" >
+      <rect>
+       <x>440</x>
+       <y>60</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>...</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../icons/grubicons.qrc" >
+       <normaloff>:/go-down/go-down.png</normaloff>:/go-down/go-down.png</iconset>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="deleteButton" >
+     <property name="geometry" >
+      <rect>
+       <x>440</x>
+       <y>120</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>...</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../icons/grubicons.qrc" >
+       <normaloff>:/application-exit/application-exit.png</normaloff>:/application-exit/application-exit.png</iconset>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="newGroup" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>261</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Yeni girdi</string>
+    </property>
+    <widget class="QLineEdit" name="nameLine" >
+     <property name="geometry" >
+      <rect>
+       <x>80</x>
+       <y>20</y>
+       <width>161</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="discLine" >
+     <property name="geometry" >
+      <rect>
+       <x>80</x>
+       <y>60</y>
+       <width>161</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>50</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>İsim:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>50</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Disk:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>90</y>
+       <width>50</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Kernel:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="kernelLine" >
+     <property name="geometry" >
+      <rect>
+       <x>80</x>
+       <y>90</y>
+       <width>131</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="kernelOpenButton" >
+     <property name="geometry" >
+      <rect>
+       <x>220</x>
+       <y>90</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>...</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>130</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Bağlama Noktası:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="mountLine" >
+     <property name="geometry" >
+      <rect>
+       <x>130</x>
+       <y>130</y>
+       <width>113</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="addButton" >
+     <property name="geometry" >
+      <rect>
+       <x>170</x>
+       <y>160</y>
+       <width>75</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Kaydet</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../icons/grubicons.qrc" >
+       <normaloff>:/application-ok-apply/dialog-ok-apply.png</normaloff>:/application-ok-apply/dialog-ok-apply.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clearButton" >
+     <property name="geometry" >
+      <rect>
+       <x>70</x>
+       <y>160</y>
+       <width>75</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Temizle</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_5" >
+    <property name="geometry" >
+     <rect>
+      <x>280</x>
+      <y>210</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Boot arkaplanı:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="splashLine" >
+    <property name="geometry" >
+     <rect>
+      <x>280</x>
+      <y>230</y>
+      <width>151</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="splashOpenButton" >
+    <property name="geometry" >
+     <rect>
+      <x>440</x>
+      <y>230</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6" >
+    <property name="geometry" >
+     <rect>
+      <x>280</x>
+      <y>250</y>
+      <width>50</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>(xpm.gz)</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>487</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDosya" >
+    <property name="title" >
+     <string>Dosya</string>
+    </property>
+    <addaction name="actionYapilandir" />
+    <addaction name="actionCik" />
+   </widget>
+   <widget class="QMenu" name="menuYard_m" >
+    <property name="title" >
+     <string>Yardım</string>
+    </property>
+    <addaction name="actionEl_kitabi" />
+    <addaction name="actionHakkinda" />
+   </widget>
+   <addaction name="menuDosya" />
+   <addaction name="menuYard_m" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>427</y>
+     <width>487</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <action name="actionYapilandir" >
+   <property name="text" >
+    <string>Yapılandır</string>
+   </property>
+  </action>
+  <action name="actionCik" >
+   <property name="text" >
+    <string>Çık</string>
+   </property>
+  </action>
+  <action name="actionEl_kitabi" >
+   <property name="text" >
+    <string>El kitabı</string>
+   </property>
+  </action>
+  <action name="actionHakkinda" >
+   <property name="text" >
+    <string>Grub Yöneticisi Hakkında</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../icons/grubicons.qrc" />
+ </resources>
+ <connections/>
+</ui>
