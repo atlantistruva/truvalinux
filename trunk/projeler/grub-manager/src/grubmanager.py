@@ -32,7 +32,7 @@ class mainWindow(Ui_MainWindow, QtGui.QMainWindow):
 		# set position...
 		screen = QtGui.QDesktopWidget().screenGeometry()
 		size =  self.geometry()
-        	self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
+        	self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
 		# slots/singals connections...
 		QtCore.QObject.connect(self.addButton, QtCore.SIGNAL("clicked(bool)"), self.newEntry)
@@ -41,6 +41,10 @@ class mainWindow(Ui_MainWindow, QtGui.QMainWindow):
 		QtCore.QObject.connect(self.upButton, QtCore.SIGNAL("clicked(bool)"), self.upEntry)
 		QtCore.QObject.connect(self.downButton, QtCore.SIGNAL("clicked(bool)"), self.downEntry)
 		QtCore.QObject.connect(self.clearButton, QtCore.SIGNAL("clicked(bool)"), self.clearLines)
+		QtCore.QObject.connect(self.kernelOpenButton, QtCore.SIGNAL("clicked(bool)"), self.kernelOpen)
+
+		QtCore.QObject.connect(self.actionExit, QtCore.SIGNAL("triggered(bool)"), app.exit)
+		QtCore.QObject.connect(self.actionAbout, QtCore.SIGNAL("triggered(bool)"), self.about)
 
 		self.grubPath = "/boot/grub/menu.lst"
 
@@ -57,7 +61,7 @@ class mainWindow(Ui_MainWindow, QtGui.QMainWindow):
 			title = re.compile("title.*\t\t(.*)").findall(i)[0]
 			root = re.compile("root.*\t\t(.*)").findall(i)[0]
 			kernel = re.compile("kernel.*\t\t(.*) root").findall(i)[0]
-			mountpoint = re.compile("kernel.*\t\t.*(root.*) ro").findall(i)[0]
+			mountpoint = re.compile("kernel.*\t\t.*root=(.*) ro").findall(i)[0]
 
 			grubList = QtCore.QStringList()
 			grubList.append(title)
@@ -134,9 +138,10 @@ class mainWindow(Ui_MainWindow, QtGui.QMainWindow):
 
 	def upEntry(self):
 		title = str(self.listEntrys.selectedItems()[0].text(0))
+		title = title.replace("(", "\(").replace(")", "\)")
 		grubFile = open(self.grubPath).read()
 		findTitle = re.compile("title.*%s\n.*\n.*\n.*\n.*" % title).findall(grubFile)[0]
-		doubleTitle = re.compile("title.*\n.*\n.*\n.*\n.*\n*?" + findTitle.replace("(", ".").replace(")", ".")).findall(grubFile)[0]
+		doubleTitle = re.compile("title.*\n.*\n.*\n.*\n.*\n*?" + findTitle.replace("(", "\(").replace(")", "\)")).findall(grubFile)[0]
 
 		willEditTitle_up = re.compile("title.*\n.*\n.*\n.*\n.*").findall(doubleTitle)[0]
 		grubFile = grubFile.replace(willEditTitle_up, "willdown").replace(findTitle, "willup")
@@ -151,9 +156,11 @@ class mainWindow(Ui_MainWindow, QtGui.QMainWindow):
 
 	def downEntry(self):
 		title = str(self.listEntrys.selectedItems()[0].text(0))
+		title = title.replace("(", "\(").replace(")", "\)")
 		grubFile = open(self.grubPath).read()
 		findTitle = re.compile("title.*%s\n.*\n.*\n.*\n.*" % title).findall(grubFile)[0]
-		doubleTitle = re.compile(findTitle + "\n*?title.*\n.*\n.*\n.*\n.*").findall(grubFile)[0]
+		print findTitle
+		doubleTitle = re.compile(findTitle.replace("(", "\(").replace(")", "\)") + "\n*?title.*\n.*\n.*\n.*\n.*").findall(grubFile)[0]
 
 		willEditTitle_down = re.compile("title.*\n.*\n.*\n.*\n.*").findall(doubleTitle)[1]
 		grubFile = grubFile.replace(willEditTitle_down, "willup").replace(findTitle, "willdown")
@@ -170,6 +177,13 @@ class mainWindow(Ui_MainWindow, QtGui.QMainWindow):
 		self.discLine.clear()
 		self.kernelLine.clear()
 		self.mountLine.clear()
+
+	def kernelOpen(self):
+		kernelFile = QtGui.QFileDialog.getOpenFileName(self, u"Kernel dosyasını seçin..", "/boot/", ("Dosyalar (*)"))
+		self.kernelLine.setText(str(kernelFile))
+
+	def about(self):
+		QtGui.QMessageBox.about(self, u"Grub Yöneticisi Hakkında", u"Truva Grub Yöneticisi\nCopyright (C) 2008, Truva Linux")
 
 app = QtGui.QApplication([])
 mw = mainWindow()
