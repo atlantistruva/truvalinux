@@ -23,6 +23,7 @@ sys.path.append("screens/")
 # import screens
 from ui_mainWindow import Ui_StarterWindow
 from ui_mouseWindow import Ui_MouseWindow
+from ui_kickerWindow import Ui_KickerWindow
 from ui_wallpaperWindow import Ui_WallpaperWindow
 from ui_networkWindow import Ui_NetworkWindow
 from ui_endWindow import Ui_EndWindow
@@ -123,12 +124,52 @@ class mouseWindow(Ui_MouseWindow, QtGui.QMainWindow):
 		exec("self.%s.show()" % windowname)
 		self.close()
 
-class wallpaperWindow(Ui_WallpaperWindow, QtGui.QMainWindow):
+class kickerWindow(Ui_KickerWindow, QtGui.QMainWindow):
 	def __init__(self):
 		QtGui.QMainWindow.__init__(self)
 		self.setupUi(self)
 
 		self.windowno = 2
+
+		# set screen position
+		exec(glbs.defaultposition)
+
+		# Signals / slots connection
+		exec(glbs.defaultsignals)
+
+		# TODO: will write preview function with editTextChanged...
+
+	def nextWindow(self):
+		self.setKicker()
+		windowname = glbs.allwindows[self.windowno + 1]
+		exec("self.%s = %s()" % (windowname, windowname))
+		exec("self.%s.show()" % windowname)
+		self.close()
+
+	def backWindow(self):
+		windowname = glbs.allwindows[self.windowno - 1]
+		exec("self.%s = %s()" % (windowname, windowname))
+		exec("self.%s.show()" % windowname)
+		self.close()
+
+	def setKicker(self):
+		if not self.isConfig.isChecked():
+			selected = self.listKickers.currentText()
+			if selected == "Transparan":
+				os.system("python kdeconfig_kicker.py transparent")
+			if selected == "ModernTransparan":
+				os.system("python kdeconfig_kicker.py toptransparent")
+			if selected == "Klasik":
+				os.system("python kdeconfig_kicker.py classic")
+			if selected == "Modern":
+				os.system("python kdeconfig_kicker.py modern")
+
+class wallpaperWindow(Ui_WallpaperWindow, QtGui.QMainWindow):
+	def __init__(self):
+		QtGui.QMainWindow.__init__(self)
+		self.setupUi(self)
+
+		self.windowno = 3
 
 		# set screen position
 		exec(glbs.defaultposition)
@@ -171,7 +212,7 @@ class networkWindow(Ui_NetworkWindow, QtGui.QMainWindow):
 		QtGui.QMainWindow.__init__(self)
 		self.setupUi(self)
 
-		self.windowno = 3
+		self.windowno = 4
 
 		# set screen position
 		exec(glbs.defaultposition)
@@ -183,7 +224,8 @@ class networkWindow(Ui_NetworkWindow, QtGui.QMainWindow):
 			self.listIfaces.addItem(str(iface))
 
 	def nextWindow(self):
-		self.setNetwork()
+		try: self.setNetwork()
+		except: pass
 		windowname = glbs.allwindows[self.windowno + 1]
 		exec("self.%s = %s()" % (windowname, windowname))
 		exec("self.%s.show()" % windowname)
@@ -205,7 +247,7 @@ class endWindow(Ui_EndWindow, QtGui.QMainWindow):
 		QtGui.QMainWindow.__init__(self)
 		self.setupUi(self)
 
-		self.windowno = 4
+		self.windowno = 5
 
 		# set screen position
 		exec(glbs.defaultposition)

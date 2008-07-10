@@ -11,15 +11,14 @@
 #
 
 # all windows
-allwindows = ("mainWindow", "mouseWindow", "wallpaperWindow", "networkWindow", "endWindow")
+allwindows = ("mainWindow", "mouseWindow", "kickerWindow", "wallpaperWindow", "networkWindow", "endWindow")
 
 # screen position code
 defaultposition = \
 """
-scInfo = QtGui.QDesktopWidget()
-width = scInfo.width()
-height = scInfo.height()
-self.move((width / 2) / 2, (height / 2) / 2)
+screen = QtGui.QDesktopWidget().screenGeometry()
+size =  self.geometry()
+self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 """
 
 # default button signals code
