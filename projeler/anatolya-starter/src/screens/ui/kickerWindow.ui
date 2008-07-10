@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>EndWindow</class>
- <widget class="QMainWindow" name="EndWindow" >
+ <class>KickerWindow</class>
+ <widget class="QMainWindow" name="KickerWindow" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
    </size>
   </property>
   <property name="windowTitle" >
-   <string>Son - Anatolya Başlangıç</string>
+   <string>Panel Seçenekleri - Anatolya Starter</string>
   </property>
   <property name="styleSheet" >
    <string notr="true" >QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
@@ -30,39 +30,103 @@
      <height>442</height>
     </rect>
    </property>
-   <widget class="QLabel" name="label" >
-    <property name="geometry" >
-     <rect>
-      <x>140</x>
-      <y>300</y>
-      <width>361</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Tebrikler! Truva Linux'u bilgisayarınıza kurdunuz.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">artık truva forumlarını okuyarak, yardım alarak&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">linux dünyasının güzelliklerini öğrenebilirsiniz.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Teşekkür ederiz...&lt;/p>
-&lt;p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-style:italic;">Truva Ekibi&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2" >
+   <widget class="QGroupBox" name="kickersGroup" >
     <property name="geometry" >
      <rect>
       <x>150</x>
       <y>70</y>
       <width>341</width>
-      <height>221</height>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Paneller</string>
+    </property>
+    <widget class="QComboBox" name="listKickers" >
+     <property name="geometry" >
+      <rect>
+       <x>50</x>
+       <y>30</y>
+       <width>251</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text" >
+       <string>Transparan</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>ModernTransparan</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Klasik</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Modern</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="viewGroup" >
+    <property name="geometry" >
+     <rect>
+      <x>150</x>
+      <y>160</y>
+      <width>341</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Önizleme</string>
+    </property>
+    <widget class="QLabel" name="viewPicture" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>321</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>önizleme</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QRadioButton" name="isConfig" >
+    <property name="geometry" >
+     <rect>
+      <x>150</x>
+      <y>370</y>
+      <width>181</width>
+      <height>22</height>
      </rect>
     </property>
     <property name="text" >
-     <string>resim</string>
+     <string>Paneli değiştirme</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancelButton" >
+    <property name="geometry" >
+     <rect>
+      <x>430</x>
+      <y>410</y>
+      <width>75</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>İptal</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../../icons/startericons.qrc" >
+      <normaloff>:/exit-button/application-exit.png</normaloff>:/exit-button/application-exit.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="nextButton" >
@@ -75,7 +139,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="text" >
-     <string>Bitir</string>
+     <string>İleri</string>
     </property>
     <property name="icon" >
      <iconset resource="../../icons/startericons.qrc" >
@@ -102,23 +166,6 @@ p, li { white-space: pre-wrap; }
       <normaloff>:/go-previous/go-previous.png</normaloff>:/go-previous/go-previous.png</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="cancelButton" >
-    <property name="geometry" >
-     <rect>
-      <x>430</x>
-      <y>410</y>
-      <width>75</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>İptal</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/exit-button/application-exit.png</normaloff>:/exit-button/application-exit.png</iconset>
-    </property>
-   </widget>
    <widget class="QLabel" name="basementsLabel" >
     <property name="geometry" >
      <rect>
@@ -135,10 +182,10 @@ p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Başlangıç&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Fare ayarları&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Panel ayarları&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Panel&lt;/span>&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Arkaplan&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ağ ayarları&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Son&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">&lt;span style=" font-weight:400;">Son&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
     </property>
    </widget>
   </widget>

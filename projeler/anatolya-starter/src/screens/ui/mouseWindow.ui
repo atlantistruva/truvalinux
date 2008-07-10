@@ -24,6 +24,9 @@
   <property name="windowTitle" >
    <string>Fare Ayarları - Anatolya Başlangıç</string>
   </property>
+  <property name="styleSheet" >
+   <string notr="true" >QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
+  </property>
   <widget class="QWidget" name="centralwidget" >
    <property name="geometry" >
     <rect>
@@ -33,26 +36,13 @@
      <height>442</height>
     </rect>
    </property>
-   <widget class="QLabel" name="label" >
-    <property name="geometry" >
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>231</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Farenizi hangi el ile kullanacağınızı seçin:</string>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox" >
     <property name="geometry" >
      <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>501</width>
-      <height>231</height>
+      <x>170</x>
+      <y>60</y>
+      <width>321</width>
+      <height>211</height>
      </rect>
     </property>
     <property name="title" >
@@ -61,8 +51,8 @@
     <widget class="QLabel" name="label_2" >
      <property name="geometry" >
       <rect>
-       <x>50</x>
-       <y>30</y>
+       <x>10</x>
+       <y>20</y>
        <width>131</width>
        <height>151</height>
       </rect>
@@ -77,8 +67,8 @@
     <widget class="QLabel" name="label_3" >
      <property name="geometry" >
       <rect>
-       <x>310</x>
-       <y>30</y>
+       <x>170</x>
+       <y>20</y>
        <width>131</width>
        <height>151</height>
       </rect>
@@ -93,8 +83,8 @@
     <widget class="QRadioButton" name="leftMouseSelection" >
      <property name="geometry" >
       <rect>
-       <x>70</x>
-       <y>190</y>
+       <x>20</x>
+       <y>180</y>
        <width>92</width>
        <height>22</height>
       </rect>
@@ -106,8 +96,8 @@
     <widget class="QRadioButton" name="rightMouseSelection" >
      <property name="geometry" >
       <rect>
-       <x>340</x>
-       <y>190</y>
+       <x>190</x>
+       <y>180</y>
        <width>92</width>
        <height>22</height>
       </rect>
@@ -177,10 +167,10 @@
    <widget class="QGroupBox" name="clickSelectionGroup" >
     <property name="geometry" >
      <rect>
-      <x>10</x>
+      <x>170</x>
       <y>280</y>
-      <width>311</width>
-      <height>111</height>
+      <width>321</width>
+      <height>121</height>
      </rect>
     </property>
     <property name="title" >
@@ -215,22 +205,44 @@
       <bool>true</bool>
      </property>
     </widget>
-   </widget>
-   <widget class="QLabel" name="label_4" >
-    <property name="geometry" >
-     <rect>
-      <x>330</x>
-      <y>270</y>
-      <width>161</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Dosyaları çift tıklama (ilk tıklamada
+    <widget class="QLabel" name="label_4" >
+     <property name="geometry" >
+      <rect>
+       <x>150</x>
+       <y>10</y>
+       <width>161</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Dosyaları çift tıklama (ilk tıklamada
 dosyalar seçilir)
 ilemi yoksa tek tıklama
 ile mi açmak istiyorsunuz ?
 -çift tıklama önerilir-</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="basementsLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>50</x>
+      <y>110</y>
+      <width>81</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Başlangıç&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Fare ayarları&lt;/span>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Panel ayarları&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Arkaplan&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ağ ayarları&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Son&lt;/p>&lt;/body>&lt;/html></string>
     </property>
    </widget>
   </widget>
