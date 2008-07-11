@@ -1,0 +1,188 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>470</width>
+    <height>317</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Servis Yöneticisi</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../icons/serviceicons.qrc" >
+    <normaloff>:/icon/serviceicon.png</normaloff>:/icon/serviceicon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>28</y>
+     <width>470</width>
+     <height>289</height>
+    </rect>
+   </property>
+   <widget class="QTreeWidget" name="listServices" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>421</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="whatsThis" >
+     <string>Burada sistem servisleri listelenir.</string>
+    </property>
+    <column>
+     <property name="text" >
+      <string>Servis adı</string>
+     </property>
+    </column>
+    <column>
+     <property name="text" >
+      <string>Durumu</string>
+     </property>
+    </column>
+    <column>
+     <property name="text" >
+      <string>Açılışta başlat ?</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QToolButton" name="startButton" >
+    <property name="geometry" >
+     <rect>
+      <x>440</x>
+      <y>10</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="whatsThis" >
+     <string>Servisi başlat.</string>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../icons/serviceicons.qrc" >
+      <normaloff>:/apply/apply.png</normaloff>:/apply/apply.png</iconset>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="stopButton" >
+    <property name="geometry" >
+     <rect>
+      <x>440</x>
+      <y>50</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="whatsThis" >
+     <string>Servisi durdur.</string>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../icons/serviceicons.qrc" >
+      <normaloff>:/shutdown/shutdown.png</normaloff>:/shutdown/shutdown.png</iconset>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="onButton" >
+    <property name="geometry" >
+     <rect>
+      <x>440</x>
+      <y>90</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="whatsThis" >
+     <string>Servisi açılışta başlat.</string>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../icons/serviceicons.qrc" >
+      <normaloff>:/on/serviceon.png</normaloff>:/on/serviceon.png</iconset>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="offButton" >
+    <property name="geometry" >
+     <rect>
+      <x>440</x>
+      <y>130</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="whatsThis" >
+     <string>Servisi açılışta başlatma.</string>
+    </property>
+    <property name="text" >
+     <string>...</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../icons/serviceicons.qrc" >
+      <normaloff>:/off/serviceoff.png</normaloff>:/off/serviceoff.png</iconset>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>470</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDosya" >
+    <property name="title" >
+     <string>Dosya</string>
+    </property>
+    <addaction name="actionConfig" />
+    <addaction name="actionExit" />
+   </widget>
+   <widget class="QMenu" name="menuYard_m" >
+    <property name="title" >
+     <string>Yardım</string>
+    </property>
+    <addaction name="actionHelp" />
+    <addaction name="actionAbout" />
+   </widget>
+   <addaction name="menuDosya" />
+   <addaction name="menuYard_m" />
+  </widget>
+  <action name="actionConfig" >
+   <property name="text" >
+    <string>Yapılandır</string>
+   </property>
+  </action>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>Çık</string>
+   </property>
+  </action>
+  <action name="actionAbout" >
+   <property name="text" >
+    <string>Servis Yöneticisi Hakkında</string>
+   </property>
+  </action>
+  <action name="actionHelp" >
+   <property name="text" >
+    <string>El kitabı</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../icons/serviceicons.qrc" />
+ </resources>
+ <connections/>
+</ui>
