@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="apply" >
+    <file>apply.png</file>
+  </qresource>
+  <qresource prefix="shutdown" >
+    <file>shutdown.png</file>
+  </qresource>
+  <qresource prefix="on" >
+    <file>serviceon.png</file>
+  </qresource>
+  <qresource prefix="off" >
+    <file>serviceoff.png</file>
+  </qresource>
+  <qresource prefix="icon" >
+    <file>serviceicon.png</file>
+  </qresource>
+</RCC>
