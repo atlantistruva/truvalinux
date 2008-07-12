@@ -35,15 +35,24 @@ if command  == "--help" or command == "-h":
 if command == "--list" or command == "-l":
 	services = service.listServices()
 
+	colorNumber = 0
+
 	print "|        Servis        |        Durum        |"
 	for i in services:
+		if colorNumber % 2 == 0:
+			color = "\33[01;32m"
+		else:
+			color = "\33[01;36m"
+
 		name = i[3:]
 		if service.isRun(name):
 			result = "Çalışıyor"
 		else:
 			result = "Çalışmıyor"
 
-		print " " + name + " " * (24 - len(name)) + result
+		print color + "|" + name + " " * (22 - len(name)) + "|" + "    " + result + " " * (21 - len(result)) + "|" + "\33[01;0m"
+
+		colorNumber += 1
 
 	sys.exit()
 
