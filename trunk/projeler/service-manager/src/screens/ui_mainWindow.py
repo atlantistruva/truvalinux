@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'screens/mainWindow.ui'
 #
-# Created: Fri Jul 11 21:15:43 2008
+# Created: Sat Jul 12 16:34:04 2008
 #      by: PyQt4 UI code generator 4.4.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -58,8 +58,14 @@ class Ui_MainWindow(object):
         self.actionConfig = QtGui.QAction(MainWindow)
         self.actionConfig.setObjectName("actionConfig")
         self.actionExit = QtGui.QAction(MainWindow)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/shutdown/shutdown.png"),QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        self.actionExit.setIcon(icon)
         self.actionExit.setObjectName("actionExit")
         self.actionAbout = QtGui.QAction(MainWindow)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icon/serviceicon.png"),QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        self.actionAbout.setIcon(icon)
         self.actionAbout.setObjectName("actionAbout")
         self.actionHelp = QtGui.QAction(MainWindow)
         self.actionHelp.setObjectName("actionHelp")

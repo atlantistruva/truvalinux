@@ -166,11 +166,19 @@
    </property>
   </action>
   <action name="actionExit" >
+   <property name="icon" >
+    <iconset resource="../icons/serviceicons.qrc" >
+     <normaloff>:/shutdown/shutdown.png</normaloff>:/shutdown/shutdown.png</iconset>
+   </property>
    <property name="text" >
     <string>Çık</string>
    </property>
   </action>
   <action name="actionAbout" >
+   <property name="icon" >
+    <iconset resource="../icons/serviceicons.qrc" >
+     <normaloff>:/icon/serviceicon.png</normaloff>:/icon/serviceicon.png</iconset>
+   </property>
    <property name="text" >
     <string>Servis Yöneticisi Hakkında</string>
    </property>

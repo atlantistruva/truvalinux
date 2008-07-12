@@ -70,24 +70,36 @@ class mainWindow(Ui_MainWindow, QtGui.QMainWindow):
 				self.listServices.addTopLevelItem(treeItem)
 
 	def startService(self):
-		name = str(self.listServices.selectedItems()[0].text(0))
-		service.start(name)
-		self.writeList()
+		try:
+			name = str(self.listServices.selectedItems()[0].text(0))
+			service.start(name)
+			self.writeList()
+		except(IndexError):
+			QtGui.QMessageBox.critical(self, u"Hata!", u"Öncelikle servis seçmelisiniz.")
 
 	def stopService(self):
-		name = str(self.listServices.selectedItems()[0].text(0))
-		service.stop(name)
-		self.writeList()
+		try:
+			name = str(self.listServices.selectedItems()[0].text(0))
+			service.stop(name)
+			self.writeList()
+		except(IndexError):
+			QtGui.QMessageBox.critical(self, u"Hata!", u"Öncelikle servis seçmelisiniz.")
 
 	def onService(self):
-		name = str(self.listServices.selectedItems()[0].text(0))
-		service.on(name)
-		self.writeList()
+		try:
+			name = str(self.listServices.selectedItems()[0].text(0))
+			service.on(name)
+			self.writeList()
+		except(IndexError):
+			QtGui.QMessageBox.critical(self, u"Hata!", u"Öncelikle servis seçmelisiniz.")
 
 	def offService(self):
-		name = str(self.listServices.selectedItems()[0].text(0))
-		service.off(name)
-		self.writeList()
+		try:
+			name = str(self.listServices.selectedItems()[0].text(0))
+			service.off(name)
+			self.writeList()
+		except(IndexError):
+			QtGui.QMessageBox.critical(self, u"Hata!", u"Öncelikle servis seçmelisiniz.")
 
 	def about(self):
 		print "..."
