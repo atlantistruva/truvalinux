@@ -12,12 +12,19 @@
 
 import sys
 import service
+import os
+
+if os.getuid() != 0:
+	print "Servis yöneticisi root olarak çalıştırılmalıdır!"
+	sys.exit()
 
 def help():
 	print "Kullanım: service [servisadı] (start, stop, on, off)"
+	print "Kullanım: service (--list, -l) (--help, -h)"
 
-try: sys.argv[1]
-except: help(); sys.exit()
+if len(sys.argv) < 2:
+	help()
+	sys.exit()
 
 command = sys.argv[1]
 
@@ -25,7 +32,22 @@ if command  == "--help" or command == "-h":
 	help()
 	sys.exit()
 
-try:
+if command == "--list" or command == "-l":
+	services = service.listServices()
+
+	print "|        Servis        |        Durum        |"
+	for i in services:
+		name = i[3:]
+		if service.isRun(name):
+			result = "Çalışıyor"
+		else:
+			result = "Çalışmıyor"
+
+		print " " + name + " " * (24 - len(name)) + result
+
+	sys.exit()
+
+if len(sys.argv) == 3:
 	name = sys.argv[1]
 	command = sys.argv[2]
 
@@ -35,11 +57,13 @@ try:
 		service.stop(name)
 	elif command == "on":
 		service.on(name)
+		print "'%s' servisi açılışta başlatılacak." % name
 	elif command == "off":
 		service.off(name)
+		print "'%s' servisi açılışta başlatımlayacak." % name
 	else:
 		print "Hatalı kullanım!"
 		help()
-except:
+else:
 	print "Hatalı kullanım!"
 	help()
