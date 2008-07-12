@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'screens/ui/networkWindow.ui'
 #
-# Created: Thu Jul 10 11:57:42 2008
+# Created: Sat Jul 12 20:29:46 2008
 #      by: PyQt4 UI code generator 4.4.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,11 +12,15 @@ from PyQt4 import QtCore, QtGui
 class Ui_NetworkWindow(object):
     def setupUi(self, NetworkWindow):
         NetworkWindow.setObjectName("NetworkWindow")
-        NetworkWindow.resize(524,463)
-        NetworkWindow.setMaximumSize(QtCore.QSize(524,463))
+        NetworkWindow.resize(524,444)
+        NetworkWindow.setMinimumSize(QtCore.QSize(524,444))
+        NetworkWindow.setMaximumSize(QtCore.QSize(524,444))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icon/icon.png"),QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        NetworkWindow.setWindowIcon(icon)
         NetworkWindow.setStyleSheet("QMainWindow {background-image: url(:/beyimage/beyimage.png);}")
         self.centralwidget = QtGui.QWidget(NetworkWindow)
-        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,442))
+        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,444))
         self.centralwidget.setObjectName("centralwidget")
         self.networkGroup = QtGui.QGroupBox(self.centralwidget)
         self.networkGroup.setGeometry(QtCore.QRect(150,60,341,181))
@@ -50,16 +54,12 @@ class Ui_NetworkWindow(object):
         self.basementsLabel.setGeometry(QtCore.QRect(50,110,81,121))
         self.basementsLabel.setObjectName("basementsLabel")
         NetworkWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtGui.QStatusBar(NetworkWindow)
-        self.statusbar.setGeometry(QtCore.QRect(0,442,524,21))
-        self.statusbar.setObjectName("statusbar")
-        NetworkWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(NetworkWindow)
         QtCore.QMetaObject.connectSlotsByName(NetworkWindow)
 
     def retranslateUi(self, NetworkWindow):
-        NetworkWindow.setWindowTitle(QtGui.QApplication.translate("NetworkWindow", "Ağ Ayarları - Anatolya Başlangıç", None, QtGui.QApplication.UnicodeUTF8))
+        NetworkWindow.setWindowTitle(QtGui.QApplication.translate("NetworkWindow", "Ağ Ayarları - Anatolya Bey", None, QtGui.QApplication.UnicodeUTF8))
         self.networkGroup.setTitle(QtGui.QApplication.translate("NetworkWindow", "Ağ arayüzleri", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("NetworkWindow", "Bu adımda internete bağlanabilmek\n"
 "için ağ ayarlarını yapabilirsiniz.\n"
