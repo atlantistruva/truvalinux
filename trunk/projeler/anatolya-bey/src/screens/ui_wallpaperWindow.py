@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'screens/ui/wallpaperWindow.ui'
 #
-# Created: Thu Jul 10 11:49:46 2008
+# Created: Sat Jul 12 20:29:53 2008
 #      by: PyQt4 UI code generator 4.4.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,11 +12,15 @@ from PyQt4 import QtCore, QtGui
 class Ui_WallpaperWindow(object):
     def setupUi(self, WallpaperWindow):
         WallpaperWindow.setObjectName("WallpaperWindow")
-        WallpaperWindow.resize(524,463)
-        WallpaperWindow.setMaximumSize(QtCore.QSize(524,463))
+        WallpaperWindow.resize(524,444)
+        WallpaperWindow.setMinimumSize(QtCore.QSize(524,444))
+        WallpaperWindow.setMaximumSize(QtCore.QSize(524,444))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icon/icon.png"),QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        WallpaperWindow.setWindowIcon(icon)
         WallpaperWindow.setStyleSheet("QMainWindow {background-image: url(:/beyimage/beyimage.png);}")
         self.centralwidget = QtGui.QWidget(WallpaperWindow)
-        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,442))
+        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,444))
         self.centralwidget.setObjectName("centralwidget")
         self.WallpapersGroup = QtGui.QGroupBox(self.centralwidget)
         self.WallpapersGroup.setGeometry(QtCore.QRect(150,70,151,211))
@@ -50,22 +54,21 @@ class Ui_WallpaperWindow(object):
         self.cancelButton.setIcon(icon)
         self.cancelButton.setObjectName("cancelButton")
         self.label = QtGui.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(140,310,301,61))
+        self.label.setGeometry(QtCore.QRect(140,300,301,61))
         self.label.setObjectName("label")
         self.basementsLabel = QtGui.QLabel(self.centralwidget)
         self.basementsLabel.setGeometry(QtCore.QRect(50,110,81,121))
         self.basementsLabel.setObjectName("basementsLabel")
+        self.isReplace = QtGui.QRadioButton(self.centralwidget)
+        self.isReplace.setGeometry(QtCore.QRect(140,370,151,22))
+        self.isReplace.setObjectName("isReplace")
         WallpaperWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtGui.QStatusBar(WallpaperWindow)
-        self.statusbar.setGeometry(QtCore.QRect(0,442,524,21))
-        self.statusbar.setObjectName("statusbar")
-        WallpaperWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(WallpaperWindow)
         QtCore.QMetaObject.connectSlotsByName(WallpaperWindow)
 
     def retranslateUi(self, WallpaperWindow):
-        WallpaperWindow.setWindowTitle(QtGui.QApplication.translate("WallpaperWindow", "Masaüstü Arkaplanı - Anatolya Başlangıç", None, QtGui.QApplication.UnicodeUTF8))
+        WallpaperWindow.setWindowTitle(QtGui.QApplication.translate("WallpaperWindow", "Masaüstü Arkaplanı - Anatolya Bey", None, QtGui.QApplication.UnicodeUTF8))
         self.WallpapersGroup.setTitle(QtGui.QApplication.translate("WallpaperWindow", "Arkaplanlar", None, QtGui.QApplication.UnicodeUTF8))
         self.showPictureGroup.setTitle(QtGui.QApplication.translate("WallpaperWindow", "Önizleme", None, QtGui.QApplication.UnicodeUTF8))
         self.nextButton.setText(QtGui.QApplication.translate("WallpaperWindow", "İleri", None, QtGui.QApplication.UnicodeUTF8))
@@ -86,5 +89,6 @@ class Ui_WallpaperWindow(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Arkaplan</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Ağ ayarları</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Son</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.isReplace.setText(QtGui.QApplication.translate("WallpaperWindow", "Arkaplanı değiştirme", None, QtGui.QApplication.UnicodeUTF8))
 
 import startericons_rc

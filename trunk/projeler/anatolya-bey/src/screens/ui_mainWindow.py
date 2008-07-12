@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'screens/ui/mainWindow.ui'
 #
-# Created: Thu Jul 10 11:50:15 2008
+# Created: Sat Jul 12 20:34:35 2008
 #      by: PyQt4 UI code generator 4.4.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,25 +13,28 @@ class Ui_StarterWindow(object):
     def setupUi(self, StarterWindow):
         StarterWindow.setObjectName("StarterWindow")
         StarterWindow.setEnabled(True)
-        StarterWindow.resize(524,463)
+        StarterWindow.resize(524,444)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(15)
         sizePolicy.setVerticalStretch(15)
         sizePolicy.setHeightForWidth(StarterWindow.sizePolicy().hasHeightForWidth())
         StarterWindow.setSizePolicy(sizePolicy)
-        StarterWindow.setMinimumSize(QtCore.QSize(524,463))
-        StarterWindow.setMaximumSize(QtCore.QSize(524,463))
+        StarterWindow.setMinimumSize(QtCore.QSize(524,444))
+        StarterWindow.setMaximumSize(QtCore.QSize(524,444))
         StarterWindow.setFocusPolicy(QtCore.Qt.NoFocus)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icon/icon.png"),QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        StarterWindow.setWindowIcon(icon)
         StarterWindow.setStyleSheet("QMainWindow {background-image: url(:/beyimage/beyimage.png);}")
         self.centralwidget = QtGui.QWidget(StarterWindow)
-        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,442))
+        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,444))
         self.centralwidget.setObjectName("centralwidget")
         self.logoLabel = QtGui.QLabel(self.centralwidget)
         self.logoLabel.setGeometry(QtCore.QRect(170,70,301,211))
         self.logoLabel.setPixmap(QtGui.QPixmap(":/truvalogo/truva-logo.png"))
         self.logoLabel.setObjectName("logoLabel")
         self.welcomeLabel = QtGui.QLabel(self.centralwidget)
-        self.welcomeLabel.setGeometry(QtCore.QRect(140,290,361,111))
+        self.welcomeLabel.setGeometry(QtCore.QRect(140,290,351,111))
         self.welcomeLabel.setObjectName("welcomeLabel")
         self.cancelButton = QtGui.QPushButton(self.centralwidget)
         self.cancelButton.setGeometry(QtCore.QRect(430,410,75,26))
@@ -56,16 +59,12 @@ class Ui_StarterWindow(object):
         self.basementsLabel.setGeometry(QtCore.QRect(50,110,81,121))
         self.basementsLabel.setObjectName("basementsLabel")
         StarterWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtGui.QStatusBar(StarterWindow)
-        self.statusbar.setGeometry(QtCore.QRect(0,442,524,21))
-        self.statusbar.setObjectName("statusbar")
-        StarterWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(StarterWindow)
         QtCore.QMetaObject.connectSlotsByName(StarterWindow)
 
     def retranslateUi(self, StarterWindow):
-        StarterWindow.setWindowTitle(QtGui.QApplication.translate("StarterWindow", "Anatolya Başlangıç", None, QtGui.QApplication.UnicodeUTF8))
+        StarterWindow.setWindowTitle(QtGui.QApplication.translate("StarterWindow", "Anatolya Bey", None, QtGui.QApplication.UnicodeUTF8))
         self.welcomeLabel.setText(QtGui.QApplication.translate("StarterWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

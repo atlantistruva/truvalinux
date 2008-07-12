@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'screens/ui/mouseWindow.ui'
 #
-# Created: Thu Jul 10 11:55:20 2008
+# Created: Sat Jul 12 20:29:20 2008
 #      by: PyQt4 UI code generator 4.4.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,12 +12,15 @@ from PyQt4 import QtCore, QtGui
 class Ui_MouseWindow(object):
     def setupUi(self, MouseWindow):
         MouseWindow.setObjectName("MouseWindow")
-        MouseWindow.resize(524,463)
-        MouseWindow.setMinimumSize(QtCore.QSize(524,463))
-        MouseWindow.setMaximumSize(QtCore.QSize(524,463))
+        MouseWindow.resize(524,444)
+        MouseWindow.setMinimumSize(QtCore.QSize(524,444))
+        MouseWindow.setMaximumSize(QtCore.QSize(524,444))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icon/icon.png"),QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        MouseWindow.setWindowIcon(icon)
         MouseWindow.setStyleSheet("QMainWindow {background-image: url(:/beyimage/beyimage.png);}")
         self.centralwidget = QtGui.QWidget(MouseWindow)
-        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,442))
+        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,444))
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtGui.QGroupBox(self.centralwidget)
         self.groupBox.setGeometry(QtCore.QRect(170,60,321,211))
@@ -73,16 +76,12 @@ class Ui_MouseWindow(object):
         self.basementsLabel.setGeometry(QtCore.QRect(50,110,81,121))
         self.basementsLabel.setObjectName("basementsLabel")
         MouseWindow.setCentralWidget(self.centralwidget)
-        self.statusBar = QtGui.QStatusBar(MouseWindow)
-        self.statusBar.setGeometry(QtCore.QRect(0,442,524,21))
-        self.statusBar.setObjectName("statusBar")
-        MouseWindow.setStatusBar(self.statusBar)
 
         self.retranslateUi(MouseWindow)
         QtCore.QMetaObject.connectSlotsByName(MouseWindow)
 
     def retranslateUi(self, MouseWindow):
-        MouseWindow.setWindowTitle(QtGui.QApplication.translate("MouseWindow", "Fare Ayarları - Anatolya Başlangıç", None, QtGui.QApplication.UnicodeUTF8))
+        MouseWindow.setWindowTitle(QtGui.QApplication.translate("MouseWindow", "Fare Ayarları - Anatolya Bey", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("MouseWindow", "Fare seçenekleri", None, QtGui.QApplication.UnicodeUTF8))
         self.leftMouseSelection.setText(QtGui.QApplication.translate("MouseWindow", "Sol el", None, QtGui.QApplication.UnicodeUTF8))
         self.rightMouseSelection.setText(QtGui.QApplication.translate("MouseWindow", "Sağ el", None, QtGui.QApplication.UnicodeUTF8))

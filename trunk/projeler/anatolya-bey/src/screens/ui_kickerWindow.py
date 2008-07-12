@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'screens/ui/kickerWindow.ui'
 #
-# Created: Thu Jul 10 13:18:33 2008
+# Created: Sat Jul 12 20:29:34 2008
 #      by: PyQt4 UI code generator 4.4.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,11 +12,15 @@ from PyQt4 import QtCore, QtGui
 class Ui_KickerWindow(object):
     def setupUi(self, KickerWindow):
         KickerWindow.setObjectName("KickerWindow")
-        KickerWindow.resize(524,463)
-        KickerWindow.setMaximumSize(QtCore.QSize(524,463))
+        KickerWindow.resize(524,444)
+        KickerWindow.setMinimumSize(QtCore.QSize(524,444))
+        KickerWindow.setMaximumSize(QtCore.QSize(524,444))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icon/icon.png"),QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        KickerWindow.setWindowIcon(icon)
         KickerWindow.setStyleSheet("QMainWindow {background-image: url(:/beyimage/beyimage.png);}")
         self.centralwidget = QtGui.QWidget(KickerWindow)
-        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,442))
+        self.centralwidget.setGeometry(QtCore.QRect(0,0,524,444))
         self.centralwidget.setObjectName("centralwidget")
         self.kickersGroup = QtGui.QGroupBox(self.centralwidget)
         self.kickersGroup.setGeometry(QtCore.QRect(150,70,341,81))
@@ -28,7 +32,7 @@ class Ui_KickerWindow(object):
         self.viewGroup.setGeometry(QtCore.QRect(150,160,341,171))
         self.viewGroup.setObjectName("viewGroup")
         self.viewPicture = QtGui.QLabel(self.viewGroup)
-        self.viewPicture.setGeometry(QtCore.QRect(10,20,321,131))
+        self.viewPicture.setGeometry(QtCore.QRect(50,40,241,91))
         self.viewPicture.setObjectName("viewPicture")
         self.isConfig = QtGui.QRadioButton(self.centralwidget)
         self.isConfig.setGeometry(QtCore.QRect(150,370,181,22))
@@ -56,23 +60,18 @@ class Ui_KickerWindow(object):
         self.basementsLabel.setGeometry(QtCore.QRect(50,110,81,121))
         self.basementsLabel.setObjectName("basementsLabel")
         KickerWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtGui.QStatusBar(KickerWindow)
-        self.statusbar.setGeometry(QtCore.QRect(0,442,524,21))
-        self.statusbar.setObjectName("statusbar")
-        KickerWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(KickerWindow)
         QtCore.QMetaObject.connectSlotsByName(KickerWindow)
 
     def retranslateUi(self, KickerWindow):
-        KickerWindow.setWindowTitle(QtGui.QApplication.translate("KickerWindow", "Panel Seçenekleri - Anatolya Starter", None, QtGui.QApplication.UnicodeUTF8))
+        KickerWindow.setWindowTitle(QtGui.QApplication.translate("KickerWindow", "Panel Seçenekleri - Anatolya Bey", None, QtGui.QApplication.UnicodeUTF8))
         self.kickersGroup.setTitle(QtGui.QApplication.translate("KickerWindow", "Paneller", None, QtGui.QApplication.UnicodeUTF8))
         self.listKickers.addItem(QtGui.QApplication.translate("KickerWindow", "Transparan", None, QtGui.QApplication.UnicodeUTF8))
         self.listKickers.addItem(QtGui.QApplication.translate("KickerWindow", "ModernTransparan", None, QtGui.QApplication.UnicodeUTF8))
         self.listKickers.addItem(QtGui.QApplication.translate("KickerWindow", "Klasik", None, QtGui.QApplication.UnicodeUTF8))
         self.listKickers.addItem(QtGui.QApplication.translate("KickerWindow", "Modern", None, QtGui.QApplication.UnicodeUTF8))
         self.viewGroup.setTitle(QtGui.QApplication.translate("KickerWindow", "Önizleme", None, QtGui.QApplication.UnicodeUTF8))
-        self.viewPicture.setText(QtGui.QApplication.translate("KickerWindow", "önizleme", None, QtGui.QApplication.UnicodeUTF8))
         self.isConfig.setText(QtGui.QApplication.translate("KickerWindow", "Paneli değiştirme", None, QtGui.QApplication.UnicodeUTF8))
         self.cancelButton.setText(QtGui.QApplication.translate("KickerWindow", "İptal", None, QtGui.QApplication.UnicodeUTF8))
         self.nextButton.setText(QtGui.QApplication.translate("KickerWindow", "İleri", None, QtGui.QApplication.UnicodeUTF8))

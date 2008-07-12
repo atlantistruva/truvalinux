@@ -2,6 +2,9 @@
   <qresource prefix="ok-button" >
     <file>dialog-ok-apply.png</file>
   </qresource>
+  <qresource prefix="icon" >
+    <file>icon.png</file>
+  </qresource>
   <qresource prefix="mouse-left" >
     <file>mouse-left.png</file>
   </qresource>
@@ -19,5 +22,11 @@
   </qresource>
   <qresource prefix="truvalogo" >
     <file>truva-logo.png</file>
+  </qresource>
+  <qresource prefix="beyimage" >
+    <file>beyimage.png</file>
+  </qresource>
+  <qresource prefix="endlogo" >
+    <file>endlogo.png</file>
   </qresource>
 </RCC>
