@@ -20,7 +20,11 @@ class tayFile:
 
 	def deCompressPackage(self, file, path):
 		""" decompress tay package. """
-		tar = tarfile.open(file, "r")
+		try:
+			tar = tarfile.open(file, "r")
+		except:
+			print "Dosya (%s) bulunamadı." % file
+			sys.exit()
 		tar.extractall(path)
 		tar.close()
 	

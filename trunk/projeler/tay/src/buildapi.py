@@ -20,25 +20,28 @@ from glob import glob
 from distutils import dir_util
 
 import tayfile
-import package
 
-def setNames(packageName_, packageDesc_, packageAdress_):
+def setNames(packageName_, packageDesc_, packageAdress_, packageVersion_):
 	global packageName
 	global packageDesc
 	global packageAdress
+	global packageVersion
+	global nameVersion
 	global tmp
 
 	packageName = packageName_
 	packageDesc = packageDesc_
 	packageAdress = packageAdress_
+	packageVersion = packageVersion_
+	nameVersion = packageName + "-" + packageVersion
 
-	tmp = "/tmp/package-%s" % packageName
+	tmp = "/tmp/package-%s" % nameVersion
 
 def setPackage():
 	print "Dizinler yaratılıyor..."
-	os.mkdir("/tmp/package-%s" % packageName)
-	os.mkdir("/tmp/package-%s/install-tay" % packageName)
-	descFile = open("/tmp/package-%s/install-tay/tay-desc" % packageName, "w")
+	os.mkdir("/tmp/package-%s" % nameVersion)
+	os.mkdir("/tmp/package-%s/install-tay" % nameVersion)
+	descFile = open("/tmp/package-%s/install-tay/tay-desc" % nameVersion, "w")
 	descFile.write(packageDesc)
 	descFile.close()
 
@@ -46,7 +49,7 @@ def download():
 	print "Arşiv indiriliyor..."
 	prgs = urlgrabber.progress.text_progress_meter()
 	cwd = os.getcwd()
-	os.chdir("/tmp/package-%s" % packageName)
+	os.chdir("/tmp/package-%s" % nameVersion)
 	urlgrabber.urlgrab(packageAdress, "packagearchive", progress_obj=prgs)
 	os.chdir(cwd)
 
@@ -87,7 +90,7 @@ def copy(file, path):
 	
 	os.chdir(dirFile)
 	if os.path.isfile(file):
-		try: os.mkdir("%s/%s" % (tmp, path))
+		try: os.mkdir("%s%s" % (tmp, path))
 		except: pass
 		shutil.copy(dirFile + "/" + file, tmp + "/" + path)
 		dir_util.remove_tree(tmp + "/" + "archive")
@@ -99,17 +102,18 @@ def copy(file, path):
 	os.chdir(cwd)
 
 def build():
-	print "%s.tay paketi oluşturuluyor.." % packageName
-	tay = tayfile.build(packageName)
+	print "%s.tay paketi oluşturuluyor.." % nameVersion
+	tay = tayfile.build(nameVersion)
 	tay.buildPackage()
 	dir_util.remove_tree(tmp)
 
 # build example...
 """
 desc = "python internet modülü\nurlgrabber ile dosya indirebilir ve daha pekçok şeyi yapabilirsiniz"
-setNames("urlgrabber2", desc, "http://linux.duke.edu/projects/urlgrabber/download/urlgrabber-3.1.0.tar.gz")
+setNames("urlgrabber", desc, "http://linux.duke.edu/projects/urlgrabber/download/urlgrabber-3.1.0.tar.gz", "3.1.0")
 setPackage()
 download()
 extract()
-copy("urlgrabber", "/usr/lib/python2.5/site-packages")
-build()"""
+copy("urlgrabber", "/usr/lib/python2.5/site-packages/urlgrabber")
+build()
+"""
