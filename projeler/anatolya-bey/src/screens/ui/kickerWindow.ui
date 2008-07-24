@@ -25,21 +25,12 @@
    <string>Panel Seçenekleri - Anatolya Bey</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../../icons/startericons.qrc" >
-    <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
+   <iconset resource="../../icons/startericons.qrc" >:/icon/icon.png</iconset>
   </property>
   <property name="styleSheet" >
-   <string notr="true" >QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
+   <string>QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>524</width>
-     <height>444</height>
-    </rect>
-   </property>
    <widget class="QGroupBox" name="kickersGroup" >
     <property name="geometry" >
      <rect>
@@ -109,19 +100,6 @@
      </property>
     </widget>
    </widget>
-   <widget class="QRadioButton" name="isConfig" >
-    <property name="geometry" >
-     <rect>
-      <x>150</x>
-      <y>370</y>
-      <width>181</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Paneli değiştirme</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="cancelButton" >
     <property name="geometry" >
      <rect>
@@ -135,8 +113,7 @@
      <string>İptal</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/exit-button/application-exit.png</normaloff>:/exit-button/application-exit.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/exit-button/application-exit.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="nextButton" >
@@ -152,8 +129,7 @@
      <string>İleri</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/go-next/go-next.png</normaloff>:/go-next/go-next.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/go-next/go-next.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="backButton" >
@@ -172,8 +148,7 @@
      <string>Geri</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/go-previous/go-previous.png</normaloff>:/go-previous/go-previous.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/go-previous/go-previous.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="basementsLabel" >
@@ -196,6 +171,19 @@ p, li { white-space: pre-wrap; }
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Arkaplan&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ağ ayarları&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">&lt;span style=" font-weight:400;">Son&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="isConfig" >
+    <property name="geometry" >
+     <rect>
+      <x>150</x>
+      <y>370</y>
+      <width>151</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Paneli değiştirme</string>
     </property>
    </widget>
   </widget>
