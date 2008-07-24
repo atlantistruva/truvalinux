@@ -157,7 +157,7 @@ class kickerWindow(Ui_KickerWindow, QtGui.QMainWindow):
 		self.close()
 
 	def setKicker(self):
-		if not self.isConfig.isChecked():
+		if self.isConfig.checkState() == 0:
 			selected = self.listKickers.currentText()
 			if selected == "Transparan":
 				os.system("python kdeconfig_kicker.py transparent")
@@ -220,7 +220,7 @@ class wallpaperWindow(Ui_WallpaperWindow, QtGui.QMainWindow):
 		self.pictureLabel.setPixmap(picture_file)
 
 	def setWallpaper(self):
-		if not self.isReplace.isChecked():
+		if self.isConfig.checkState() == 0:
 			os.system("python kdeconfig_wallpaper.py %s" % "/usr/share/wallpapers/" + self.selectedPicture)
 
 class networkWindow(Ui_NetworkWindow, QtGui.QMainWindow):
