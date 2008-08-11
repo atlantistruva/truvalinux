@@ -1,0 +1,47 @@
+<ui version="4.0" >
+ <class>partedWindow</class>
+ <widget class="QMainWindow" name="partedWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>516</width>
+    <height>511</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Disk Bölümleme - Anatolya Kurulum</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QPushButton" name="nextButton" >
+    <property name="geometry" >
+     <rect>
+      <x>420</x>
+      <y>450</y>
+      <width>75</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>İleri</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="descLabel" >
+    <property name="geometry" >
+     <rect>
+      <x>30</x>
+      <y>70</y>
+      <width>391</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>parted ...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
