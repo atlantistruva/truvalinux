@@ -12,9 +12,13 @@
 
 allWindows = ("mainWindow", "partedWindow", "discWindow", "installWindow", "userWindow", "grubWindow", "endWindow")
 
+packageDir = "/home/rohanrhu/truva/paketler/"
+pictureDir = "/home/rohanrhu/Resim/"
+
 defaultSignals = \
 """
 self.connect(self.nextButton, QtCore.SIGNAL("clicked(bool)"), self.nextWindow)
+self.connect(self.backButton, QtCore.SIGNAL("clicked(bool)"), self.backWindow)
 """
 
 defaultPosition = \
