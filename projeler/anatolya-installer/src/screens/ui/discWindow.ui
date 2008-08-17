@@ -1,0 +1,131 @@
+<ui version="4.0" >
+ <class>discWindow</class>
+ <widget class="QMainWindow" name="discWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>661</width>
+    <height>686</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Disk Seçimi - Anatolya Kurulum</string>
+  </property>
+  <property name="styleSheet" >
+   <string notr="true" >#discWindow { 
+	background-image: url(:/artalan/artalan.png); }</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" name="gridLayout" >
+    <item row="2" column="2" >
+     <widget class="QPushButton" name="nextButton" >
+      <property name="text" >
+       <string>İleri</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../../images/anatolyaimages.qrc" >
+        <normaloff>:/icons/go-next.png</normaloff>:/icons/go-next.png</iconset>
+      </property>
+      <property name="flat" >
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="3" >
+     <spacer name="verticalSpacer" >
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType" >
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0" >
+       <size>
+        <width>20</width>
+        <height>75</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0" >
+     <spacer name="horizontalSpacer" >
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0" colspan="3" >
+     <widget class="QGroupBox" name="discGroup" >
+      <property name="title" >
+       <string/>
+      </property>
+      <property name="flat" >
+       <bool>true</bool>
+      </property>
+      <widget class="QLabel" name="label" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>431</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>Diskinizi bölümlediyseniz, Truva'yı kuracağınız disk bölümünü seçiniz.</string>
+       </property>
+      </widget>
+      <widget class="QGroupBox" name="groupBox" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>100</y>
+         <width>471</width>
+         <height>191</height>
+        </rect>
+       </property>
+       <property name="title" >
+        <string>Bölümler</string>
+       </property>
+       <widget class="QComboBox" name="discsList" >
+        <property name="geometry" >
+         <rect>
+          <x>110</x>
+          <y>80</y>
+          <width>241</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+    <item row="2" column="1" >
+     <widget class="QPushButton" name="backButton" >
+      <property name="text" >
+       <string>Geri</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../../images/anatolyaimages.qrc" >
+        <normaloff>:/icons/back.png</normaloff>:/icons/back.png</iconset>
+      </property>
+      <property name="flat" >
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../images/anatolyaimages.qrc" />
+ </resources>
+ <connections/>
+</ui>

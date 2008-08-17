@@ -11,21 +11,20 @@
 #
 
 import sys
-# add module paths..
-sys.path.append("screens/")
 
 import os
 
 # import screens..
-from mainWindow import Ui_mainWindow
-from partedWindow import Ui_partedWindow
-from discWindow import Ui_discWindow
-from installWindow import Ui_installWindow
-from userWindow import Ui_userWindow
-from grubWindow import Ui_grubWindow
-from endWindow import Ui_endWindow
+from screens.mainWindow import Ui_mainWindow
+from screens.partedWindow import Ui_partedWindow
+from screens.discWindow import Ui_discWindow
+from screens.installWindow import Ui_installWindow
+from screens.userWindow import Ui_userWindow
+from screens.grubWindow import Ui_grubWindow
+from screens.endWindow import Ui_endWindow
 
 import anatolyaglobals as glbs
+from user import getShadowed
 
 from PyQt4 import QtCore, QtGui
 
@@ -34,6 +33,10 @@ import gobject
 import array
 import shutil
 import getopt
+import commands
+import subprocess
+import thread
+import random
 
 g_exedir = '/truva_installer'
 g_mntdir = '/truva_installer/mount'
@@ -43,11 +46,12 @@ g_gui = 0
 g_writelilo = False
 g_installok = False
 g_bootdisk = ''
+g_installpart = ""
 
 vmlinuz = "vmlinuz-2.6.24.3"
 initrd = "initrd.bs"
 
-grub_betik ="""\
+grub_betik = """\
 grub --device-map=/boot/grub/device.map --batch <<EOF
 root %(root_dev)s
 setup --stage2=/boot/grub/stage2 (hd0)
@@ -62,6 +66,7 @@ class mainWindow(QtGui.QMainWindow, Ui_mainWindow):
 		self.setupUi(self)
 
 		self.windowNo = 0
+
 		exec(glbs.defaultPosition)
 
 		exec(glbs.defaultSignals)
@@ -69,8 +74,11 @@ class mainWindow(QtGui.QMainWindow, Ui_mainWindow):
 	def nextWindow(self):
 		windowname = glbs.allWindows[self.windowNo + 1]
 		exec("self.%s = %s()" % (windowname, windowname))
-		exec("self.%s.show()" % windowname)
+		exec("self.%s.showFullScreen()" % windowname)
 		self.close()
+
+	def backWindow(self):
+		pass
 
 class partedWindow(QtGui.QMainWindow, Ui_partedWindow):
 	def __init__(self):
@@ -82,10 +90,21 @@ class partedWindow(QtGui.QMainWindow, Ui_partedWindow):
 
 		exec(glbs.defaultSignals)
 
+		self.connect(self.gpartedButton, QtCore.SIGNAL("clicked(bool)"), self.openGparted)
+
+	def openGparted(self):
+		os.system("gparted")
+
 	def nextWindow(self):
 		windowname = glbs.allWindows[self.windowNo + 1]
 		exec("self.%s = %s()" % (windowname, windowname))
-		exec("self.%s.show()" % windowname)
+		exec("self.%s.showFullScreen()" % windowname)
+		self.close()
+
+	def backWindow(self):
+		windowname = glbs.allWindows[self.windowNo - 1]
+		exec("self.%s = %s()" % (windowname, windowname))
+		exec("self.%s.showFullScreen()" % windowname)
 		self.close()
 
 class discWindow(QtGui.QMainWindow, Ui_discWindow):
@@ -98,27 +117,128 @@ class discWindow(QtGui.QMainWindow, Ui_discWindow):
 
 		exec(glbs.defaultSignals)
 
+		self.allDiscs = os.popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1").readlines()
+
+		for disc in self.allDiscs:
+			# disc = disc.replace("\n", "")
+			size = os.popen("df %s | grep /dev/ | cut -c21-30" % disc[0:-1]).read().replace(" ", "").replace("\n", "")
+			print "-*- %s" % size
+
+			size = int(size) / (1024 * 1024)
+
+			self.discsList.addItem("%s - %s GB" % (str(disc[0:-1]), str(size)))
+
 	def nextWindow(self):
-		windowname = glbs.allWindows[self.windowNo + 1]
+		self.selected = str(self.discsList.currentText())
+		self.selectedDisc = self.selected.split("-")[0].replace(" ", "")
+
+		reply = QtGui.QMessageBox.question(self, u"Kurulum!", u"Kurulum için seçtiğiniz disk bölümü\n\n %s \n\n Tüm veriler silinecektir!\nDevam etmek istiyor musunuz ?" % self.selected, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+
+		if reply == QtGui.QMessageBox.Yes:
+			windowname = glbs.allWindows[self.windowNo + 1]
+			exec("self.%s = %s('%s')" % (windowname, windowname, self.selectedDisc))
+			exec("self.%s.showFullScreen()" % windowname)
+			self.close()
+
+	def backWindow(self):
+		windowname = glbs.allWindows[self.windowNo - 1]
 		exec("self.%s = %s()" % (windowname, windowname))
-		exec("self.%s.show()" % windowname)
+		exec("self.%s.showFullScreen()" % windowname)
 		self.close()
 
 class installWindow(QtGui.QMainWindow, Ui_installWindow):
-	def __init__(self):
+	def __init__(self, disc):
 		QtGui.QMainWindow.__init__(self)
+		
 		self.setupUi(self)
+		self.disc = disc
+		self.isRunning = True
 
 		self.windowNo = 3
 		exec(glbs.defaultPosition)
 
 		exec(glbs.defaultSignals)
+		self.run_()
 
-		# os.system("sudo python install_run.py -g --device=/dev/sda2")
-		self.main()
+	def run_(self):
+		# os.system("sudo python install_run.py -g --device=/dev/sda2")
+		# self.main()
+		thread.start_new_thread(self.run, ())
+
+	def run(self):
+		global g_gui
+		global g_exedir
+		global g_installdev
+		global g_writelilo
+		global g_installok
+		global g_mntdir
+		global g_bootdisk
+		exedir = g_exedir
+		mntdir = g_mntdir
+		
+		partname = ''
+
+		"""
+		try:
+			opts, args = getopt.getopt( sys.argv[1:], "g", ["device="]) 
+			print "-*- OPTS: "
+			print opts
+			print "-*- ARGS: "
+			print args
+		except getopt.GetoptError:
+			print( '\nGeçersiz parametre(ler):\n--device, Örnek: --device=/dev/hda1\n -g grafiksel çıktı için.\n' ) 
+			sys.exit(2)
+		"""
+		opts = [('-g', ''), ('--device', self.disc)]
+		args = []
+	
+		pid = os.getpid()
+		oscmd = ( 'echo "%(pid)s" > %(exedir)s/pid' % vars() ) 
+		os.system( oscmd )
+	
+		for o, a in opts:
+			if o == '-g':
+				g_gui = 1
+			if o == '--device':
+				partname = a	
+				
+		if ( partname == '' ):		
+			print( '\nParameter "--device" is needed.\nFor example: --device=/dev/hda1\n' ) 
+			sys.exit(2)
+		
+		self.write_status('\n\nLütfen bekleyiniz...\n')
+	
+		time.sleep(4)
+		self.execute_install( partname )
+		
+		"""mntcmd = ( 'umount %s' % g_installdev )
+		os.system( mntcmd )
+	
+		oscmd = ( 'echo "0" > %s/pid' % exedir ) 
+		os.system( oscmd )
+	
+		if ( g_installok == True ):
+			time.sleep(1)
+			self.write_status('\nKurulum tamamlandı!\n\nSistem yeniden başlatıldıktan sonra yönetici şifrenizi\ndeğiştirmeyi unutmayınız...\n\nSistem şimdi yeniden başlatılıyor...')
+			#os.system("/sbin/reboot")"""
+
+		self.infoLabel.setText(u"Tüm paketler kuruldu 'İleri' düğmesi ile devam edebilirsiniz.")
+		self.isRunning = False
+
+	def nextWindow(self):
+		if not self.isRunning:
+			windowname = glbs.allWindows[self.windowNo + 1]
+			exec("self.%s = %s()" % (windowname, windowname))
+			exec("self.%s.showFullScreen()" % windowname)
+			self.close()
+		else:
+			QtGui.QMessageBox.critical(self, u"Bilgi!", u"Kurulum devam ediyor...")
+
+	def backWindow(self):
+		pass
 
 	def runbg(self, program, *args ):
-		return os.spawnvp( os.P_WAIT, program, (program,) + args )
+			return os.spawnvp( os.P_WAIT, program, (program,) + args )
 	
 	def write_status(self, statmsg ):
 		global g_exedir
@@ -139,6 +259,8 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		global g_writelilo
 		global g_installok
 		global g_bootdisk
+		global g_installpart
+		g_installpart = installpart
 	
 		mntdir = g_mntdir
 		bootfilesdir = g_bootfilesdir
@@ -162,18 +284,24 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 				
 		self.write_status('\nLütfen bekleyin.\n\nDiskiniz analiz ediliyor...')
 	
-		partition = os.popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1")
-		filesystem = os.popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext")
-		
-		partname = partition.readline()
-		osname = filesystem.readline()
+		# partition = os.popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1")
+		# filesystem = os.popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext")
+		partition = subprocess.Popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdout
+		filesystem = subprocess.Popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdout
+
+		try:
+			partname = str(partition.readline())
+			osname = str(filesystem.readline())
+		except IOError:
+			partname = str(partition.readline())
+			osname = str(filesystem.readline())
 		
 		if os.path.isfile("/truva_installer/file/diskler.txt"):
 			os.remove("/truva_installer/file/diskler.txt")
-			disk_liste = "sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /truva_installer/files/diskler.txt"
+			disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /truva_installer/files/diskler.txt"
 			os.system(disk_liste)
 		else:
-			disk_liste = "sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /truva_installer/files/diskler.txt"
+			disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /truva_installer/files/diskler.txt"
 			os.system(disk_liste)
 		
 		# diskler okunuyor
@@ -291,9 +419,13 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			mntcmd = ( 'umount %s' % partname )
 			os.system( mntcmd )
 			time.sleep(2)
-	
-			partname = partition.readline()
-			osname = filesystem.readline()
+
+			try:
+				partname = str(partition.readline())
+				osname = str(filesystem.readline())
+			except IOError:
+				partname = str(partition.readline())
+				osname = str(filesystem.readline())
 	
 		if ( g_gui == 0 ):
 			if ( space_error == True ):
@@ -309,7 +441,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		mntcmd = 'mount %(installpart)s %(mntdir)s' % vars()
 		osres = os.system( mntcmd )
 		if osres != 0:
-			self.self.write_status('\nKritik bir hata oluştu.\nKurulum iptal edildi !')
+			self.write_status('\nKritik bir hata oluştu.\nKurulum iptal edildi !')
 			return
 		else:	
 			oscmd = ( 'mkdir %s/boot' % mntdir )
@@ -329,37 +461,44 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 				else:
 					print "\nKurulum cd\'si %s cd/dvd sürücüsünde bulunamadı...\n\n" %device
 					continue
-			try:
-				if ( g_gui == 1 ):
-					self.write_status('\nKurulum işlemi devam ediyor.\n\nPaketler kurulmaya başlanıyor...') 
+
+			# TODO: Bilgi gösterimi: paketler kuruluyor	
+
+			# all packages...
+			lenPackages = 0
+			for i in os.listdir(glbs.packageDir):
+				if os.path.isdir(glbs.packageDir + i):
+					lenPackages += len(os.listdir(glbs.packageDir + i))
+			print "-*- Len: " + str(lenPackages)
+
+			#os.system('rm -rf *')
+			iP = 0
+
+			for dizin in os.listdir(glbs.packageDir):
+				target_dir = glbs.packageDir + dizin
+				
+				if os.path.isdir(target_dir):
+					paket_listesi = os.listdir( target_dir )
+					for package in paket_listesi:
+						if ( g_gui == 1 ):
+							self.write_status('\nKurulum işlemi devam ediyor.\nKurulan Kategori : %s\nKurulan paket : %s' %(dizin,package))  
+						else:
+							print( 'Kurulan paket : %s' %package) 	
+
+						value = 100 * iP / lenPackages
+						self.installBar.setValue(int(value))
+						self.packageLabel.setText(str(package))
+						self.categoryLabel.setText(str(dizin))
+						oscmd = ('installpkg -root %s %s/%s' %(mntdir,target_dir,package))
+						os.system( oscmd )
+						iP += 1
 				else:
-					print( 'Paketler kurulmaya başlanıyor...' )	
-	
-				#os.system('rm -rf *')
-				for dizin in os.listdir("/home/rohanrhu/truva/paketler/"):
-					target_dir = "/home/rohanrhu/truva/paketler/" + dizin
-					
-					if os.path.isdir(target_dir):
-						paket_listesi = os.listdir( target_dir )
-						for package in paket_listesi:
-							if ( g_gui == 1 ):
-								self.write_status('\nKurulum işlemi devam ediyor.\nKurulan Kategori : %s\nKurulan paket : %s' %(dizin,package))  
-							else:
-								print( 'Kurulan paket : %s' %package) 	
-		
-							oscmd = ('installpkg -root %s %s/%s' %(mntdir,target_dir,package))
-							os.system( oscmd )
-					else:
-						print "dizin: %s" % target_dir
-						print('%s kategorisi bulunamadi...') %dizin		
-			except:
-				print " Bir hata oluştu..."
-							
-			if ( g_gui == 1 ):
-				self.write_status('\nKurulum süreci devam ediyor.\n\nKonfigürasyon ayarlaniyor...') 
-			else:
-				print( 'Konfigürasyon ayarlaniyor...' )
-	
+					print "dizin: %s" % target_dir
+					print('%s kategorisi bulunamadi...') % dizin
+
+
+			# TODO: Sistem ayarları ekranda belirtilecek
+
 			for disk_dizin in dizinler:
 				if not os.path.isdir('/truva_installer/mount/' + disk_dizin):
 					result = os.makedirs("%s/%s" %(mntdir,disk_dizin))
@@ -367,10 +506,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 						print "%s dizini oluşturulamadı..." %disk_dizin
 						return 0
 					
-			if ( g_gui == 1 ):
-				self.write_status('\nKurulum süreci devam ediyor.\n\nFont ayarları yapılıyor...') 
-			else:
-				print( 'Font ayarları yapılıyor...' )
+			# TODO: Sistem ayarları ekranda belirtilecek...
 			
 			##Kurulum sonrasi ayarlari yapiliyor
 			for fontdir in ["100dpi", "75dpi", "Type1", "cyrillic"]: 		
@@ -417,10 +553,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			#setup_11 = ('chroot %s useradd root -m -G audio,video,cdrom,plugdev' %mntdir)
 			#os.system(setup_11)
 			
-			if ( g_gui == 1 ):
-				self.write_status('\nKurulum süreci devam ediyor.\n\nAçılış servisleri ayarlanıyor...') 
-			else:
-				print( 'Yapılandırma dosyaları kopyalanıyor...' )
+			# TODO: Bilgi gösterimi: açılış servisleri...
 			
 			shutil.copyfile("/truva_installer/files/group","%s/etc/group" %mntdir)
 			shutil.copyfile("/truva_installer/files/fstab","%s/etc/fstab" %mntdir)
@@ -429,161 +562,13 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			shutil.copyfile("/truva_installer/files/lang.sh","%s/etc/profile.d/lang.sh" %mntdir)
 			shutil.copyfile("/truva_installer/files/lang.csh","%s/etc/profile.d/lang.csh" %mntdir)
 			shutil.copyfile("/truva_installer/files/hardwareclock","%s/etc/hardwareclock" %mntdir)
-			
-			
-			msgtext  = '\nAçılış yöneticisini kurmak istiyor musunuz?'
-			
-			msgdialog = gtk.MessageDialog( None, gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, msgtext )
-			response = msgdialog.run()
-			msgdialog.destroy()
-			
-			
-			if response == gtk.RESPONSE_YES:		
-				if ( g_gui == 1 ):
-					self.write_status('\nKurulum süreci devam ediyor.\n\nAçılış yöneticisi ayarlanıyor...') 
-				else:
-					print( 'Açılış yöneticisi ayarlanıyor...' )
-					
-				part_root = installpart[5:9]
-				print "part root : %s" %part_root
-				
-				dev = ord(part_root[2:3])-97
-				part_root1 = int(part_root[3:4])-1
-				root_dev = "(hd%d,%d)" % (dev , part_root1)
-				print "kurulum diskinin hd karsiligi : (hd%d,%d)" % (dev , part_root1)
-				
-				
-				grub_hazirla = grub_betik % {"root_dev": root_dev}
-				
-				if os.path.isfile("%s/sbin/grub_kur.sh"  %mntdir):
-					os.remove("%s/sbin/grub_kur.sh"  %mntdir)
-					grub_yaz = open("%s/sbin/grub_kur.sh"  %mntdir,"w")
-					grub_yaz.write ( grub_hazirla )
-					grub_yaz.close()
-				else:
-					grub_yaz = open("%s/sbin/grub_kur.sh"  %mntdir,"w")
-					grub_yaz.write ( grub_hazirla )
-					grub_yaz.close()
-				
-				os.system("cp -dpR %s/lib/grub/i386-pc/* %s/boot/grub/" %(mntdir,mntdir))
-				#shutil.copytree("%s/lib/grub/i386-pc/*" %mntdir, "%s/boot/grub/" %mntdir)
-				
-				setup_13 = ('chmod 755 %s/sbin/grub_kur.sh' %mntdir)
-				os.system ( setup_13 )
-				
-				setup_14 = ('chroot %s /sbin/grub_kur.sh' %mntdir)
-				os.system ( setup_14 )
-				
-		
-				if os.path.isfile("%s/boot/grub/menu.lst" %mntdir):
-					os.remove("%s/boot/grub/menu.lst" %mntdir)
-					menu_lst = open("%s/boot/grub/menu.lst" %mntdir,"a")
-				else:
-					menu_lst = open("%s/boot/grub/menu.lst" %mntdir,"a")				
-				
-				menu_lst.write("default		0 \n")
-				menu_lst.write("timeout		5 \n")
-				menu_lst.write("splashimage=%s/boot/grub/splash.xpm.gz \n\n" %root_dev)
-	
-				fcmdline=open("/proc/cmdline","r")
-				params=fcmdline.read().split()
-				fcmdline.close()
-				for param in params:
-					if param.startswith("vga=") or param.startswith("video="):
-						print param
-	
-		
-				menu_lst.write("title  Truva Linux\n")
-				menu_lst.write("root   " + root_dev + "\n")
-				menu_lst.write("kernel /boot/" + vmlinuz + " root=" + installpart + " ro quiet " + param + "\n")
-				menu_lst.write("initrd /boot/" + initrd + "\n\n")
-				
-				#elif (disk_format_2 == '86') or (disk_format == '87') or (disk_format == ' b') or (disk_format == ' c') or (disk_format == ' e'):
-				menu_lst.write("# title  Windows\n")
-				menu_lst.write("# root   hd(0,0)\n")
-				menu_lst.write("# makeactive \n")
-				menu_lst.write("# chainloader +1 \n")
-				
-				menu_lst.close()
-				
-				#shutil.copyfile("/truva_installer/files/menu.lst","%s/boot/grub/menu.lst" %mntdir)
-				
-			else:
-				if ( g_gui == 1 ):
-					self.write_status('\nAçılış yöneticisi ayarlanmadı...') 
-				else:
-					print( 'Açılış yöneticisi ayarlanmadı...' )
-						
+
 			time.sleep(1)				
 			os.system( 'sync' )
 			time.sleep(2)
 			
-			g_installok = True
-			
-			if ( g_gui == 1 ):
-				self.write_status('\nCd çıkartılıyor...') 
-			else:
-				print( 'Cd çıkartılıyor...' )
-			
-			os.system("umount %s" %device)
-			os.system("/usr/bin/eject %s" %device)
-	
-	def main(self):
-		global g_gui
-		global g_exedir
-		global g_installdev
-		global g_writelilo
-		global g_installok
-		global g_mntdir
-		global g_bootdisk
-		exedir = g_exedir
-		mntdir = g_mntdir
-		
-		partname = ''
-	
-		"""try:
-			opts, args = getopt.getopt( sys.argv[1:], "g", ["device="]) 
-		except getopt.GetoptError:
-			print( '\nGeçersiz parametre(ler):\n--device, Örnek: --device=/dev/hda1\n -g grafiksel çıktı için.\n' ) 
-			sys.exit(2)"""
-		opts = [('-g', ''), ('--device', '/dev/sda2')]
-		args = []
-	
-		pid = os.getpid()
-		oscmd = ( 'echo "%(pid)s" > %(exedir)s/pid' % vars() ) 
-		os.system( oscmd )
-	
-		for o, a in opts:
-			if o == '-g':
-				g_gui = 1
-			if o == '--device':
-				partname = a	
-				
-		if ( partname == '' ):		
-			print( '\nParameter "--device" is needed.\nFor example: --device=/dev/hda1\n' ) 
-			sys.exit(2)
-		
-		self.write_status('\n\nLütfen bekleyiniz...\n')
-	
-		time.sleep(4)
-		self.execute_install( partname )
-		
-		mntcmd = ( 'umount %s' % g_installdev )
-		os.system( mntcmd )
-	
-		oscmd = ( 'echo "0" > %s/pid' % exedir ) 
-		os.system( oscmd )
-	
-		if ( g_installok == True ):
-			time.sleep(1)
-			self.write_status('\nKurulum tamamlandı!\n\nSistem yeniden başlatıldıktan sonra yönetici şifrenizi\ndeğiştirmeyi unutmayınız...\n\nSistem şimdi yeniden başlatılıyor...')
-			#os.system("/sbin/reboot")
-
-	def nextWindow(self):
-		windowname = glbs.allWindows[self.windowNo + 1]
-		exec("self.%s = %s()" % (windowname, windowname))
-		exec("self.%s.show()" % windowname)
-		self.close()
+			os.system("umount %s" % device)
+			# os.system("/usr/bin/eject")
 
 class userWindow(QtGui.QMainWindow, Ui_userWindow):
 	def __init__(self):
@@ -595,11 +580,38 @@ class userWindow(QtGui.QMainWindow, Ui_userWindow):
 
 		exec(glbs.defaultSignals)
 
+	def user(self):
+		os.system("chroot %s /usr/sbin/useradd %s" % (g_mntdir, str(self.userNameLine.text())))
+		os.system("chroot %s /usr/sbin/usermod -d /home/%s %s" % (g_mntdir, str(self.userNameLine.text()), str(self.userNameLine.text())))
+		os.system("chroot %s /usr/sbin/usermod -p '%s' %s" % (g_mntdir, getShadowed(str(self.userPasswdLine_1.text())), str(self.userNameLine.text())))
+		os.system("chroot %s /usr/sbin/usermod -U %s" % (g_mntdir, str(self.userNameLine.text())))
+
+	def root(self):
+		os.system("chroot %s /usr/sbin/usermod -p '%s' root" % (g_mntdir, getShadowed(str(self.rootPasswdLine_1.text()))))
+		os.system("chroot %s /usr/sbin/usermod -U root" % g_mntdir)
+
 	def nextWindow(self):
-		windowname = glbs.allWindows[self.windowNo + 1]
-		exec("self.%s = %s()" % (windowname, windowname))
-		exec("self.%s.show()" % windowname)
-		self.close()
+		isEmpty = len(self.rootPasswdLine_1.text()) == 0 or len(self.rootPasswdLine_2.text()) == 0 or len(self.userNameLine.text()) == 0 or len(self.userPasswdLine_1.text()) == 0 or len(self.userPasswdLine_2.text()) == 0
+
+		if not isEmpty:
+			if self.rootPasswdLine_1.text() == self.rootPasswdLine_2.text():
+				if self.userPasswdLine_1.text() == self.userPasswdLine_2.text():
+					self.user()
+					self.root()
+
+					windowname = glbs.allWindows[self.windowNo + 1]
+					exec("self.%s = %s()" % (windowname, windowname))
+					exec("self.%s.showFullScreen()" % windowname)
+					self.close()
+				else:
+					QtGui.QMessageBox.critical(self, u"Hata!", u"Kullanıcı parola alanları aynı değil, lütfen denetleyin.")
+			else:
+				QtGui.QMessageBox.critical(self, u"Hata!", u"Root parola alanları aynı değil, lütfen denetleyin.")
+		else:
+			QtGui.QMessageBox.critical(self, u"Hata!", u"Tüm alanları doldurun.")
+
+	def backWindow(self):
+		pass
 
 class grubWindow(QtGui.QMainWindow, Ui_grubWindow):
 	def __init__(self):
@@ -611,10 +623,87 @@ class grubWindow(QtGui.QMainWindow, Ui_grubWindow):
 
 		exec(glbs.defaultSignals)
 
+	def installGrub(self):
+		mntdir = g_mntdir
+		installpart = g_installpart
+
+		part_root = installpart[5:9]
+		print "part root : %s" %part_root
+		
+		dev = ord(part_root[2:3])-97
+		part_root1 = int(part_root[3:4])-1
+		root_dev = "(hd%d,%d)" % (dev , part_root1)
+		print "kurulum diskinin hd karsiligi : (hd%d,%d)" % (dev , part_root1)
+		
+		
+		grub_hazirla = grub_betik % {"root_dev": root_dev}
+		
+		if os.path.isfile("%s/sbin/grub_kur.sh"  %mntdir):
+			os.remove("%s/sbin/grub_kur.sh"  %mntdir)
+			grub_yaz = open("%s/sbin/grub_kur.sh"  %mntdir,"w")
+			grub_yaz.write ( grub_hazirla )
+			grub_yaz.close()
+		else:
+			grub_yaz = open("%s/sbin/grub_kur.sh"  %mntdir,"w")
+			grub_yaz.write ( grub_hazirla )
+			grub_yaz.close()
+		
+		os.system("cp -dpR %s/lib/grub/i386-pc/* %s/boot/grub/" %(mntdir,mntdir))
+		#shutil.copytree("%s/lib/grub/i386-pc/*" %mntdir, "%s/boot/grub/" %mntdir)
+		
+		setup_13 = ('chmod 755 %s/sbin/grub_kur.sh' %mntdir)
+		os.system ( setup_13 )
+		
+		setup_14 = ('chroot %s /sbin/grub_kur.sh' %mntdir)
+		os.system ( setup_14 )
+		
+
+		if os.path.isfile("%s/boot/grub/menu.lst" %mntdir):
+			os.remove("%s/boot/grub/menu.lst" %mntdir)
+			menu_lst = open("%s/boot/grub/menu.lst" %mntdir,"a")
+		else:
+			menu_lst = open("%s/boot/grub/menu.lst" %mntdir,"a")				
+		
+		menu_lst.write("default		0 \n")
+		menu_lst.write("timeout		5 \n")
+		menu_lst.write("splashimage=%s/boot/grub/splash.xpm.gz \n\n" %root_dev)
+
+		fcmdline=open("/proc/cmdline","r")
+		params=fcmdline.read().split()
+		fcmdline.close()
+		for param in params:
+			if param.startswith("vga=") or param.startswith("video="):
+				print param
+
+
+		menu_lst.write("title  Truva Linux\n")
+		menu_lst.write("root   " + root_dev + "\n")
+		menu_lst.write("kernel /boot/" + vmlinuz + " root=" + installpart + " ro quiet " + param + "\n")
+		menu_lst.write("initrd /boot/" + initrd + "\n\n")
+		
+		#elif (disk_format_2 == '86') or (disk_format == '87') or (disk_format == ' b') or (disk_format == ' c') or (disk_format == ' e'):
+		menu_lst.write("# title  Windows\n")
+		menu_lst.write("# root   hd(0,0)\n")
+		menu_lst.write("# makeactive \n")
+		menu_lst.write("# chainloader +1 \n")
+		
+		menu_lst.close()
+		
+		#shutil.copyfile("/truva_installer/files/menu.lst","%s/boot/grub/menu.lst" %mntdir)
+
 	def nextWindow(self):
+		if self.installGrubCheck.isChecked():
+			self.installGrub()
+
 		windowname = glbs.allWindows[self.windowNo + 1]
 		exec("self.%s = %s()" % (windowname, windowname))
-		exec("self.%s.show()" % windowname)
+		exec("self.%s.showFullScreen()" % windowname)
+		self.close()
+
+	def backWindow(self):
+		windowname = glbs.allWindows[self.windowNo - 1]
+		exec("self.%s = %s()" % (windowname, windowname))
+		exec("self.%s.showFullScreen()" % windowname)
 		self.close()
 
 class endWindow(QtGui.QMainWindow, Ui_endWindow):
@@ -628,12 +717,15 @@ class endWindow(QtGui.QMainWindow, Ui_endWindow):
 		exec(glbs.defaultSignals)
 
 	def nextWindow(self):
-		windowname = glbs.allWindows[self.windowNo + 1]
-		exec("self.%s = %s()" % (windowname, windowname))
-		exec("self.%s.show()" % windowname)
-		self.close()
+		mntcmd = ( 'umount %s' % g_installdev )
+		os.system( mntcmd )
+		# os.system("/sbin/eject")
+		# os.system("/sbin/reboot")
+
+	def backWindow(self):
+		pass
 
 app = QtGui.QApplication([])
 mw = mainWindow()
-mw.show()
+mw.showFullScreen()
 app.exec_()
