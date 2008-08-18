@@ -221,7 +221,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			self.write_status('\nKurulum tamamlandı!\n\nSistem yeniden başlatıldıktan sonra yönetici şifrenizi\ndeğiştirmeyi unutmayınız...\n\nSistem şimdi yeniden başlatılıyor...')
 			#os.system("/sbin/reboot")"""
 
-		self.infoLabel.setText(u"Tüm paketler kuruldu 'İleri' düğmesi ile devam edebilirsiniz.")
+		self.infoLabel.setText(u"Tüm paketler kuruldu. 'İleri' düğmesi ile devam edebilirsiniz.")
 		self.isRunning = False
 
 	def nextWindow(self):
