@@ -58,8 +58,7 @@ class Ui_partedWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600; color:#00aaff;\">Kurulum yapabilmeniz için truvaya yer ayırmanız gerekmektedir.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600; color:#00aaff;\">Kendi bölümlendirme uygulamamızı yazana kadar gparted kullanmak zorundayız.</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600; color:#00aaff;\">Kurulum yapabilmeniz için Truva'ya yer ayırmanız gerekmektedir.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600; color:#00aaff;\"></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600; color:#00aaff;\">Gparted ile diskinizi bölümlendirebilirsiniz.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.gpartedButton.setText(QtGui.QApplication.translate("partedWindow", "Gparted\'i Aç", None, QtGui.QApplication.UnicodeUTF8))
