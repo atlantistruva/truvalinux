@@ -40,7 +40,6 @@ import random
 
 g_exedir = '/truva_installer'
 g_mntdir = '/truva_installer/mount'
-g_bootfilesdir = '/truva_installer/bootfiles'
 g_installdev = ''
 g_gui = 0
 g_writelilo = False
@@ -254,7 +253,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 	def execute_install(self, installpart ):
 		global g_mntdir 
 		global g_gui
-		global g_bootfilesdir
 		global g_installdev
 		global g_writelilo
 		global g_installok
@@ -263,7 +261,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		g_installpart = installpart
 	
 		mntdir = g_mntdir
-		bootfilesdir = g_bootfilesdir
 		_osname = {}
 		space_error = False
 		bootsafemode = False
