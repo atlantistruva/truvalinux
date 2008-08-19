@@ -12,7 +12,7 @@
 
 allWindows = ("mainWindow", "partedWindow", "discWindow", "installWindow", "userWindow", "grubWindow", "endWindow")
 
-packageDir = "/home/rohanrhu/truva/paketler/"
+packageDir = "/var/log/mount/Paketler/"
 pictureDir = "/home/rohanrhu/Resim/"
 
 defaultSignals = \
