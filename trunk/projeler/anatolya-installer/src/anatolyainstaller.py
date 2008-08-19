@@ -136,7 +136,7 @@ class discWindow(QtGui.QMainWindow, Ui_discWindow):
 		self.selected = str(self.discsList.currentText())
 		self.selectedDisc = self.selected.split("-")[0].replace(" ", "")
 
-		reply = QtGui.QMessageBox.question(self, u"Kurulum!", u"Kurulum için seçtiğiniz disk bölümü\n\n %s \n\n Tüm veriler silinecektir!\nDevam etmek istiyor musunuz ?" % self.selected, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+		reply = QtGui.QMessageBox.question(self, u"Kurulum!", u"Kurulum için seçtiğiniz disk bölümü\n\n %s \n\nTüm veriler silinecektir!\nDevam etmek istiyor musunuz ?" % self.selected, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
 
 		if reply == QtGui.QMessageBox.Yes:
 			windowname = glbs.allWindows[self.windowNo + 1]
