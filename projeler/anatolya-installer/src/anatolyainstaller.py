@@ -165,8 +165,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		self.run_()
 
 	def run_(self):
-		# os.system("sudo python install_run.py -g --device=/dev/sda2")
-		# self.main()
+		
 		thread.start_new_thread(self.run, ())
 
 	def run(self):
