@@ -552,7 +552,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			
 			# TODO: Bilgi gösterimi: açılış servisleri...
 			
-			shutil.copyfile("/anatolya-installer/files/group","%s/etc/group" %mntdir)
+			#shutil.copyfile("/anatolya-installer/files/group","%s/etc/group" %mntdir)
 			shutil.copyfile("/anatolya-installer/files/fstab","%s/etc/fstab" %mntdir)
 			shutil.copyfile("/anatolya-installer/files/rc.font","%s/etc/rc.d/rc.font" %mntdir)		
 			shutil.copyfile("/anatolya-installer/files/xorg.conf","%s/etc/X11/xorg.conf" %mntdir)
