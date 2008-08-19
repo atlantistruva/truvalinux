@@ -38,8 +38,8 @@ import subprocess
 import thread
 import random
 
-g_exedir = '/truva_installer'
-g_mntdir = '/truva_installer/mount'
+g_exedir = '/anatolya_installer'
+g_mntdir = '/anatolya-installer/mount'
 g_installdev = ''
 g_gui = 0
 g_writelilo = False
@@ -293,23 +293,23 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			partname = str(partition.readline())
 			osname = str(filesystem.readline())
 		
-		if os.path.isfile("/truva_installer/file/diskler.txt"):
-			os.remove("/truva_installer/file/diskler.txt")
-			disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /truva_installer/files/diskler.txt"
+		if os.path.isfile("/anatolya-installer/files/diskler.txt"):
+			os.remove("/anatolya-installer/files/diskler.txt")
+			disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /anatolya-installer/files/diskler.txt"
 			os.system(disk_liste)
 		else:
-			disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /truva_installer/files/diskler.txt"
+			disk_liste = "fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext > /anatolya-installer/files/diskler.txt"
 			os.system(disk_liste)
 		
 		# diskler okunuyor
-		disk_oku = open("/truva_installer/files/diskler.txt",'r')
+		disk_oku = open("/anatolya-installer/files/diskler.txt",'r')
 		
 		# fstab dosyasi eklemek uzere aciliyor
-		if os.path.isfile("/truva_installer/files/fstab"):
-			os.remove("/truva_installer/files/fstab")
-			fstab = open("/truva_installer/files/fstab","a")
+		if os.path.isfile("/anatolya-installer/files/fstab"):
+			os.remove("/anatolya-installer/files/fstab")
+			fstab = open("/anatolya-installer/files/fstab","a")
 		else:
-			fstab = open("/truva_installer/files/fstab","a")
+			fstab = open("/anatolya-installer/files/fstab","a")
 		
 		dizinler = []
 		
@@ -337,7 +337,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			else: break
 	
 		# cd/dvd aygitlari ekleniyor.
-		#fstab = open("/truva_installer/files/fstab","a")
+		#fstab = open("/anatolya-installer/files/fstab","a")
 				
 		blocks = os.listdir("/sys/block")
 		for block in blocks:
@@ -497,7 +497,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			# TODO: Sistem ayarları ekranda belirtilecek
 
 			for disk_dizin in dizinler:
-				if not os.path.isdir('/truva_installer/mount/' + disk_dizin):
+				if not os.path.isdir('/anatolya-installer/mount/' + disk_dizin):
 					result = os.makedirs("%s/%s" %(mntdir,disk_dizin))
 					if result != None:
 						print "%s dizini oluşturulamadı..." %disk_dizin
@@ -529,7 +529,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			else:
 				print( 'Açılış servisleri ayarlanıyor...' )
 			
-			shutil.copyfile("/truva_installer/files/rc.keymap","%s/etc/rc.d/rc.keymap" %mntdir)
+			shutil.copyfile("/anatolya-installer/files/rc.keymap","%s/etc/rc.d/rc.keymap" %mntdir)
 				
 			setup_6 = ('chmod 755 %s/etc/rc.d/rc.keymap' %mntdir)
 			os.system(setup_6)
@@ -552,13 +552,13 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			
 			# TODO: Bilgi gösterimi: açılış servisleri...
 			
-			shutil.copyfile("/truva_installer/files/group","%s/etc/group" %mntdir)
-			shutil.copyfile("/truva_installer/files/fstab","%s/etc/fstab" %mntdir)
-			shutil.copyfile("/truva_installer/files/rc.font","%s/etc/rc.d/rc.font" %mntdir)		
-			shutil.copyfile("/truva_installer/files/xorg.conf","%s/etc/X11/xorg.conf" %mntdir)
-			shutil.copyfile("/truva_installer/files/lang.sh","%s/etc/profile.d/lang.sh" %mntdir)
-			shutil.copyfile("/truva_installer/files/lang.csh","%s/etc/profile.d/lang.csh" %mntdir)
-			shutil.copyfile("/truva_installer/files/hardwareclock","%s/etc/hardwareclock" %mntdir)
+			shutil.copyfile("/anatolya-installer/files/group","%s/etc/group" %mntdir)
+			shutil.copyfile("/anatolya-installer/files/fstab","%s/etc/fstab" %mntdir)
+			shutil.copyfile("/anatolya-installer/files/rc.font","%s/etc/rc.d/rc.font" %mntdir)		
+			shutil.copyfile("/anatolya-installer/files/xorg.conf","%s/etc/X11/xorg.conf" %mntdir)
+			shutil.copyfile("/anatolya-installer/files/lang.sh","%s/etc/profile.d/lang.sh" %mntdir)
+			shutil.copyfile("/anatolya-installer/files/lang.csh","%s/etc/profile.d/lang.csh" %mntdir)
+			shutil.copyfile("/anatolya-installer/files/hardwareclock","%s/etc/hardwareclock" %mntdir)
 
 			time.sleep(1)				
 			os.system( 'sync' )
@@ -686,7 +686,7 @@ class grubWindow(QtGui.QMainWindow, Ui_grubWindow):
 		
 		menu_lst.close()
 		
-		#shutil.copyfile("/truva_installer/files/menu.lst","%s/boot/grub/menu.lst" %mntdir)
+		#shutil.copyfile("/anatolya-installer/files/menu.lst","%s/boot/grub/menu.lst" %mntdir)
 
 	def nextWindow(self):
 		if self.installGrubCheck.isChecked():
