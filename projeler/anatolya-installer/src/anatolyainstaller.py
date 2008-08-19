@@ -121,7 +121,7 @@ class discWindow(QtGui.QMainWindow, Ui_discWindow):
 		for disc in self.allDiscs:
 			# disc = disc.replace("\n", "")
 			size = os.popen("df %s | grep /dev/ | cut -c21-30" % disc[0:-1]).read().replace(" ", "").replace("\n", "")
-			print "-*- %s" % size
+			print "%s - %s" % (disc,size)
 
 			size = int(size) / (1024 * 1024)
 
@@ -468,7 +468,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 					lenPackages += len(os.listdir(glbs.packageDir + i))
 			print "-*- Len: " + str(lenPackages)
 
-			#os.system('rm -rf *')
 			iP = 0
 
 			for dizin in os.listdir(glbs.packageDir):
