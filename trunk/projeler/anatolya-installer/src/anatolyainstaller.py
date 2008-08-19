@@ -121,9 +121,14 @@ class discWindow(QtGui.QMainWindow, Ui_discWindow):
 		for disc in self.allDiscs:
 			# disc = disc.replace("\n", "")
 			size = os.popen("df %s | grep /dev/ | cut -c21-30" % disc[0:-1]).read().replace(" ", "").replace("\n", "")
-			print "%s - %s" % (disc,size)
+			print "%s -*- %s" % (disc,size)
 
-			size = int(size) / (1024 * 1024)
+			#swap alanı denk gelince disk boyutunu göstermiyor ve kurulum hata veriyor.
+			#bu nedenle swap ı görünce o disk bölümünü atlıyor.
+			if size <> '':
+				size = int(size) / (1024 * 1024)
+			else:
+				continue
 
 			self.discsList.addItem("%s - %s GB" % (str(disc[0:-1]), str(size)))
 
