@@ -594,7 +594,6 @@ class grubWindow(QtGui.QMainWindow, Ui_grubWindow):
 			grub_yaz.close()
 		
 		os.system("cp -dpR %s/lib/grub/i386-pc/* %s/boot/grub/" %(mntdir,mntdir))
-		#shutil.copytree("%s/lib/grub/i386-pc/*" %mntdir, "%s/boot/grub/" %mntdir)
 		
 		setup_13 = ('chmod 755 %s/sbin/grub_kur.sh' %mntdir)
 		os.system ( setup_13 )
@@ -634,8 +633,6 @@ class grubWindow(QtGui.QMainWindow, Ui_grubWindow):
 		
 		menu_lst.close()
 		
-		#shutil.copyfile("/anatolya-installer/files/menu.lst","%s/boot/grub/menu.lst" %mntdir)
-
 	def nextWindow(self):
 		if self.installGrubCheck.isChecked():
 			self.installGrub()
