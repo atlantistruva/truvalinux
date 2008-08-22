@@ -92,14 +92,14 @@ class Ui_installWindow(object):
     def retranslateUi(self, installWindow):
         installWindow.setWindowTitle(QtGui.QApplication.translate("installWindow", "Paketler Kuruluyor - Anatolya Kurulum", None, QtGui.QApplication.UnicodeUTF8))
         self.nextButton.setText(QtGui.QApplication.translate("installWindow", "İleri", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("installWindow", "Kurulan paket:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("installWindow", "Kategori:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("installWindow", "Kurulan paket\t:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("installWindow", "Kategori\t\t:", None, QtGui.QApplication.UnicodeUTF8))
         self.packageLabel.setText(QtGui.QApplication.translate("installWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.categoryLabel.setText(QtGui.QApplication.translate("installWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_3.setText(QtGui.QApplication.translate("installWindow", "Toplam ilerleme:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_3.setText(QtGui.QApplication.translate("installWindow", "Toplam ilerleme :", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("installWindow", "Paketler kuruluyor...\n"
 "Bu işlem biraz zaman alabilir.\n"
-"Şimdi kendinize bir kahve yapabilir ve Truvanızın kurulmasını bekleyebilirsiniz.", None, QtGui.QApplication.UnicodeUTF8))
+"Şimdi kendinize bir kahve yapabilir ve Truva\'nızın kurulmasını bekleyebilirsiniz.", None, QtGui.QApplication.UnicodeUTF8))
         self.backButton.setText(QtGui.QApplication.translate("installWindow", "Geri", None, QtGui.QApplication.UnicodeUTF8))
 
 import anatolyaimages_rc
