@@ -62,7 +62,7 @@ class Ui_grubWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600; color:#00aaff;\">Sistem önyükleyicisini (Grub) kurmak istiyormusunuz ?</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600; color:#00aaff;\">Sistem önyükleyicisini (Grub) kurmak istiyor musunuz ?</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.noInstallGrubCheck.setText(QtGui.QApplication.translate("grubWindow", "Hayır", None, QtGui.QApplication.UnicodeUTF8))
         self.installGrubCheck.setText(QtGui.QApplication.translate("grubWindow", "Evet (Önerilen)", None, QtGui.QApplication.UnicodeUTF8))
         self.nextButton.setText(QtGui.QApplication.translate("grubWindow", "İleri", None, QtGui.QApplication.UnicodeUTF8))
