@@ -1,2 +1,6 @@
-Kurulumu çalıştırmak için svn deposundaki anatolya klasörünü 
+Kurulumu çalıştırmak için svn deposundaki anatolya-installer klasörünü 
 kök dizine aynı adla kopyalamak gereklidir.
+
+Çalıştırmak içinse konsoldan kök dizindeki anatolya-installer klasörü içine 
+girilir ve python anatolya-installer.py komutu verilir.
+
