@@ -193,10 +193,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		opts = [('-g', ''), ('--device', self.disc)]
 		args = []
 	
-		pid = os.getpid()
-		oscmd = ( 'echo "%(pid)s" > %(exedir)s/pid' % vars() ) 
-		os.system( oscmd )
-	
 		for o, a in opts:
 			if o == '-g':
 				g_gui = 1
@@ -207,22 +203,9 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			print( '\nParameter "--device" is needed.\nFor example: --device=/dev/hda1\n' ) 
 			sys.exit(2)
 		
-		self.write_status('\n\nLütfen bekleyiniz...\n')
-	
 		time.sleep(4)
 		self.execute_install( partname )
 		
-		"""mntcmd = ( 'umount %s' % g_installdev )
-		os.system( mntcmd )
-	
-		oscmd = ( 'echo "0" > %s/pid' % exedir ) 
-		os.system( oscmd )
-	
-		if ( g_installok == True ):
-			time.sleep(1)
-			self.write_status('\nKurulum tamamlandı!\n\nSistem yeniden başlatıldıktan sonra yönetici şifrenizi\ndeğiştirmeyi unutmayınız...\n\nSistem şimdi yeniden başlatılıyor...')
-			#os.system("/sbin/reboot")"""
-
 		self.infoLabel.setText(u"Tüm paketler kuruldu. 'İleri' düğmesi ile devam edebilirsiniz.")
 		self.isRunning = False
 
@@ -240,17 +223,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 
 	def runbg(self, program, *args ):
 			return os.spawnvp( os.P_WAIT, program, (program,) + args )
-	
-	def write_status(self, statmsg ):
-		global g_exedir
-		global g_gui
-	
-		if ( g_gui == 1 ):
-			statfile = g_exedir
-			statfile += '/stat'
-			os.system( 'echo "%(statmsg)s" > %(statfile)s' % vars() )
-		else:
-			print( statmsg )	
 	
 	def execute_install(self, installpart ):
 		global g_mntdir 
@@ -280,10 +252,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 				if ( ask == 'h' ):
 					return
 				
-		self.write_status('\nLütfen bekleyin.\n\nDiskiniz analiz ediliyor...')
-	
-		# partition = os.popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1")
-		# filesystem = os.popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext")
 		partition = subprocess.Popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdout
 		filesystem = subprocess.Popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdout
 
@@ -338,8 +306,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			else: break
 	
 		# cd/dvd aygitlari ekleniyor.
-		#fstab = open("/anatolya-installer/files/fstab","a")
-				
 		blocks = os.listdir("/sys/block")
 		for block in blocks:
 			if block[:2] == "hd":
@@ -439,7 +405,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		mntcmd = 'mount %(installpart)s %(mntdir)s' % vars()
 		osres = os.system( mntcmd )
 		if osres != 0:
-			self.write_status('\nKritik bir hata oluştu.\nKurulum iptal edildi !')
+			print "\nKritik bir hata oluştu.\nKurulum iptal edildi !"
 			return
 		else:	
 			oscmd = ( 'mkdir %s/boot' % mntdir )
@@ -477,11 +443,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 				if os.path.isdir(target_dir):
 					paket_listesi = os.listdir( target_dir )
 					for package in paket_listesi:
-						if ( g_gui == 1 ):
-							self.write_status('\nKurulum işlemi devam ediyor.\nKurulan Kategori : %s\nKurulan paket : %s' %(dizin,package))  
-						else:
-							print( 'Kurulan paket : %s' %package) 	
-
 						value = 100 * iP / lenPackages
 						self.installBar.setValue(int(value))
 						self.packageLabel.setText(str(package))
@@ -524,35 +485,22 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			setup_5 = ('chroot %s /usr/X11R6/bin/fc-cache -f' %mntdir)
 			os.system(setup_5)
 			
-			if ( g_gui == 1 ):
-				self.write_status('\nKurulum süreci devam ediyor.\n\nAçılış servisleri ayarlanıyor...') 
-			else:
-				print( 'Açılış servisleri ayarlanıyor...' )
-			
-			shutil.copyfile("/anatolya-installer/files/rc.keymap","%s/etc/rc.d/rc.keymap" %mntdir)
-				
 			setup_6 = ('chmod 755 %s/etc/rc.d/rc.keymap' %mntdir)
 			os.system(setup_6)
 			
 			setup_7 = ('chmod 755 %s/etc/rc.d/rc.font' %mntdir)
 			os.system(setup_7)
 			
-			#setup_8 = ('chmod 755 %s/etc/rc.d/rc.postinstall' %mntdir)
-			#os.system(setup_8)
+			setup_8 = ('chmod 755 %s/etc/rc.d/rc.messagebus' %mntdir)
+			os.system(setup_8)
 			
-			setup_9 = ('chmod 755 %s/etc/rc.d/rc.messagebus' %mntdir)
+			setup_9 = ('chmod 755 %s/etc/rc.d/rc.hald' %mntdir)
 			os.system(setup_9)
-			
-			setup_10 = ('chmod 755 %s/etc/rc.d/rc.hald' %mntdir)
-			os.system(setup_10)
-			
-			#os.system('chroot %s userdel -r root' %mntdir) 
-			#setup_11 = ('chroot %s useradd root -m -G audio,video,cdrom,plugdev' %mntdir)
-			#os.system(setup_11)
 			
 			# TODO: Bilgi gösterimi: açılış servisleri...
 			
 			#shutil.copyfile("/anatolya-installer/files/group","%s/etc/group" %mntdir)
+			shutil.copyfile("/anatolya-installer/files/rc.keymap","%s/etc/rc.d/rc.keymap" %mntdir)			
 			shutil.copyfile("/anatolya-installer/files/fstab","%s/etc/fstab" %mntdir)
 			shutil.copyfile("/anatolya-installer/files/rc.font","%s/etc/rc.d/rc.font" %mntdir)		
 			shutil.copyfile("/anatolya-installer/files/xorg.conf","%s/etc/X11/xorg.conf" %mntdir)
