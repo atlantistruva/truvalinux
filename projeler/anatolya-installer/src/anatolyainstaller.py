@@ -42,7 +42,6 @@ g_exedir = '/anatolya_installer'
 g_mntdir = '/anatolya-installer/mount'
 g_installdev = ''
 g_gui = 0
-g_writelilo = False
 g_installok = False
 g_bootdisk = ''
 g_installpart = ""
@@ -172,7 +171,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		global g_gui
 		global g_exedir
 		global g_installdev
-		global g_writelilo
 		global g_installok
 		global g_mntdir
 		global g_bootdisk
@@ -258,7 +256,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		global g_mntdir 
 		global g_gui
 		global g_installdev
-		global g_writelilo
 		global g_installok
 		global g_bootdisk
 		global g_installpart
