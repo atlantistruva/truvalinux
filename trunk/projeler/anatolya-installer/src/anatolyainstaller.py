@@ -10,9 +10,17 @@
 # Please read the COPYING file.
 #
 
-import sys
-
 import os
+import sys
+import time
+import gobject
+import array
+import shutil
+import getopt
+import commands
+import subprocess
+import thread
+import random
 
 # import screens..
 from screens.mainWindow import Ui_mainWindow
@@ -28,21 +36,11 @@ from user import getShadowed
 
 from PyQt4 import QtCore, QtGui
 
-import time
-import gobject
-import array
-import shutil
-import getopt
-import commands
-import subprocess
-import thread
-import random
 
 g_exedir = '/anatolya_installer'
 g_mntdir = '/anatolya-installer/mount'
 g_installdev = ''
 g_gui = 0
-g_installok = False
 g_bootdisk = ''
 g_installpart = ""
 
@@ -115,7 +113,7 @@ class discWindow(QtGui.QMainWindow, Ui_discWindow):
 
 		exec(glbs.defaultSignals)
 
-		self.allDiscs = os.popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1").readlines()
+		self.allDiscs = os.popen("fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1").readlines()
 
 		for disc in self.allDiscs:
 			# disc = disc.replace("\n", "")
@@ -171,7 +169,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		global g_gui
 		global g_exedir
 		global g_installdev
-		global g_installok
 		global g_mntdir
 		global g_bootdisk
 		exedir = g_exedir
@@ -228,7 +225,6 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 		global g_mntdir 
 		global g_gui
 		global g_installdev
-		global g_installok
 		global g_bootdisk
 		global g_installpart
 		g_installpart = installpart
@@ -252,8 +248,9 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 				if ( ask == 'h' ):
 					return
 				
-		partition = subprocess.Popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdout
-		filesystem = subprocess.Popen("sudo fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdout
+		partition = subprocess.Popen("fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext | cut -d ' ' -f1", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdout
+		
+		filesystem = subprocess.Popen("fdisk -l | grep /dev/ | grep -iv Disk | grep -iv Swap | grep -iv Ext", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdout
 
 		try:
 			partname = str(partition.readline())
@@ -411,7 +408,7 @@ class installWindow(QtGui.QMainWindow, Ui_installWindow):
 			oscmd = ( 'mkdir %s/boot' % mntdir )
 			os.system( oscmd )
 					
-			for device in ["/dev/hda","/dev/hdb","/dev/hdc","/dev/hdd","/dev/hde","/dev/hdf","/dev/hdg","/dev/hdh","/dev/sr0","/dev/sr1","/dev/sr2", "/dev/sr3","/dev/pcd0","/dev/pcd1","/dev/pcd2","/dev/pcd3","/dev/aztcd","/dev/cdu535","/dev/gscd","/dev/sonycd", "/dev/optcd","/dev/sjcd","/dev/mcdx0","/dev/mcdx1","/dev/sbpcd","/dev/cm205cd","/dev/cm206cd","/dev/mcd"]:
+			for device in ["/dev/hda","/dev/hdb","/dev/hdc","/dev/hdd","/dev/hde","/dev/hdf","/dev/hdg","/dev/hdh","/dev/sr0","/dev/sr1", "/dev/sr2","/dev/sr3","/dev/pcd0","/dev/pcd1","/dev/pcd2","/dev/pcd3","/dev/aztcd","/dev/cdu535","/dev/gscd", "/dev/sonycd","/dev/optcd","/dev/sjcd","/dev/mcdx0","/dev/mcdx1","/dev/sbpcd","/dev/cm205cd","/dev/cm206cd", "/dev/mcd"]:
 				
 				cd_mount = 'mount -o ro -t iso9660 %s /var/log/mount' %device
 				status = os.system( cd_mount )
@@ -549,11 +546,11 @@ class userWindow(QtGui.QMainWindow, Ui_userWindow):
 					exec("self.%s.showFullScreen()" % windowname)
 					self.close()
 				else:
-					QtGui.QMessageBox.critical(self, u"Hata!", u"Kullanıcı parola alanları aynı değil, lütfen denetleyin.")
+					QtGui.QMessageBox.critical(self, u"Hata!", u"Kullanıcı parola alanları aynı değil ! Lütfen kontrol ediniz...")
 			else:
-				QtGui.QMessageBox.critical(self, u"Hata!", u"Root parola alanları aynı değil, lütfen denetleyin.")
+				QtGui.QMessageBox.critical(self, u"Hata!", u"Root parola alanları aynı değil ! Lütfen kontrol ediniz...")
 		else:
-			QtGui.QMessageBox.critical(self, u"Hata!", u"Tüm alanları doldurun.")
+			QtGui.QMessageBox.critical(self, u"Hata!", u"Lütfen tüm alanları doldurunuz...")
 
 	def backWindow(self):
 		pass
