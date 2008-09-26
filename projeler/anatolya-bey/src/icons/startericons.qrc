@@ -1,32 +1,34 @@
 <RCC>
-  <qresource prefix="ok-button" >
-    <file>dialog-ok-apply.png</file>
-  </qresource>
-  <qresource prefix="icon" >
-    <file>icon.png</file>
-  </qresource>
-  <qresource prefix="mouse-left" >
-    <file>mouse-left.png</file>
-  </qresource>
-  <qresource prefix="mouse-right" >
-    <file>mouse-right.png</file>
-  </qresource>
-  <qresource prefix="go-next" >
-    <file>go-next.png</file>
-  </qresource>
-  <qresource prefix="go-previous" >
-    <file>go-previous.png</file>
-  </qresource>
-  <qresource prefix="exit-button" >
-    <file>application-exit.png</file>
-  </qresource>
-  <qresource prefix="truvalogo" >
-    <file>truva-logo.png</file>
-  </qresource>
-  <qresource prefix="beyimage" >
-    <file>beyimage.png</file>
-  </qresource>
-  <qresource prefix="endlogo" >
-    <file>endlogo.png</file>
-  </qresource>
+    <qresource prefix="/beyimage" >
+        <file>beyimage.png</file>
+    </qresource>
+    <qresource prefix="/endlogo" >
+        <file>endlogo.png</file>
+    </qresource>
+    <qresource prefix="/exit-button" >
+        <file>application-exit.png</file>
+    </qresource>
+    <qresource prefix="/go-next" >
+        <file>go-next.png</file>
+    </qresource>
+    <qresource prefix="/go-previous" >
+        <file>go-previous.png</file>
+    </qresource>
+    <qresource prefix="/icon" >
+        <file>balon.png</file>
+        <file>icon.png</file>
+        <file>penguen.png</file>
+    </qresource>
+    <qresource prefix="/mouse-left" >
+        <file>mouse-left.png</file>
+    </qresource>
+    <qresource prefix="/mouse-right" >
+        <file>mouse-right.png</file>
+    </qresource>
+    <qresource prefix="/ok-button" >
+        <file>dialog-ok-apply.png</file>
+    </qresource>
+    <qresource prefix="/truvalogo" >
+        <file>truva-logo.png</file>
+    </qresource>
 </RCC>

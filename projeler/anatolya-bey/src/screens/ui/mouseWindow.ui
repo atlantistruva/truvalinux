@@ -25,32 +25,26 @@
    <string>Fare Ayarları - Anatolya Bey</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../../icons/startericons.qrc" >
-    <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
+   <iconset resource="../../icons/startericons.qrc" >:/icon/icon.png</iconset>
   </property>
   <property name="styleSheet" >
-   <string notr="true" >QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
+   <string>QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>524</width>
-     <height>444</height>
-    </rect>
-   </property>
    <widget class="QGroupBox" name="groupBox" >
     <property name="geometry" >
      <rect>
       <x>170</x>
-      <y>60</y>
-      <width>321</width>
+      <y>80</y>
+      <width>301</width>
       <height>211</height>
      </rect>
     </property>
     <property name="title" >
      <string>Fare seçenekleri</string>
+    </property>
+    <property name="flat" >
+     <bool>true</bool>
     </property>
     <widget class="QLabel" name="label_2" >
      <property name="geometry" >
@@ -71,7 +65,7 @@
     <widget class="QLabel" name="label_3" >
      <property name="geometry" >
       <rect>
-       <x>170</x>
+       <x>160</x>
        <y>20</y>
        <width>131</width>
        <height>151</height>
@@ -87,7 +81,7 @@
     <widget class="QRadioButton" name="leftMouseSelection" >
      <property name="geometry" >
       <rect>
-       <x>20</x>
+       <x>40</x>
        <y>180</y>
        <width>92</width>
        <height>22</height>
@@ -130,8 +124,7 @@
      <string>Geri</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/go-previous/go-previous.png</normaloff>:/go-previous/go-previous.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/go-previous/go-previous.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="cancelButton" >
@@ -147,8 +140,7 @@
      <string>İptal</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/exit-button/application-exit.png</normaloff>:/exit-button/application-exit.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/exit-button/application-exit.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="nextButton" >
@@ -164,29 +156,31 @@
      <string>İleri</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/go-next/go-next.png</normaloff>:/go-next/go-next.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/go-next/go-next.png</iconset>
     </property>
    </widget>
    <widget class="QGroupBox" name="clickSelectionGroup" >
     <property name="geometry" >
      <rect>
       <x>170</x>
-      <y>280</y>
-      <width>321</width>
-      <height>121</height>
+      <y>300</y>
+      <width>301</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="title" >
      <string>Tıklama seçenkleri</string>
     </property>
+    <property name="flat" >
+     <bool>true</bool>
+    </property>
     <widget class="QRadioButton" name="singleClickSelection" >
      <property name="geometry" >
       <rect>
-       <x>20</x>
-       <y>20</y>
+       <x>50</x>
+       <y>61</y>
        <width>92</width>
-       <height>22</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text" >
@@ -196,10 +190,10 @@
     <widget class="QRadioButton" name="doubleClickSelection" >
      <property name="geometry" >
       <rect>
-       <x>20</x>
-       <y>60</y>
+       <x>50</x>
+       <y>20</y>
        <width>92</width>
-       <height>22</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text" >
@@ -207,23 +201,6 @@
      </property>
      <property name="checked" >
       <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4" >
-     <property name="geometry" >
-      <rect>
-       <x>150</x>
-       <y>10</y>
-       <width>161</width>
-       <height>91</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string>Dosyaları çift tıklama (ilk tıklamada
-dosyalar seçilir)
-ilemi yoksa tek tıklama
-ile mi açmak istiyorsunuz ?
--çift tıklama önerilir-</string>
      </property>
     </widget>
    </widget>
@@ -247,6 +224,36 @@ p, li { white-space: pre-wrap; }
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Arkaplan&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ağ ayarları&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Son&lt;/p>&lt;/body>&lt;/html></string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>290</y>
+      <width>161</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../../icons/startericons.qrc" >:/icon/penguen.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4" >
+    <property name="geometry" >
+     <rect>
+      <x>30</x>
+      <y>250</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Fare ayarlarınızı
+yapabilirsiniz :)</string>
     </property>
    </widget>
   </widget>

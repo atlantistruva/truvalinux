@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'screens/ui/kickerWindow.ui'
 #
-# Created: Sat Jul 19 03:54:03 2008
+# Created: Fri Sep 26 20:00:35 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -21,7 +21,7 @@ class Ui_KickerWindow(object):
         self.centralwidget.setObjectName("centralwidget")
 
         self.kickersGroup = QtGui.QGroupBox(self.centralwidget)
-        self.kickersGroup.setGeometry(QtCore.QRect(150,70,341,81))
+        self.kickersGroup.setGeometry(QtCore.QRect(160,70,321,81))
         self.kickersGroup.setObjectName("kickersGroup")
 
         self.listKickers = QtGui.QComboBox(self.kickersGroup)
@@ -29,7 +29,7 @@ class Ui_KickerWindow(object):
         self.listKickers.setObjectName("listKickers")
 
         self.viewGroup = QtGui.QGroupBox(self.centralwidget)
-        self.viewGroup.setGeometry(QtCore.QRect(150,160,341,171))
+        self.viewGroup.setGeometry(QtCore.QRect(160,160,321,171))
         self.viewGroup.setObjectName("viewGroup")
 
         self.viewPicture = QtGui.QLabel(self.viewGroup)
@@ -57,8 +57,17 @@ class Ui_KickerWindow(object):
         self.basementsLabel.setObjectName("basementsLabel")
 
         self.isConfig = QtGui.QCheckBox(self.centralwidget)
-        self.isConfig.setGeometry(QtCore.QRect(150,370,151,23))
+        self.isConfig.setGeometry(QtCore.QRect(160,360,151,23))
         self.isConfig.setObjectName("isConfig")
+
+        self.label = QtGui.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(0,290,161,161))
+        self.label.setPixmap(QtGui.QPixmap(":/icon/penguen.png"))
+        self.label.setObjectName("label")
+
+        self.label_2 = QtGui.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(40,270,111,36))
+        self.label_2.setObjectName("label_2")
         KickerWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(KickerWindow)
@@ -76,16 +85,17 @@ class Ui_KickerWindow(object):
         self.cancelButton.setText(QtGui.QApplication.translate("KickerWindow", "İptal", None, QtGui.QApplication.UnicodeUTF8))
         self.nextButton.setText(QtGui.QApplication.translate("KickerWindow", "İleri", None, QtGui.QApplication.UnicodeUTF8))
         self.backButton.setText(QtGui.QApplication.translate("KickerWindow", "Geri", None, QtGui.QApplication.UnicodeUTF8))
-        self.basementsLabel.setText(QtGui.QApplication.translate("KickerWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-        "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+        self.basementsLabel.setText(QtGui.QApplication.translate("KickerWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
         "p, li { white-space: pre-wrap; }\n"
         "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
         "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Başlangıç</p>\n"
         "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Fare ayarları</p>\n"
-        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Panel</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Panel Ayarları</span></p>\n"
         "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Arkaplan</p>\n"
         "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Ağ ayarları</p>\n"
         "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;\"><span style=\" font-weight:400;\">Son</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.isConfig.setText(QtGui.QApplication.translate("KickerWindow", "Paneli değiştirme", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("KickerWindow", "KDE panelinizin\n"
+        "şeklini seçin :)", None, QtGui.QApplication.UnicodeUTF8))
 
 import startericons_rc
