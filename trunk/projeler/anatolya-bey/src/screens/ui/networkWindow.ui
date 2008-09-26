@@ -25,66 +25,12 @@
    <string>Ağ Ayarları - Anatolya Bey</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../../icons/startericons.qrc" >
-    <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
+   <iconset resource="../../icons/startericons.qrc" >:/icon/icon.png</iconset>
   </property>
   <property name="styleSheet" >
-   <string notr="true" >QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
+   <string>QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>524</width>
-     <height>444</height>
-    </rect>
-   </property>
-   <widget class="QGroupBox" name="networkGroup" >
-    <property name="geometry" >
-     <rect>
-      <x>150</x>
-      <y>60</y>
-      <width>341</width>
-      <height>181</height>
-     </rect>
-    </property>
-    <property name="title" >
-     <string>Ağ arayüzleri</string>
-    </property>
-    <widget class="QListWidget" name="listIfaces" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>321</width>
-       <height>151</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QLabel" name="label" >
-    <property name="geometry" >
-     <rect>
-      <x>140</x>
-      <y>250</y>
-      <width>361</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Bu adımda internete bağlanabilmek
-için ağ ayarlarını yapabilirsiniz.
-Bağlantı sağlamak istediğiniz arayüzü
-seçin ve "İleri" ye tıklayın.
-
-bu ayar arayüzü sadece yüzeyseldir
-ve ethernet ağları içindir...
-Daha fazla ayrıntı için 
-"Ağ Yöneticisi" ne bakabilirsiniz.
-Herhangibir sorun çıkarsa bunu lütfen bildirin.</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="backButton" >
     <property name="enabled" >
      <bool>true</bool>
@@ -101,8 +47,7 @@ Herhangibir sorun çıkarsa bunu lütfen bildirin.</string>
      <string>Geri</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/go-previous/go-previous.png</normaloff>:/go-previous/go-previous.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/go-previous/go-previous.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="nextButton" >
@@ -118,8 +63,7 @@ Herhangibir sorun çıkarsa bunu lütfen bildirin.</string>
      <string>İleri</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/go-next/go-next.png</normaloff>:/go-next/go-next.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/go-next/go-next.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="cancelButton" >
@@ -135,8 +79,7 @@ Herhangibir sorun çıkarsa bunu lütfen bildirin.</string>
      <string>İptal</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/exit-button/application-exit.png</normaloff>:/exit-button/application-exit.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/exit-button/application-exit.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="basementsLabel" >
@@ -159,6 +102,48 @@ p, li { white-space: pre-wrap; }
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Arkaplan&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Ağ ayarları&lt;/span>&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Son&lt;/p>&lt;/body>&lt;/html></string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2" >
+    <property name="geometry" >
+     <rect>
+      <x>240</x>
+      <y>190</y>
+      <width>181</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../../icons/startericons.qrc" >:/icon/penguen.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openNetworkButton" >
+    <property name="geometry" >
+     <rect>
+      <x>190</x>
+      <y>140</y>
+      <width>81</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Ağ Yöneticisi</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label" >
+    <property name="geometry" >
+     <rect>
+      <x>280</x>
+      <y>140</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Ağ yöneticisini başlatabilirsiniz.</string>
     </property>
    </widget>
   </widget>

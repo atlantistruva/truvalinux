@@ -236,12 +236,7 @@ class networkWindow(Ui_NetworkWindow, QtGui.QMainWindow):
 		# Signals / slots connection
 		exec(glbs.defaultsignals)
 
-		for iface in os.listdir("/sys/class/net/"):
-			self.listIfaces.addItem(str(iface))
-
 	def nextWindow(self):
-		try: self.setNetwork()
-		except: pass
 		windowname = glbs.allwindows[self.windowno + 1]
 		exec("self.%s = %s()" % (windowname, windowname))
 		exec("self.%s.show()" % windowname)

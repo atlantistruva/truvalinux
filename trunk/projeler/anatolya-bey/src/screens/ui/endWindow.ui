@@ -25,28 +25,19 @@
    <string>Son - Anatolya Bey</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../../icons/startericons.qrc" >
-    <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
+   <iconset resource="../../icons/startericons.qrc" >:/icon/icon.png</iconset>
   </property>
   <property name="styleSheet" >
-   <string notr="true" >QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
+   <string>QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>524</width>
-     <height>444</height>
-    </rect>
-   </property>
    <widget class="QLabel" name="label" >
     <property name="geometry" >
      <rect>
-      <x>140</x>
-      <y>300</y>
-      <width>351</width>
-      <height>91</height>
+      <x>170</x>
+      <y>290</y>
+      <width>291</width>
+      <height>108</height>
      </rect>
     </property>
     <property name="text" >
@@ -65,9 +56,9 @@ p, li { white-space: pre-wrap; }
    <widget class="QLabel" name="endPicture" >
     <property name="geometry" >
      <rect>
-      <x>150</x>
+      <x>170</x>
       <y>70</y>
-      <width>341</width>
+      <width>325</width>
       <height>221</height>
      </rect>
     </property>
@@ -91,8 +82,7 @@ p, li { white-space: pre-wrap; }
      <string>Bitir</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/go-next/go-next.png</normaloff>:/go-next/go-next.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/go-next/go-next.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="backButton" >
@@ -111,8 +101,7 @@ p, li { white-space: pre-wrap; }
      <string>Geri</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/go-previous/go-previous.png</normaloff>:/go-previous/go-previous.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/go-previous/go-previous.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="cancelButton" >
@@ -128,8 +117,7 @@ p, li { white-space: pre-wrap; }
      <string>İptal</string>
     </property>
     <property name="icon" >
-     <iconset resource="../../icons/startericons.qrc" >
-      <normaloff>:/exit-button/application-exit.png</normaloff>:/exit-button/application-exit.png</iconset>
+     <iconset resource="../../icons/startericons.qrc" >:/exit-button/application-exit.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="basementsLabel" >

@@ -31,36 +31,13 @@
    <string>QMainWindow {background-image: url(:/beyimage/beyimage.png);}</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <widget class="QGroupBox" name="WallpapersGroup" >
-    <property name="geometry" >
-     <rect>
-      <x>150</x>
-      <y>70</y>
-      <width>151</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <property name="title" >
-     <string>Arkaplanlar</string>
-    </property>
-    <widget class="QListWidget" name="listWallpapers" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>131</width>
-       <height>181</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
    <widget class="QGroupBox" name="showPictureGroup" >
     <property name="geometry" >
      <rect>
       <x>310</x>
-      <y>70</y>
-      <width>181</width>
-      <height>161</height>
+      <y>260</y>
+      <width>151</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="title" >
@@ -71,8 +48,8 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>161</width>
-       <height>131</height>
+       <width>131</width>
+       <height>101</height>
       </rect>
      </property>
      <property name="text" >
@@ -134,18 +111,17 @@
    <widget class="QLabel" name="label" >
     <property name="geometry" >
      <rect>
-      <x>140</x>
-      <y>300</y>
-      <width>301</width>
-      <height>61</height>
+      <x>10</x>
+      <y>250</y>
+      <width>161</width>
+      <height>161</height>
      </rect>
     </property>
     <property name="text" >
-     <string>Masaüstü arkaplanınızı seçin.
-Bilgi: Çok renkli arkaplanlar 
-gözünüzü yorabileceği için 
-siyah tonlarına yakın
-arkaplanlar seçmenizi öneririz.</string>
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../../icons/startericons.qrc" >:/icon/penguen.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="basementsLabel" >
@@ -181,6 +157,39 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text" >
      <string>Arkaplanı değiştirme</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWallpapers" >
+    <property name="geometry" >
+     <rect>
+      <x>180</x>
+      <y>80</y>
+      <width>281</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="whatsThis" >
+     <string>Buradan arkaplanınızı seçebilirsiniz...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3" >
+    <property name="geometry" >
+     <rect>
+      <x>150</x>
+      <y>270</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground" >
+     <bool>false</bool>
+    </property>
+    <property name="text" >
+     <string>Arkaplanınızı 
+değiştirebilirsiniz :)</string>
+    </property>
+    <property name="textFormat" >
+     <enum>Qt::AutoText</enum>
     </property>
    </widget>
   </widget>
