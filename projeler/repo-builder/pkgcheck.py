@@ -1,11 +1,17 @@
 #!/usr/bin/env python
+
 PROGRAM = 'pkgcheck'
 VERSION = '0.02'
 # Purpose : check a Slackware package for correct structure
 # License : GNU General Public License (http://www.gnu.org/copyleft/gpl.html))
 #           Copyright (C) 2005 Patrick Useldinger, http://www.homepages.lu/pu/
 
-import getopt, os, subprocess, sys, tarfile, warnings
+import os
+import getopt
+import subprocess
+import sys
+import tarfile
+import warnings
 
 LVL_NONE,LVL_INFO,LVL_WARN,LVL_ERR,LVL_KO=0,1,2,3,4
 LVL_LIB=('','info','Warning','ERROR','*KO*')
