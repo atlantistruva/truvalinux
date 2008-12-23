@@ -1,0 +1,351 @@
+#!/usr/bin/env python
+#
+# gxorgmaker: A PyGTK front-end to Xorgmaker.
+# Copyright (C) 2008, Martin Ultima.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+# This could probably use a bit more documentation (as could Xorgmaker proper).
+# It could also use some consistency in capitalization.
+
+import pygtk
+import gtk, gobject, pango
+import os, sys
+import re
+
+pygtk.require('2.0')
+
+# You may want to customize these
+xorgmaker = '/usr/sbin/xorgmaker'
+program_icon = '/usr/share/icons/crystalsvg/48x48/apps/kcmpci.png'
+
+# Group alphabetically
+video_drivers = [
+    'apm',
+    'ark',
+    'ast',
+    'ati',
+    'chips',
+    'cirrus',
+    'cyrix',
+    'dummy',
+    'fbdev',
+    'fglrx',
+    'glint',
+    'i128',
+    'i740',
+    'i810',
+    'imstt',
+    'intel',
+    'mach64',
+    'mga',
+    'neomagic',
+    'newport',
+    'nsc',
+    'nv',
+    'r128',
+    'radeon',
+    'radeonhd',
+    'rendition',
+    's3',
+    's3virge',
+    'savage',
+    'siliconmotion',
+    'sis',
+    'sisusb',
+    'tdfx',
+    'tga',
+    'trident',
+    'tseng',
+    'v4l',
+    'vermilion',
+    'vesa',
+    'vga',
+    'via',
+    'vmware',
+    'voodoo',
+    'xgi'
+]
+
+# Group by width
+video_modes = [
+    '640x480',
+    '800x480', '800x600',
+    '1024x600', '1024x768',
+    '1152x864',
+    '1280x720', '1280x800', '1280x960', '1280x1024',
+    '1440x900', '1440x1050',
+    '1600x1200',
+    '1680x1050',
+    '1920x1080', '1920x1200',
+    '2560x1600'
+]
+
+vert_refreshes = [
+    '50-70',
+    '50-90',
+    '50-100',
+    '50-150'
+]
+
+color_depths = [
+    '8',
+    '15',
+    '16',
+    '24'
+]
+
+
+class Xorgmaker:
+    def parse_xorgconf(self, filename):
+	# this could probably be improved
+	conf_file = open(filename, 'r')
+	xorg_conf = conf_file.read()
+
+	# Parse the section using regular expressions
+	re_section = re.compile('^Section')
+	re_vertrefresh = re.compile('^[\t ]*VertRefresh')
+	re_driver = re.compile('^[\t ]*Driver')
+	re_modes = re.compile('^[\t ]*Modes')
+	re_defaultdepth = re.compile('^[\t ]*DefaultDepth')
+
+	vert_refresh = str()
+	video_driver = str()
+	video_mode = str()
+	color_depth = str()
+
+	# line[::-1].replace('\t', ' ').split(' ')[0][::-1] is the Python
+	# equivalent to echo $line | rev | cut -d' ' -f1 | rev
+	current_section = str()
+	lines = xorg_conf.split('\n')
+	for line in lines:
+	    if re_section.match(line):
+		current_section = line.split('"')[1]
+
+	    elif current_section == 'Monitor' and re_vertrefresh.match(line):
+		vert_refresh = line[::-1].replace('\t', ' ').split(' ')[0][::-1]
+
+	    elif current_section == 'Device' and re_driver.match(line):
+		video_driver = line.split('"')[1]
+
+	    elif current_section == 'Screen' and re_modes.match(line):
+		video_mode = line.split('"')[1]
+
+	    elif current_section == 'Screen' and re_defaultdepth.match(line):
+		color_depth = line[::-1].replace('\t', ' ').split(' ')[0][::-1]
+
+	conf_file.close()
+
+	return {
+	    'vert refresh': vert_refresh,
+	    'video driver': video_driver,
+	    'video mode':   video_mode,
+	    'color depth':  color_depth,
+	}
+
+    def probe_hardware(self, filename):
+	xorg_conf = self.parse_xorgconf(filename)
+
+	vert_refresh = xorg_conf['vert refresh']
+	try: self.vert_refresh_sel.set_active(vert_refreshes.index(vert_refresh))
+        except: pass
+
+	video_driver = xorg_conf['video driver']
+	self.video_driver_sel.set_active(video_drivers.index(video_driver))
+
+	video_mode = xorg_conf['video mode']
+	self.video_mode_sel.set_active(video_modes.index(video_mode))
+
+	color_depth = xorg_conf['color depth']
+	self.color_depth_sel.set_active(color_depths.index(color_depth))
+
+    def gen_config(self, data=None):
+	vert_refresh = self.vert_refresh_sel.get_active_text()
+	video_driver = self.video_driver_sel.get_active_text()
+	video_mode = self.video_mode_sel.get_active_text()
+	color_depth = self.color_depth_sel.get_active_text() + 'bit'
+	
+	# not quite as elegant as mktemp
+	tmp_filename = os.tmpnam()
+	os.system("%s auto -n -v %s %s %s %s > %s" % (xorgmaker, vert_refresh, video_driver, video_mode, color_depth, tmp_filename))
+
+	tmp_file = open(tmp_filename, 'r')
+	self.text_buffer.set_text(tmp_file.read())
+	tmp_file.close()
+	os.unlink(tmp_filename)
+
+	self.help_label.set_text('Modified Configuration')
+
+    def save_config(self, data=None):
+	config_text = self.text_buffer.get_text(self.text_buffer.get_start_iter(), self.text_buffer.get_end_iter())
+
+	if os.access('/etc/X11/xorg.conf', os.W_OK):
+	    xorg_conf = open('/etc/X11/xorg.conf', 'w')
+	    xorg_conf.write(config_text)
+	    xorg_conf.close()
+	else:
+	    sys.stderr.write('Could not open xorg.conf for writing!\n')
+	    sys.stderr.write(config_text)
+
+	self.destruct()
+
+    def create_widgets(self):
+	window = self.window
+
+	main_box = gtk.VBox()
+	main_box.set_spacing(4)
+	window.add(main_box)
+	main_box.show()
+
+	main_box_horiz = gtk.HBox()
+	main_box_horiz.set_spacing(4)
+	main_box.pack_start(main_box_horiz, True, True, 0)
+	main_box_horiz.show()
+
+	main_box_left = gtk.VBox()
+	main_box_left.set_spacing(4)
+	main_box_horiz.pack_start(main_box_left, True, True, 0)
+	main_box_left.show()
+
+	main_box_right = gtk.VBox()
+	main_box_right.set_spacing(4)
+	main_box_horiz.pack_start(main_box_right, True, True, 0)
+	main_box_right.show()
+
+	scrolled_window = gtk.ScrolledWindow()
+	scrolled_window.set_shadow_type(gtk.SHADOW_IN)
+	#scrolled_window.set_size_request(512, 0)
+	scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+	main_box_right.pack_start(scrolled_window, True, True, 0)
+	scrolled_window.show()
+
+	scrolled_vbox = gtk.VBox()
+	scrolled_vbox.set_spacing(4)
+	scrolled_window.add_with_viewport(scrolled_vbox)
+	scrolled_vbox.show()
+
+	self.help_label = gtk.Label('Current Configuration')
+	help_label = self.help_label
+	help_label.set_justify(gtk.JUSTIFY_CENTER)
+	scrolled_vbox.pack_start(help_label, True, True, 0)
+	help_label.show()
+
+	text_view = gtk.TextView()
+	text_view.set_editable(True)
+	text_view.modify_font(pango.FontDescription('Monospace 9'))
+	#scrolled_window.add(text_view)
+	scrolled_vbox.pack_start(text_view, True, True, 0)
+	text_view.show()
+
+	self.text_buffer = gtk.TextBuffer()
+	text_buffer = self.text_buffer
+	text_buffer.set_text(open('/etc/X11/xorg.conf', 'r').read())
+	text_view.set_buffer(text_buffer)
+
+	video_driver_label = gtk.Label('Video driver:')
+	main_box_left.pack_start(video_driver_label, False, False, 0)
+	video_driver_label.show()
+
+	self.video_driver_sel = gtk.combo_box_new_text()
+	video_driver_sel = self.video_driver_sel
+	main_box_left.pack_start(video_driver_sel, False, False, 0)
+	video_driver_sel.show()
+	for video_driver in video_drivers:
+	    video_driver_sel.append_text(video_driver)
+
+	video_mode_label = gtk.Label('Video mode:')
+	main_box_left.pack_start(video_mode_label, False, False, 0)
+	video_mode_label.show()
+
+	self.video_mode_sel = gtk.combo_box_new_text()
+	video_mode_sel = self.video_mode_sel
+	main_box_left.pack_start(video_mode_sel, False, False, 0)
+	video_mode_sel.show()
+	for video_mode in video_modes:
+	    video_mode_sel.append_text(video_mode)
+
+	vert_refresh_label = gtk.Label('Vertical refresh:')
+	main_box_left.pack_start(vert_refresh_label, False, False, 0)
+	vert_refresh_label.show()
+
+	self.vert_refresh_sel = gtk.combo_box_new_text()
+	vert_refresh_sel = self.vert_refresh_sel
+	main_box_left.pack_start(vert_refresh_sel, False, False, 0)
+	vert_refresh_sel.show()
+	for vert_refresh in vert_refreshes:
+	    vert_refresh_sel.append_text(vert_refresh)
+
+	color_depth_label = gtk.Label('Color depth:')
+	main_box_left.pack_start(color_depth_label, False, False, 0)
+	color_depth_label.show()
+
+	self.color_depth_sel = gtk.combo_box_new_text()
+	color_depth_sel = self.color_depth_sel
+	main_box_left.pack_start(color_depth_sel, False, False, 0)
+	color_depth_sel.show()
+	for color_depth in color_depths:
+	    color_depth_sel.append_text(color_depth)
+
+	button_box = gtk.HBox()
+	button_box.set_spacing(4)
+	main_box.pack_start(button_box, True, True, 0)
+	button_box.show()
+
+	button_ok = gtk.Button(stock=gtk.STOCK_OK)
+	button_box.pack_start(button_ok, True, True, 0)
+	button_ok.connect('clicked', self.save_config)
+	button_ok.show()
+
+	button_cancel = gtk.Button(stock=gtk.STOCK_CANCEL)
+	button_box.pack_start(button_cancel, True, True, 0)
+	button_cancel.connect('clicked', self.destruct)
+	button_cancel.show()
+
+	self.probe_hardware('/etc/X11/xorg.conf')
+	# Important that we do this *after* probing hardware;
+	# otherwise we lose our existing configuration
+	video_driver_sel.connect('changed', self.gen_config)
+	video_mode_sel.connect('changed', self.gen_config)
+	vert_refresh_sel.connect('changed', self.gen_config)
+	color_depth_sel.connect('changed', self.gen_config)
+
+    def destruct(self, data=None):
+	gtk.main_quit()
+
+    def __init__(self):
+	self.window = gtk.Window()
+	window = self.window
+	window.connect('destroy', self.destruct)
+
+	window.set_position(gtk.WIN_POS_CENTER)
+	window.set_resizable(False)
+	window.set_title('X.org Configuration')
+	window.set_border_width(4)
+	if os.access(program_icon, os.F_OK):
+	    window.set_icon_from_file(program_icon)
+
+	self.create_widgets()
+	window.show()
+
+	# do this again so it's correctly centered
+	# loading the xorg.conf file increases the window width
+	window.set_position(gtk.WIN_POS_CENTER)
+
+if __name__ == '__main__':
+    my_xorgmaker = Xorgmaker()
+    gtk.main()
+
+# vim: set sts=4 si :
