@@ -1,0 +1,804 @@
+#!/bin/sh
+#
+# xorgmaker: A menu- and command line-based X.org configurator.
+# Copyright (C) 2006-2008, Martin Ultima.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+VERSION=2.0.2
+
+
+#
+# Usage message
+#
+
+usage() {
+	cat <<EOF
+$0: Create a usable /etc/X11/xorg.conf
+Usage:
+	$0 [COMMANDS] [OPTIONS]
+Commands:
+	These allow xorgmaker to run in non-interactive mode.
+	Non-interactive commands are mainly for Ultima Linux internal use.
+	See the man page for xorgmaker(1) for complete details.
+	auto		Run in non-interactive mode (no interactive dialogs)
+	kernel		For use in the LiveCD boot scripts
+	fboot		For use in the LiveCD boot scripts
+Options:
+	-n		Don't write to /etc/X11/xorg.conf
+	-v		Be verbose; print generated xorg.conf to stdout
+EOF
+}
+
+
+#
+# Version information
+#
+
+version() {
+	echo "$0 $VERSION"
+}
+
+
+#
+# Exit out gracefully
+#
+
+exitout() {
+	rm -f /tmp/${COOKIE}-*
+	echo 'xorgmaker canceled by user.' >&2
+	exit 1
+}
+
+
+#
+# Wrapper around dialog(1)
+#
+
+show_dialog() {
+	dialog --backtitle 'X.org Configuration' "$@"
+}
+
+
+#
+# Configuration variables
+#
+
+COOKIE=$(mcookie)
+XORGCONF=/tmp/xorg.conf-${COOKIE}
+
+# 'Nice' name of our system's video card
+# On systems with multiple cards, use the first one found
+# The sed script is purely cosmetic, to remove an initial space
+VIDEOCARD=$(/sbin/lspci | fgrep VGA | head -1 | cut -d : -f 3 | sed -e 's,^ ,,')
+
+DRIVER_DRI=			# Disable DRI by default
+DRIVER_VIDEO='vesa'		# Default video card
+DRIVER_MOUSE='mouse'		# Default mouse driver
+KBMODEL='pc104'			# Default keyboard model
+KBLAYOUT='us'			# Default keyboard layout
+#HORIZSYNC='31.5-57.0'		# Default horizontal sync: 1280x1024, 70Hz
+#VERTREFRESH='50-90'		# Default vertical refresh: approx. 85Hz
+#RESOLUTION='1280x1024'		# Default screen resolution: 1280x1024
+COLOR_DEPTH=16			# Default color depth
+				# (16-bit is best supported with DRI)
+
+
+#
+# Parse command line
+#
+
+if [ "$1" = "--help" ]; then
+	# Display usage message
+	usage
+	exit
+
+elif [ "$1" = "--version" ]; then
+	# Display version information
+	version
+	exit
+
+elif [ "$1" = 'kernel' ]; then
+	# Take configuration from /proc/cmdline
+	# i.e. to pass X.org options from LiveCD boot screen
+	CMDLINE=$(cat /proc/cmdline)
+
+elif [ "$1" = 'auto' ]; then
+	# Take configuration from xorgmaker's command line
+	# i.e. to pass X.org options non-interactively
+	CMDLINE="$*"
+
+elif [ "$1" = 'fboot' ]; then
+	# Take configuration from /proc/cmdline
+	# for things like keyboard layout, but allow user
+	# interaction for i.e. video card
+	# For the LiveCD's 'xorgmaker' boot command
+	CMDLINE=$(cat /proc/cmdline)
+	INTERACTIVE=yes
+
+elif [ ! -z "$*" ]; then
+	# Take configuration from xorgmaker's command line
+	# for things like keyboard layout, but allow user
+	# interaction for i.e. video card
+	CMDLINE="$*"
+	INTERACTIVE=yes
+
+else
+	# Interactive mode: Use a series of menus
+	INTERACTIVE=yes
+
+fi
+
+
+#
+# Probe keyboard layout
+#
+
+# This file contains everything we need and then some:
+csplit -sz -f/tmp/${COOKIE}-kblist \
+/etc/X11/xkb/rules/xfree86.lst '/^! /+1' '{*}'
+
+# 'model' should be the first part:
+KBMODLIST=$(cat /tmp/${COOKIE}-kblist01 | grep '^ ' | cut -d ' ' -f 3)
+# 'layout' should be the second part:
+KBLAYLIST=$(cat /tmp/${COOKIE}-kblist02 | grep '^ ' | cut -d ' ' -f 3)
+
+# Probe the command line:
+for MODEL in $KBMODLIST ; do
+	if echo $CMDLINE | grep -wiq -- kb_${MODEL} ; then
+		# Use the specified keyboard model
+		KBMODEL=$MODEL
+	fi
+done
+for LAYOUT in $KBLAYLIST ; do
+	if echo $CMDLINE | grep -wiq -- kb_${LAYOUT} ; then
+		# Use the specified keyboard layout
+		KBLAYOUT=$LAYOUT
+	fi
+done
+
+# There are a lot of keyboard layouts, so let's not do an interactive
+# menu for this one.  I'm lazy.  :-)
+
+
+#
+# Probe video card
+#
+
+# The order is fairly arbitrary, but I think Intel is first because
+# their cards are the biggest PITA to configure (the original inspiration
+# for xorgmaker).
+
+# Options given on the xorgmaker command line should automatically override
+# auto-detection.
+
+# Intel (this used to be called i810)
+if echo $CMDLINE | grep -wiq intel ; then
+	DRIVER_VIDEO=intel
+	DRIVER_DRI=yes
+elif echo $CMDLINE | grep -wiq i810 ; then
+	DRIVER_VIDEO=intel
+	DRIVER_DRI=yes
+elif echo $VIDEOCARD | grep -wiq intel ; then
+	DRIVER_VIDEO=intel
+	DRIVER_DRI=yes
+
+# Matrox
+elif echo $CMDLINE | grep -wiq mga ; then
+	DRIVER_VIDEO=mga
+elif echo $VIDEOCARD | grep -wiq matrox ; then
+	DRIVER_VIDEO=mga
+
+# NeoMagic (late 90's laptops)
+elif echo $CMDLINE | grep -wiq neomagic ; then
+	DRIVER_VIDEO=neomagic
+elif echo $VIDEOCARD | grep -wiq neomagic ; then
+	DRIVER_VIDEO=neomagic
+
+# Silicon Integrated Systems
+elif echo $CMDLINE | grep -wiq sis ; then
+	DRIVER_VIDEO=sis
+	DRIVER_DRI=yes
+elif echo $VIDEOCARD | grep -wiq sis ; then
+	DRIVER_VIDEO=sis
+	DRIVER_DRI=yes
+
+# S3 Savage:
+# Thanks to Radu-Cristian FOTESCU
+elif echo $CMDLINE | grep -wiq savage ; then
+	DRIVER_VIDEO=savage
+	DRIVER_DRI=yes
+elif echo $VIDEOCARD | grep -wiq savage ; then
+	DRIVER_VIDEO=savage
+	DRIVER_DRI=yes
+
+# S3/Virge:
+elif echo $CMDLINE | grep -wiq s3 ; then
+	DRIVER_VIDEO=s3
+	DRIVER_DRI=yes
+elif echo $VIDEOCARD | grep -wiq s3 ; then
+	DRIVER_VIDEO=s3
+	DRIVER_DRI=yes
+
+# 3dfx:
+elif echo $CMDLINE | grep -wiq tdfx ; then
+	DRIVER_VIDEO=tdfx
+	DRIVER_DRI=yes
+elif echo $CMDLINE | grep -wiq 3dfx ; then
+	DRIVER_VIDEO=tdfx
+	DRIVER_DRI=yes
+elif echo $VIDEOCARD | grep -wiq 3dfx ; then
+	DRIVER_VIDEO=tdfx
+	DRIVER_DRI=yes
+
+# Trident:
+elif echo $CMDLINE | grep -wiq trident ; then
+	DRIVER_VIDEO=trident
+elif echo $VIDEOCARD | grep -wiq trident ; then
+	DRIVER_VIDEO=trident
+
+# Tseng Labs:
+# I wonder if anyone still uses one of these?
+# I had an ET4000 in my '486
+elif echo $CMDLINE | grep -wiq tseng ; then
+	DRIVER_VIDEO=tseng
+elif echo $VIDEOCARD | grep -wiq tseng ; then
+	DRIVER_VIDEO=tseng
+
+# VMware virtual machine:
+# Let's also get the mouse, while we're at it
+elif echo $CMDLINE | grep -wiq vmware ; then
+	DRIVER_VIDEO=vmware
+	DRIVER_MOUSE=vmmouse
+elif echo $VIDEOCARD | grep -wiq vmware ; then
+	DRIVER_VIDEO=vmware
+	DRIVER_MOUSE=vmmouse
+
+# ATI:
+# There are several drivers; this one auto-detects
+elif echo $CMDLINE | grep -wiq fglrx ; then
+	# Proprietary driver
+	DRIVER_VIDEO=fglrx
+	DRIVER_DRI=yes
+	# Nothing else is supported
+	COLOR_DEPTH=24
+elif echo $CMDLINE | grep -wiq ati ; then
+	# Open-source driver
+	DRIVER_VIDEO=ati
+	DRIVER_DRI=yes
+elif echo $VIDEOCARD | grep -wiq ati ; then
+	# Open-source driver
+	DRIVER_VIDEO=ati
+	DRIVER_DRI=yes
+
+# NVIDIA:
+# Note that NVIDIA cards don't use DRI
+elif echo $CMDLINE | grep -wiq nvidia ; then
+	# Proprietary driver
+	DRIVER_VIDEO=nvidia
+elif echo $CMDLINE | grep -wiq nv ; then
+	# Open-source driver
+	DRIVER_VIDEO=nv
+elif echo $VIDEOCARD | grep -wiq nvidia ; then
+	# Open-source driver
+	DRIVER_VIDEO=nv
+
+# Still don't know?
+# It should automatically fall back on the defaults.
+fi
+
+# This strikes me as really kludgy (but then again, look at
+# the very fact of this script's existence).  Check over the
+# command line one more time, and see if anything looks like
+# an X.org driver...
+for CMDLINE_ENTRY in $CMDLINE; do
+	if [ -e /usr/lib64/xorg/modules/drivers/${CMDLINE_ENTRY}_drv.so ]; then
+		DRIVER_VIDEO=$CMDLINE_ENTRY
+	elif [ -e /usr/lib/xorg/modules/drivers/${CMDLINE_ENTRY}_drv.so ]; then
+		DRIVER_VIDEO=$CMDLINE_ENTRY
+	fi
+done
+
+if echo $CMDLINE | grep -wiq nodri ; then
+	# 'nodri' on command line overrides
+	DRIVER_DRI=
+elif echo $CMDLINE | grep -wiq dri ; then
+	# 'dri' on command line overrides autodetect,
+	# but not command line
+	DRIVER_DRI=yes
+fi
+
+# Interactive menu
+if [ ! -z $INTERACTIVE ]; then
+	show_dialog \
+	--title 'Video Card' \
+	--default-item ${DRIVER_VIDEO} \
+	--menu "Please select a driver for your system's video card.  If in doubt, press [Enter] to choose the recommended default.\n\n\
+Proprietary video drivers (when available) tend to provide more features and better performance than their open-source counterparts, but you must first install the driver manually.\
+\n\nYour card is detected as:\n${VIDEOCARD}" 0 0 0 \
+	''		'GENERIC DRIVERS:' \
+	'vesa'		'VESA-compatible (no acceleration)' \
+	'fbdev'		'Linux framebuffer (no acceleration?)' \
+	''		'' \
+	''		'PROPRIETARY DRIVERS:' \
+	'fglrx'		'ATI (must install fglrx)' \
+	'nvidia'	'NVIDIA (must install nvidia)' \
+	''		'' \
+	''		'OPEN-SOURCE DRIVERS:' \
+	'ati'		'ATI (no 3D on some cards)' \
+	'intel'		'Intel (limited 3D on high resolution)' \
+	'mga'		'Matrox' \
+	'neomagic'	'NeoMagic' \
+	'nv'		'NVIDIA (no 3D acceleration)' \
+	's3'		'S3' \
+	's3virge'	'S3 Virge' \
+	'savage'	'Savage' \
+	'sis'		'Silicon Integrated Systems' \
+	'sisusb'	'SIS USB adapter' \
+	'tdfx'		'3dfx' \
+	'trident'	'Trident' \
+	'tseng'		'Tseng Labs' \
+	'v4l'		'Video4Linux-compatible' \
+	''		'' \
+	''		'MISCELLANEOUS DRIVERS:' \
+	'vmware'	'VMware Workstation/Server' \
+	2>/tmp/${COOKIE}-videocard || exitout
+
+	DRIVER_VIDEO=$(cat /tmp/${COOKIE}-videocard)
+	if [ -z "$DRIVER_VIDEO" ]; then DRIVER_VIDEO=vesa ; fi
+	# FIXME: How to determine DRI?  Let's hope the auto-probe
+	# was reliable, I guess...
+	rm -f /tmp/${COOKIE}-videocard
+fi
+
+
+#
+# Screen resolution
+# Monitor frequencies
+#
+
+# Screen resolution from command line
+# The new detection routine should allow for
+# any arbitrary screen resolution
+for RES in $(echo $CMDLINE | tr " " "\n" | grep -E '^[0-9]+x[0-9]+$'); do
+	if [ ! -z "$RES" ]; then
+		RESOLUTION=$RES
+	fi
+done
+
+# Interactive menu
+if [ ! -z $INTERACTIVE ]; then
+	show_dialog \
+	--title 'Screen Resolution' \
+	--default-item ${RESOLUTION} \
+	--menu "Please select your preferred screen resolution.  If in doubt, press [Enter] to choose the recommended default." 0 0 0 \
+	''		'SMALL:' \
+	'640x480'	'VGA' \
+	'800x600'	'SVGA' \
+	''		'' \
+	''		'MEDIUM:' \
+	'1024x768'	'XGA' \
+	'1152x864'	'XGA+' \
+	'1280x960'	'' \
+	''		'' \
+	''		'LARGE:' \
+	'1280x1024'	'SXGA' \
+	'1400x1050'	'WSXGA+' \
+	''		'' \
+	''		'HUGE:' \
+	'1600x1200'	'UXGA' \
+	''		'' \
+	''		'WIDESCREEN:' \
+	'1280x800'	'WXGA' \
+	'1440x900'	'' \
+	'1680x1050'	'' \
+	'1920x1200'	'' \
+	'2560x1600'	'' \
+	''		'' \
+	''		'HDTV:' \
+	'1280x720'	'720p' \
+	'1920x1080'	'1080p' \
+	''		'' \
+	''		'MISC:' \
+	'800x480'	'ASUS Eee PC 700' \
+	'1024x600'	'ASUS Eee PC 900' \
+	2>/tmp/${COOKIE}-resolution || exitout
+
+	RESOLUTION=$(cat /tmp/${COOKIE}-resolution)
+	if [ -z "$RESOLUTION" ]; then RESOLUTION=1280x1024 ; fi
+	rm -f /tmp/${COOKIE}-resolution
+fi
+
+# Screen resolution determines monitor frequencies
+# XXX We could handle this perhaps with less guesswork,
+# XXX it would destroy so fewer monitors that way...
+case $RESOLUTION in
+	640x480)
+		MODES='"640x480"'
+		HORIZSYNC='31.5'
+		;;
+	800x480)
+		MODES='"800x480"'
+		MODELINE='"800x480"  29.58  800 816 896 992  480 481 484 497  -HSync +Vsync'
+		;;
+	800x600)
+		MODES='"800x600" "640x480"'
+		HORIZSYNC='31.5 - 37.9'
+		;;
+	1024x600)
+		MODES='"1024x600" "800x480"'
+		MODELINE='"1024x600"  48.96  1024 1064 1168 1312  600 601 604 622  -HSync +Vsync'
+		;;
+	1024x768)
+		MODES='"1024x768" "800x600" "640x480"'
+		HORIZSYNC='31.5 - 57.0'
+		;;
+	1152x864)
+		MODES='"1152x864" "1024x768" "800x600" "640x480"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1280x720)
+		MODES='"1280x720"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1280x800)
+		MODES='"1280x800" "1024x768" "800x600" "640x480"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1280x960)
+		MODES='"1280x960" "1024x768" "800x600" "640x480"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1280x1024)
+		MODES='"1280x1024" "1024x768" "800x600" "640x480"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1440x900)
+		MODES='"1440x900" "1280x1024" "1024x768" "800x600" "640x480"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1400x1050)
+		MODES='"1400x1050" "1280x1024" "1024x768" "800x600" "640x480"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1600x1200)
+		MODES='"1600x1200" "1280x1024" "1024x768" "800x600" "640x480"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1680x1050)
+		MODES='"1680x1050"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1920x1080)
+		MODES='"1920x1080"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	1920x1200)
+		MODES='"1920x1200"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	2560x1600)	
+		MODES='"2560x1600" "1280x800"'
+		HORIZSYNC='31.5 - 82.0'
+		;;
+	*)
+		# Anything not caught by the above
+		if [ -z "$RESOLUTION" ]; then
+			## No resolution specified, go with defaults
+			#MODES='"1280x1024" "1024x768" "800x600" "640x480"'
+			#HORIZSYNC='31.5 - 82.0'
+
+			# Automatically detect:
+			MODES=
+			HORIZSYNC=
+		else
+			# Allow any arbitrary resolution
+			MODES="\"${RESOLUTION}\""
+			HORIZSYNC=
+		fi
+		;;
+esac
+
+# Monitor frequency from command line
+if echo $CMDLINE | grep -wiq 60Hz ; then
+	VERTREFRESH='50-70'
+elif echo $CMDLINE | grep -wiq 75Hz ; then
+	VERTREFRESH='50-70'
+elif echo $CMDLINE | grep -wiq 85Hz ; then
+	VERTREFRESH='50-90'
+elif echo $CMDLINE | grep -wiq 100Hz ; then
+	VERTREFRESH='50-100'
+elif echo $CMDLINE | grep -wiq 150Hz ; then
+	VERTREFRESH='50-150'
+fi
+
+# Color depth from command line
+if echo $CMDLINE | grep -wiq 8bit ; then
+	COLOR_DEPTH=8
+elif echo $CMDLINE | grep -wiq 15bit ; then
+	COLOR_DEPTH=15
+elif echo $CMDLINE | grep -wiq 16bit ; then
+	COLOR_DEPTH=16
+elif echo $CMDLINE | grep -wiq 24bit ; then
+	COLOR_DEPTH=24
+elif echo $CMDLINE | grep -wiq 32bit ; then
+	# X treats this as 24-bit
+	COLOR_DEPTH=24
+fi
+
+# Interactive menu
+if [ ! -z $INTERACTIVE ]; then
+	show_dialog \
+	--title 'Color Depth' \
+	--default-item ${COLOR_DEPTH} \
+	--menu "Please select your preferred color depth.  If in doubt, press [Enter] to choose the recommended default." 0 0 0 \
+	''	'MODERN:' \
+	'16'	'16-bit	65,536 colors' \
+	'24'	'24-bit	16.7 million colors' \
+	'32'	'32-bit	16.7 million colors' \
+	''	'' \
+	''	'DATED:' \
+	'8'	'8-bit	256 colors' \
+	'15'	'15-bit	32,768 colors' \
+	2>/tmp/${COOKIE}-depth || exitout
+
+	COLOR_DEPTH=$(cat /tmp/${COOKIE}-depth)
+	if [ -z "$COLOR_DEPTH" ]; then COLOR_DEPTH=16 ; fi
+	# 32-bit is just a placebo, really
+	if [ $COLOR_DEPTH = 32 ]; then COLOR_DEPTH=24 ; fi
+	rm -f /tmp/${COOKIE}-depth
+fi
+
+
+#
+# Final confirmation
+#
+
+if [ ! -z $INTERACTIVE ] && \
+( echo $CMDLINE | grep -wiq -- '-v' ) ; then
+	show_dialog \
+	--title 'Confirmation' \
+	--msgbox "\
+Video driver:     ${DRIVER_VIDEO}\n\
+Direct rendering: ${DRIVER_DRI}\n\n\
+Resolution:       ${RESOLUTION}\n\
+Color depth:      ${COLOR_DEPTH}-bit\n\n\
+Horizontal sync:  ${HORIZSYNC}\n\
+Vertical refresh: ${VERTREFRESH}\n\n\
+Keyboard model:   ${KBMODEL}\n\
+Keyboard layout:  ${KBLAYOUT}\n\n\
+Mouse driver:     ${DRIVER_MOUSE}\
+" 0 0
+fi
+
+
+#
+# Write our xorg.conf
+#
+
+cat >$XORGCONF <<EOF
+# Generated by xorgmaker, (C) Martin Ultima
+# For more configuration options, see xorg.conf(5)
+
+# Detected video card:
+# ${VIDEOCARD}
+# xorgmaker command line:
+# $0 $*
+
+# Previous configuration backed up in
+# /etc/X11/xorg.conf.${COOKIE}
+
+Section "Module"
+	Load		"dbe"
+	SubSection	"extmod"
+		Option		"omit xfree-dga"
+	EndSubSection
+	Load		"type1"
+	Load		"freetype"
+	Load		"glx"
+EOF
+
+# Load the 'dri' module?
+if [ ! -z ${DRIVER_DRI} ]; then cat >>$XORGCONF <<EOF
+	Load		"dri"
+EOF
+fi
+
+cat >>$XORGCONF <<EOF
+EndSection
+
+Section "Files"
+	RgbPath		"/usr/share/X11/rgb"
+	FontPath	"/usr/share/fonts/misc/"
+	FontPath	"/usr/share/fonts/TTF/"
+	FontPath	"/usr/share/fonts/Type1/"
+	FontPath	"/usr/share/fonts/CID/"
+	FontPath	"/usr/share/fonts/75dpi/"
+	FontPath	"/usr/share/fonts/100dpi/"
+	FontPath	"/usr/share/fonts/local/"
+	FontPath	"/usr/share/fonts/Speedo/"
+	FontPath	"/usr/share/fonts/cyrillic/"
+EndSection
+
+Section "ServerFlags"
+	# See xorg.conf(5) if you need a list of available server flags.
+	# You'll need these if you want i.e. Xinerama (multi-screen) support,
+	# but most of the time you can just ignore them.
+	#Option		"DontZoom"
+	#Option		"DontVTSwitch"
+
+	# Uncomment this to enable the Xinerama extension, which provides
+	# multi-screen support (note -- you need to manually configure the
+	# additional screens below):
+	#Option		"Xinerama"		"true"
+
+	# Uncomment this to disable AIGLX, which will greatly improve
+	# performance, and may be necessary on some older video cards:
+	#Option		"AIGLX"			"false"
+
+EOF
+
+if [ $DRIVER_MOUSE = vmmouse ]; then
+cat >>$XORGCONF <<EOF
+	# Due to a bug in the VMware mouse driver, the cursor in the guest
+	# display may not synchronize correctly with your mouse movements.
+	# Thanks to Fedora for this workaround:
+	Option		"NoAutoAddDevices"
+EOF
+else
+cat >>$XORGCONF <<EOF
+	# Uncomment this if you're having problems with mouse movement, or
+	# if you just don't like device hotplugging:
+	#Option		"NoAutoAddDevices"
+EOF
+fi
+
+cat >>$XORGCONF <<EOF
+EndSection
+
+Section "Extensions"
+	# Uncomment this to disable the X Composite extension.  You won't get
+	# pretty translucent windows, but performance will be better overall.
+	# This option is necessary for DRI to work on older NVIDIA cards:
+	#Option		"Composite"		"disable"
+EndSection
+
+Section "InputDevice"
+	Identifier	"Keyboard1"
+	Driver		"kbd"
+	Option		"AutoRepeat"		"500 30"
+	Option		"XkbRules"		"xorg"
+	Option		"XkbModel"		"${KBMODEL}"
+	Option		"XkbLayout"		"${KBLAYOUT}"
+EndSection
+
+Section "InputDevice"
+	Identifier	"Mouse1"
+	Driver		"${DRIVER_MOUSE}"
+	# This works on 99% of mice in common use, even those without
+	# scroll wheels.  It's also fine for USB mice.
+	# If you really need to tweak this, you can probably do it
+	# manually:
+	Option		"Protocol"		"IMPS/2"
+	Option		"Device"		"/dev/mouse"
+	# This allows the scroll wheel to work:
+	Option		"ZAxisMapping"		"4 5 6 7"
+	# Emulate three buttons on two-button mice:
+	Option		"Emulate3Buttons"
+EndSection
+
+Section	"Monitor"
+	Identifier	"Default Monitor"
+EOF
+
+if [ ! -z "${HORIZSYNC}" ]; then
+	cat >>$XORGCONF <<EOF
+	HorizSync	${HORIZSYNC}
+EOF
+fi
+
+if [ ! -z "${MODELINE}" ]; then
+	cat >>$XORGCONF <<EOF
+	Modeline	${MODELINE}
+EOF
+fi
+
+if [ ! -z "${VERTREFRESH}" ]; then
+	cat >>$XORGCONF <<EOF
+	VertRefresh	${VERTREFRESH}
+EOF
+fi
+
+cat >>$XORGCONF <<EOF
+	# Enable monitor power management:
+	Option		"DPMS"
+EndSection
+
+Section "Device"
+	Identifier	"Default Video Card"
+	Driver		"${DRIVER_VIDEO}"
+EndSection
+
+Section "Screen"
+	Identifier	"Default Screen"
+	Device		"Default Video Card"
+	Monitor		"Default Monitor"
+	DefaultDepth	${COLOR_DEPTH}
+EOF
+
+if [ ! -z "${MODES}" ]; then
+	cat >>$XORGCONF <<EOF
+	SubSection "Display"
+		Depth		8
+		Modes		$MODES
+		ViewPort	0 0
+	EndSubSection
+	SubSection "Display"
+		Depth		15
+		Modes		$MODES
+		ViewPort	0 0
+	EndSubSection
+	SubSection "Display"
+		Depth		16
+		Modes		$MODES
+		ViewPort	0 0
+	EndSubSection
+	SubSection "Display"
+		Depth		24
+		Modes		$MODES
+		ViewPort	0 0
+	EndSubSection
+	SubSection "Display"
+		Depth		32
+		Modes		$MODES
+		ViewPort	0 0
+	EndSubSection
+EOF
+fi
+
+cat >>$XORGCONF <<EOF
+EndSection
+
+Section "ServerLayout"
+        Identifier      "Simple Layout"
+        Screen          "Default Screen"
+        InputDevice     "Mouse1"                "CorePointer"
+        InputDevice     "Keyboard1"             "CoreKeyboard"
+EndSection
+EOF
+
+if [ ! -z ${DRIVER_DRI} ]; then cat >>$XORGCONF <<EOF
+
+Section "DRI"
+        Mode            0666
+EndSection
+EOF
+fi
+
+
+#
+# Print xorg.conf?
+#
+
+if echo $CMDLINE | grep -wiq -- '-v' ; then
+	cat $XORGCONF
+fi
+
+if ! echo $CMDLINE | grep -wiq -- '-n' ; then
+	mv /etc/X11/xorg.conf /etc/X11/xorg.conf.${COOKIE}
+	cat $XORGCONF >/etc/X11/xorg.conf
+fi
+rm -f $XORGCONF
