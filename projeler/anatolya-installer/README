@@ -1,0 +1,15 @@
+Kurulumu çalıştırmak için svn deposundaki anatolya-installer klasörünü 
+kök dizine ( / ) aynı adla kopyalamak gereklidir.
+
+Çalıştırmak içinse konsoldan kök dizindeki anatolya-installer klasörü içine 
+girilir ve python anatolya-installer.py komutu verilir.
+
+Truva Kurulum Cd 'si ni sürücüye takıp yerelde deneme yapabilirsiniz.
+Denemelerini root kullanıcı ile sistemi girip yaparsanız hata bildirimlerini 
+göndermeniz daha kolay olur. root iken internete bağlı olmamaya d dikkat ediniz.
+
+
+
+
+
+
