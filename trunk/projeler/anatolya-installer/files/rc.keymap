@@ -1,5 +1,0 @@
-#!/bin/sh
-
-if [ -x /usr/bin/loadkeys ]; then
-  /usr/bin/loadkeys trq.map
-fi
