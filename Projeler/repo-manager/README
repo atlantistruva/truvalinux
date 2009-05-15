@@ -1,0 +1,62 @@
+Repo-Manager Betikleri Açıklamaları
+
+
+**********************************************************************************
+get_source.py
+----------------
+Kaynak :
+Truva Linux
+
+Geliştirici : 
+Onur ÖZDEMİR - atlantis@truvalinux.org.tr - onur.atlantis@gmail.com
+
+Açıklama: 
+Paketlerin kaynak kodunu depolardan bulur ve Truva kaynak kod deposuna ekler.
+
+**********************************************************************************
+
+pkgcheck.py
+----------------
+Kaynak :
+Harici Proje
+
+Geliştirici :
+Patrick Useldinger
+
+Düzenleyen :
+Onur ÖZDEMİR - atlantis@truvalinux.org.tr - onur.atlantis@gmail.com
+
+Açıklama:
+Paketin standartlara uyumluluğunu kontrol eder.
+
+**********************************************************************************
+
+pkg_list.py
+----------------
+Kaynak :
+Truva Linux
+
+Geliştirici : 
+Onur ÖZDEMİR - atlantis@truvalinux.org.tr - onur.atlantis@gmail.com
+
+Açıklama: 
+Paketlerin kaynak kodunu depolardan bulur ve Truva kaynak kod deposuna ekler.
+
+**********************************************************************************
+
+repo.py
+----------------
+Kaynak :
+Truva Linux
+
+Geliştirici :
+Adem Dedebali -adedebali@gmail.com
+
+Düzenleyen :
+Onur ÖZDEMİR - atlantis@truvalinux.org.tr - onur.atlantis@gmail.com
+
+Açıklama: 
+Paket deposundaki PACKAGES.TXT, CHECKSUMS.MD5 ve Changelog.txt dosyalarının oluşturulmasını sağlar.
+Kısaca slapt-get ve gslapt paket yönetim sisteminin kullanabileceği türde paket listesi ve güncelleme kaydını tutar.
+
+**********************************************************************************
