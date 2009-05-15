@@ -52,7 +52,7 @@ def paketleri_oku():
 					#print dizin + "/" + package[x]
 					tam_liste = os.getcwd() + "/" + "Paketler"
 					tam_liste_ekle=[]
-					ekle = package[x] + " \n"
+					ekle = package[x] + " : \n"
 					tam_liste_ekle.append(ekle)
 					if not os.path.exists(tam_liste):
 						open(tam_liste,"w").writelines(tam_liste_ekle)
