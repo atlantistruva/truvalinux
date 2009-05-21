@@ -11,7 +11,8 @@ Geliştirici :
 Onur ÖZDEMİR - atlantis@truvalinux.org.tr - onur.atlantis@gmail.com
 
 Açıklama: 
-Paketlerin kaynak kodunu depolardan bulur ve Truva kaynak kod deposuna ekler.
+Truva Linux deposuna eklenen paketlerin kaynak kodunu Slackware kaynak kod deposundan bulur ve
+Truva kaynak kod deposuna ekler.
 
 **********************************************************************************
 
@@ -27,7 +28,7 @@ Düzenleyen :
 Onur ÖZDEMİR - atlantis@truvalinux.org.tr - onur.atlantis@gmail.com
 
 Açıklama:
-Paketin standartlara uyumluluğunu kontrol eder.
+Paketlerin standartlara uyumluluğunu kontrol eder. Txz sistemi ile uyumluluğu test edilmemiştir.
 
 **********************************************************************************
 
